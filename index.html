@@ -142,18 +142,25 @@ nav{
   position:absolute;inset:0;z-index:0;width:100%;height:100%;
 }
 
-/* Base leather image layer (photographic) */
-#hero-img{
-  position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse at 50% 40%,rgba(27,74,46,.35) 0%,transparent 65%),
+/* Base leather image layer - Corrigé pour visibilité */
+#hero-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: 
+    radial-gradient(ellipse at 50% 40%, rgba(27, 74, 46, 0.2) 0%, transparent 65%),
     url('assets/background1.jpg') center/cover;
-  filter:brightness(.24) saturate(1.7) hue-rotate(-10deg);
-  transform:scale(1.04);
+  /* Augmentation de brightness de .24 à .50 et baisse du hue-rotate */
+  filter: brightness(0.5) saturate(1.2) hue-rotate(-5deg); 
+  transform: scale(1.04);
 }
-#hero-img::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.4) 0%,rgba(2,8,4,.92) 75%);
+
+#hero-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Baisse de l'opacité du noir final de .92 à .60 pour laisser respirer l'image */
+  background: radial-gradient(ellipse at 50% 50%, rgba(9, 58, 34, 0.2) 0%, rgba(2, 8, 4, 0.6) 80%);
 }
 
 /* Scanlines */
@@ -449,15 +456,23 @@ nav{
   min-height:100vh;
   display:grid;grid-template-columns:45fr 55fr;
 }
-.founder-visual{
-  position:relative;overflow:hidden;
-  background:url('assets/founder.jpg') center/cover;
-  filter:brightness(.32) saturate(1.15);
+   
+.founder-visual {
+  position: relative;
+  overflow: hidden;
+  background: url('assets/founder.jpg') center/cover;
+  /* Augmentation massive de brightness de .32 à .75 pour bien voir Greg */
+  filter: brightness(0.75) saturate(1.1);
 }
-.founder-visual::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,rgba(2,8,4,.25) 0%,var(--g0) 96%);
+
+.founder-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* On réduit le dégradé noir qui "mangeait" l'image sur la droite */
+  background: linear-gradient(to right, rgba(2, 8, 4, 0.1) 0%, rgba(2, 8, 4, 0.5) 100%);
 }
+   
 .founder-content{
   padding:120px 80px 120px 72px;
   display:flex;flex-direction:column;justify-content:center;
