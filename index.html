@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verpome — Building Bridges Between Worlds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════
+   RESET & VARS
+═══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g0:#03100a; --g1:#051a10; --g2:#093A22; --g3:#0f4a2c; --g4:#1B4A2E;
+  --cream:#F4F1EB; --cream2:#e8e4dc;
+  --metal:#8D8880;
+  --gold:#C9A96E; --gold2:#b38f4f;
+  --studio:#C8864A; --house:#4A8ABF; --consulting:#2A6642; --pap:#8B6E4C;
+}
+html{overflow-x:hidden;scroll-behavior:auto}
+body{
+  background:var(--g0);
+  color:var(--cream);
+  font-family:'Montserrat',sans-serif;
+  font-weight:300;
+  cursor:none;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════ */
+#cur{
+  position:fixed;width:6px;height:6px;border-radius:50%;
+  background:var(--cream);pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);mix-blend-mode:difference;
+  transition:width .25s,height .25s;
+}
+#cur-r{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(244,241,235,.28);border-radius:50%;
+  pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),border-color .3s;
+}
+body.hov #cur{width:4px;height:4px}
+body.hov #cur-r{width:60px;height:60px;border-color:rgba(244,241,235,.55)}
+
+/* ═══════════════════════════════════════════
+   GRAIN
+═══════════════════════════════════════════ */
+.grain{
+  position:fixed;inset:0;z-index:850;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.055'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════════
+   PRELOADER
+═══════════════════════════════════════════ */
+#loader{
+  position:fixed;inset:0;z-index:9000;background:#020806;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;
+}
+.ld-tag{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.55em;text-transform:uppercase;
+  color:rgba(244,241,235,.25);margin-bottom:-8px;
+}
+.ld-logo{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(52px,11vw,120px);font-weight:300;letter-spacing:.3em;
+  color:var(--cream);display:flex;overflow:hidden;
+}
+.ld-logo span{display:inline-block;transform:translateY(110%)}
+.ld-bar-w{width:160px;height:1px;background:rgba(244,241,235,.08);overflow:hidden;position:relative}
+.ld-bar{height:100%;background:var(--cream);width:0;transition:width .12s linear}
+.ld-pct{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.4em;
+  color:rgba(244,241,235,.28);font-variant-numeric:tabular-nums;
+}
+.ld-sub{
+  font-family:'Playfair Display',serif;font-style:italic;font-size:13px;
+  color:rgba(244,241,235,.22);letter-spacing:.08em;
+  opacity:0;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:700;
+  padding:28px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:padding .5s;
+  mix-blend-mode:difference;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;font-weight:300;
+  font-size:13px;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--cream);opacity:0;text-decoration:none;cursor:none;
+}
+.nav-r{display:flex;gap:40px;align-items:center}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,241,235,.5);text-decoration:none;cursor:none;
+  transition:color .3s;opacity:0;
+}
+.nav-links a:hover{color:var(--cream)}
+.nav-cta{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--cream);border:1px solid rgba(244,241,235,.25);
+  padding:10px 22px;text-decoration:none;cursor:none;
+  transition:border-color .4s,background .4s;opacity:0;
+}
+.nav-cta:hover{border-color:var(--cream);background:rgba(244,241,235,.04)}
+
+/* ═══════════════════════════════════════════
+   GOLDEN THREAD
+═══════════════════════════════════════════ */
+#thread{
+  position:fixed;left:32px;top:0;bottom:0;z-index:600;
+  pointer-events:none;width:2px;
+  display:flex;align-items:center;justify-content:center;
+}
+#thread svg{height:72vh;width:80px;overflow:visible}
+
+/* ═══════════════════════════════════════════
+   HERO — Cinematic video loop + typography reveal
+═══════════════════════════════════════════ */
+#hero{
+  position:relative;height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* Leather video loop — animated canvas simulating living leather */
+#leather-canvas{
+  position:absolute;inset:0;z-index:0;width:100%;height:100%;
+}
+
+/* Base leather image layer (photographic) */
+#hero-img{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 40%,rgba(27,74,46,.35) 0%,transparent 65%),
+    url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=85') center/cover;
+  filter:brightness(.24) saturate(1.7) hue-rotate(-10deg);
+  transform:scale(1.04);
+}
+#hero-img::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.4) 0%,rgba(2,8,4,.92) 75%);
+}
+
+/* Scanlines */
+#hero::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(244,241,235,.007) 3px,rgba(244,241,235,.007) 4px);
+}
+
+/* Corner HUD */
+.corner{position:absolute;z-index:3;width:26px;height:26px;opacity:0}
+.corner.tl{top:100px;left:56px;border-top:1px solid rgba(201,169,110,.3);border-left:1px solid rgba(201,169,110,.3)}
+.corner.tr{top:100px;right:56px;border-top:1px solid rgba(201,169,110,.3);border-right:1px solid rgba(201,169,110,.3)}
+.corner.bl{bottom:60px;left:56px;border-bottom:1px solid rgba(201,169,110,.3);border-left:1px solid rgba(201,169,110,.3)}
+.corner.br{bottom:60px;right:56px;border-bottom:1px solid rgba(201,169,110,.3);border-right:1px solid rgba(201,169,110,.3)}
+
+/* Eyebrow */
+.hero-eye{
+  position:relative;z-index:5;
+  font-family:'Montserrat';font-size:8px;letter-spacing:.55em;text-transform:uppercase;
+  color:rgba(244,241,235,.35);margin-bottom:36px;
+  opacity:0;transform:translateY(10px);
+  display:flex;align-items:center;gap:14px;
+}
+.hero-eye::before,.hero-eye::after{
+  content:'';display:block;width:36px;height:1px;background:rgba(201,169,110,.3);
+}
+
+/* Main title — outline → fill */
+.hero-title{
+  position:relative;z-index:5;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(56px,10.5vw,170px);
+  font-weight:300;line-height:.9;letter-spacing:-.015em;
+  text-align:center;margin-bottom:20px;
+}
+.hero-title .line{overflow:hidden;display:block;position:relative}
+.hero-title .line span{
+  display:inline-block;
+  position:relative;
+  -webkit-text-stroke:1px rgba(244,241,235,.6);
+  color:transparent;
+  transition:none;
+}
+.hero-title .line span.filled{
+  -webkit-text-stroke:0;
+  color:var(--cream);
+}
+.hero-title .line span::before{
+  content:attr(data-text);
+  position:absolute;inset:0;
+  color:var(--cream);
+  -webkit-text-stroke:0;
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path 1.2s cubic-bezier(.7,0,.3,1);
+}
+.hero-title .line span.fill::before{clip-path:inset(0 0 0 0)}
+
+/* Tagline */
+.hero-tag{
+  position:relative;z-index:5;
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(14px,1.6vw,20px);
+  color:rgba(244,241,235,.5);text-align:center;
+  margin-top:20px;margin-bottom:52px;
+  opacity:0;transform:translateY(8px);
+}
+
+/* CTA */
+.hero-cta{
+  position:relative;z-index:5;
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream);border:1px solid rgba(244,241,235,.2);
+  padding:15px 32px;text-decoration:none;cursor:none;
+  opacity:0;
+  transition:border-color .4s,gap .4s,background .4s;
+}
+.hero-cta:hover{border-color:var(--cream);gap:22px;background:rgba(244,241,235,.04)}
+
+/* Scroll + timecode */
+.hero-scroll{
+  position:absolute;bottom:44px;left:50%;transform:translateX(-50%);z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;
+}
+.scroll-line{
+  width:1px;height:52px;
+  background:linear-gradient(to bottom,rgba(244,241,235,.55),transparent);
+  animation:sl 2.3s ease-in-out infinite;
+}
+@keyframes sl{0%,100%{opacity:.7;transform:scaleY(1)}50%{opacity:.15;transform:scaleY(.4)}}
+.scroll-txt{
+  font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(244,241,235,.22);writing-mode:vertical-lr;
+}
+.hero-tc{
+  position:absolute;bottom:50px;right:56px;z-index:5;
+  font-family:'Montserrat';font-size:8px;letter-spacing:.14em;
+  color:rgba(201,169,110,.25);font-variant-numeric:tabular-nums;opacity:0;
+}
+
+/* ═══════════════════════════════════════════
+   PHILOSOPHY STRIP
+═══════════════════════════════════════════ */
+#philosophy{
+  position:relative;z-index:5;
+  padding:140px 10vw 120px;
+  display:grid;grid-template-columns:auto 1fr;gap:90px;align-items:center;
+  overflow:hidden;
+  border-top:1px solid rgba(244,241,235,.05);
+}
+#philosophy::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+}
+.phil-mono{
+  font-family:'Playfair Display',serif;font-weight:300;
+  font-size:clamp(90px,14vw,200px);line-height:1;
+  color:rgba(244,241,235,.04);letter-spacing:-.025em;
+}
+.phil-body{max-width:820px}
+.phil-quote{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(24px,3.5vw,48px);font-weight:300;
+  line-height:1.3;color:rgba(244,241,235,.78);margin-bottom:20px;
+}
+.phil-quote em{color:var(--gold)}
+.phil-attr{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(244,241,235,.3);
+}
+
+/* ═══════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════ */
+.marquee-wrap{
+  position:relative;z-index:5;overflow:hidden;
+  border-top:1px solid rgba(244,241,235,.06);
+  border-bottom:1px solid rgba(244,241,235,.06);
+  padding:16px 0;background:rgba(244,241,235,.012);
+}
+.marquee-track{display:flex;animation:mq 34s linear infinite;white-space:nowrap}
+.marquee-track.rev{animation-direction:reverse;animation-duration:40s}
+.mi{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(13px,1.6vw,19px);color:rgba(244,241,235,.2);
+  padding:0 44px;letter-spacing:.05em;flex-shrink:0;
+}
+.md{color:var(--gold);font-style:normal;opacity:.55}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════
+   BRANCHES — 4 massive cinematic reveals
+═══════════════════════════════════════════ */
+.branch{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;z-index:5;
+  cursor:none;
+}
+.branch-bg{
+  position:absolute;inset:0;z-index:0;
+  background-size:cover;background-position:center;
+  will-change:transform;
+  transition:filter .8s;
+}
+.branch:hover .branch-bg{filter:brightness(.55) saturate(1.3)}
+.branch-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;transition:opacity .6s}
+
+/* STUDIO */
+#b-studio .branch-bg{
+  background-image:url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1800&q=85');
+  filter:brightness(.35) saturate(1.25);
+}
+#b-studio .branch-overlay{
+  background:linear-gradient(115deg,rgba(2,6,3,.88) 0%,rgba(9,58,34,.25) 55%,rgba(200,134,74,.18) 100%);
+}
+
+/* HOUSE — intimate dinner */
+#b-house .branch-bg{
+  background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85');
+  filter:brightness(.32) saturate(1.2);
+}
+#b-house .branch-overlay{
+  background:linear-gradient(115deg,rgba(2,4,8,.88) 0%,rgba(9,28,58,.2) 55%,rgba(74,138,191,.15) 100%);
+}
+
+/* CONSULTING — leather brown interior */
+#b-consulting .branch-bg{
+  background-image:url('https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1800&q=85');
+  filter:brightness(.3) saturate(1.15);
+}
+#b-consulting .branch-overlay{
+  background:linear-gradient(115deg,rgba(4,6,4,.88) 0%,rgba(20,40,25,.25) 55%,rgba(42,102,66,.18) 100%);
+}
+
+/* PAP — Ralph Lauren garden */
+#b-pap .branch-bg{
+  background-image:url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1800&q=85');
+  filter:brightness(.32) saturate(1.1);
+}
+#b-pap .branch-overlay{
+  background:linear-gradient(115deg,rgba(4,8,4,.88) 0%,rgba(40,50,30,.2) 55%,rgba(139,110,76,.2) 100%);
+}
+
+/* Branch content */
+.branch-inner{
+  position:relative;z-index:5;
+  padding:0 10vw;max-width:760px;
+}
+.branch-inner.right{margin-left:auto;text-align:right}
+.branch-inner.right .branch-line{margin-left:auto}
+
+.branch-num{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(244,241,235,.22);margin-bottom:18px;display:block;
+}
+.branch-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;
+  border:1px solid;padding:8px 16px;margin-bottom:32px;
+}
+#b-studio .branch-tag{color:var(--studio);border-color:rgba(200,134,74,.35)}
+#b-house .branch-tag{color:var(--house);border-color:rgba(74,138,191,.35)}
+#b-consulting .branch-tag{color:var(--consulting);border-color:rgba(42,102,66,.45)}
+#b-pap .branch-tag{color:var(--pap);border-color:rgba(139,110,76,.4)}
+
+.branch-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,8vw,120px);font-weight:300;line-height:.92;
+  letter-spacing:-.015em;margin-bottom:28px;
+}
+.branch-title em{font-style:italic;opacity:.45}
+
+.branch-line{width:52px;height:1px;margin-bottom:28px}
+#b-studio .branch-line{background:var(--studio)}
+#b-house .branch-line{background:var(--house)}
+#b-consulting .branch-line{background:var(--consulting)}
+#b-pap .branch-line{background:var(--pap)}
+
+.branch-hook{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(18px,2.2vw,26px);font-weight:300;
+  color:rgba(244,241,235,.78);margin-bottom:24px;line-height:1.4;
+  max-width:500px;
+}
+.branch-inner.right .branch-hook{margin-left:auto}
+
+.branch-desc{
+  font-family:'Montserrat';font-weight:300;
+  font-size:11px;line-height:2.1;
+  color:rgba(244,241,235,.55);max-width:480px;margin-bottom:40px;
+}
+.branch-inner.right .branch-desc{margin-left:auto}
+
+.branch-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cream);text-decoration:none;cursor:none;
+  border-bottom:1px solid rgba(244,241,235,.18);padding-bottom:3px;
+  transition:gap .4s,border-color .4s;
+}
+.branch-cta:hover{gap:22px;border-color:var(--cream)}
+
+/* Coming soon badge for PAP */
+.branch-soon{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--pap);margin-left:18px;
+}
+.branch-soon::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--pap);
+  animation:pls 2s ease-in-out infinite;
+}
+@keyframes pls{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Branch number massive background */
+.branch-mega{
+  position:absolute;font-family:'Playfair Display',serif;font-weight:300;
+  font-size:clamp(260px,38vw,540px);line-height:.8;
+  color:rgba(244,241,235,.025);letter-spacing:-.03em;
+  pointer-events:none;z-index:2;
+}
+#b-studio .branch-mega{top:-8%;right:-5%}
+#b-house .branch-mega{top:-8%;left:-5%}
+#b-consulting .branch-mega{top:-8%;right:-5%}
+#b-pap .branch-mega{top:-8%;left:-5%}
+
+/* ═══════════════════════════════════════════
+   FOUNDER — worldwide, short, cinematic
+═══════════════════════════════════════════ */
+#founder{
+  position:relative;z-index:5;
+  min-height:100vh;
+  display:grid;grid-template-columns:45fr 55fr;
+}
+.founder-visual{
+  position:relative;overflow:hidden;
+  background:url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=85') center/cover;
+  filter:brightness(.32) saturate(1.15);
+}
+.founder-visual::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(2,8,4,.25) 0%,var(--g0) 96%);
+}
+.founder-content{
+  padding:120px 80px 120px 72px;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--g0);
+}
+.founder-eye{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(244,241,235,.25);margin-bottom:24px;
+}
+.founder-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(44px,5.5vw,82px);font-weight:300;line-height:1;
+  margin-bottom:32px;letter-spacing:-.01em;
+}
+.founder-title em{font-style:italic;color:rgba(244,241,235,.4)}
+.founder-text{
+  font-family:'Montserrat';font-size:12px;line-height:2.1;
+  color:rgba(244,241,235,.55);max-width:480px;margin-bottom:18px;
+}
+.founder-quote{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:clamp(16px,1.8vw,22px);font-weight:300;
+  color:var(--gold);margin:28px 0;max-width:480px;
+  line-height:1.5;
+  border-left:1px solid rgba(201,169,110,.25);padding-left:18px;
+}
+.founder-stamps{
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:36px;max-width:520px;
+}
+.stamp{
+  font-family:'Montserrat';font-size:7px;letter-spacing:.22em;text-transform:uppercase;
+  border:1px solid rgba(244,241,235,.1);padding:8px 13px;
+  color:rgba(244,241,235,.35);position:relative;overflow:hidden;
+  cursor:none;transition:color .4s,border-color .4s;
+}
+.stamp::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(244,241,235,.04);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+.stamp:hover{border-color:rgba(244,241,235,.28);color:var(--cream)}
+.stamp:hover::before{transform:scaleX(1)}
+
+/* ═══════════════════════════════════════════
+   CONTACT — unique form
+═══════════════════════════════════════════ */
+#contact{
+  position:relative;z-index:5;
+  padding:160px 10vw;
+  background:var(--g0);
+  overflow:hidden;
+}
+#contact::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.2) 0%,transparent 65%);
+  pointer-events:none;
+}
+.contact-header{text-align:center;margin-bottom:72px}
+.contact-eye{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(244,241,235,.25);margin-bottom:22px;
+}
+.contact-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,8vw,120px);font-weight:300;line-height:.92;
+  letter-spacing:-.015em;
+}
+.contact-title em{font-style:italic;color:rgba(244,241,235,.4)}
+
+.contact-form{
+  max-width:680px;margin:0 auto;
+  display:flex;flex-direction:column;gap:20px;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{position:relative}
+.form-label{
+  font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,241,235,.32);margin-bottom:10px;display:block;
+}
+.form-input{
+  width:100%;background:transparent;
+  border:none;border-bottom:1px solid rgba(244,241,235,.15);
+  padding:12px 0;
+  font-family:'Montserrat';font-size:13px;font-weight:300;
+  color:var(--cream);letter-spacing:.04em;outline:none;
+  transition:border-color .3s;cursor:none;
+}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:rgba(244,241,235,.18);font-style:italic}
+textarea.form-input{resize:none;min-height:80px}
+
+/* Branch selector — elegant pills */
+.branch-select{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
+}
+.bs-pill{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(244,241,235,.42);
+  background:transparent;border:1px solid rgba(244,241,235,.12);
+  padding:10px 18px;cursor:none;
+  transition:all .35s;
+}
+.bs-pill:hover{border-color:rgba(244,241,235,.4);color:var(--cream)}
+.bs-pill.active{
+  color:var(--g0);background:var(--gold);border-color:var(--gold);
+}
+.bs-pill input{display:none}
+
+.form-submit{
+  margin-top:24px;align-self:flex-start;
+  background:transparent;border:1px solid var(--gold);
+  color:var(--gold);
+  font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
+  padding:16px 36px;cursor:none;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+}
+.form-submit:hover{background:var(--gold);color:var(--g0);padding:16px 48px}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  position:relative;z-index:5;
+  padding:56px 56px 28px;
+  border-top:1px solid rgba(244,241,235,.06);
+}
+.foot-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;
+  margin-bottom:40px;
+}
+.foot-title{
+  font-family:'Playfair Display',serif;font-size:clamp(18px,2vw,26px);
+  font-weight:300;line-height:1.3;margin-bottom:16px;
+}
+.foot-title em{font-style:italic;color:var(--gold)}
+.foot-sub{
+  font-family:'Montserrat';font-size:10px;line-height:1.9;
+  color:rgba(244,241,235,.4);max-width:320px;
+}
+.foot-col-label{
+  font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(244,241,235,.25);margin-bottom:14px;
+}
+.foot-link{
+  display:block;font-family:'Montserrat';font-size:10px;
+  color:rgba(244,241,235,.45);text-decoration:none;cursor:none;
+  padding:4px 0;transition:color .3s;
+}
+.foot-link:hover{color:var(--cream)}
+.foot-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:24px;border-top:1px solid rgba(244,241,235,.04);
+}
+.foot-logo{
+  font-family:'Playfair Display',serif;font-size:10px;letter-spacing:.45em;
+  text-transform:uppercase;color:rgba(244,241,235,.28);
+}
+.foot-r{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.18em;
+  color:rgba(244,241,235,.22);
+}
+
+/* ═══════════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════════ */
+.rv{opacity:0;transform:translateY(32px)}
+.rv-l{opacity:0;transform:translateX(-32px)}
+.rv-r{opacity:0;transform:translateX(32px)}
+.rv-s{opacity:0;transform:scale(.95)}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:900px){
+  nav{padding:20px 24px}
+  .nav-links{display:none}
+  #thread{display:none}
+  .corner{display:none}
+  #philosophy{grid-template-columns:1fr;gap:40px;padding:80px 24px}
+  .phil-mono{display:none}
+  .branch-inner{padding:0 24px}
+  .branch-inner.right{margin-left:0;text-align:left}
+  .branch-inner.right .branch-line,
+  .branch-inner.right .branch-hook,
+  .branch-inner.right .branch-desc{margin-left:0}
+  .branch-mega{display:none}
+  .branch-title{font-size:clamp(40px,10vw,72px)}
+  #founder{grid-template-columns:1fr}
+  .founder-visual{height:320px}
+  .founder-content{padding:60px 24px}
+  #contact{padding:100px 24px}
+  .form-row{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+  footer{padding:40px 24px 24px}
+  .foot-bottom{flex-direction:column;gap:12px;text-align:center}
+  .hero-tc{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div class="grain"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-tag">Building Bridges</div>
+  <div class="ld-logo">
+    <span>V</span><span>E</span><span>R</span><span>P</span><span>O</span><span>M</span><span>E</span>
+  </div>
+  <div class="ld-bar-w"><div class="ld-bar" id="ldBar"></div></div>
+  <div class="ld-pct" id="ldPct">0%</div>
+  <div class="ld-sub" id="ldSub">— between people, cultures & opportunities</div>
+</div>
+
+<!-- GOLDEN THREAD — fixed, scrolls through entire page -->
+<div id="thread">
+  <svg viewBox="0 0 80 700" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="goldG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(201,169,110,0)"/>
+        <stop offset="15%" stop-color="rgba(201,169,110,.5)"/>
+        <stop offset="50%" stop-color="rgba(201,169,110,.8)"/>
+        <stop offset="85%" stop-color="rgba(201,169,110,.5)"/>
+        <stop offset="100%" stop-color="rgba(201,169,110,0)"/>
+      </linearGradient>
+    </defs>
+    <path id="threadPath" d="M 40 0 Q 20 100, 40 200 T 40 400 Q 60 500, 40 600 T 40 700"
+      stroke="url(#goldG)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <!-- Secondary thinner thread -->
+    <path d="M 40 0 Q 55 100, 40 200 T 40 400 Q 30 500, 40 600 T 40 700"
+      stroke="rgba(201,169,110,.2)" stroke-width=".5" fill="none" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Verpome</a>
+  <div class="nav-r">
+    <ul class="nav-links">
+      <li><a href="#b-studio">Studio</a></li>
+      <li><a href="#b-house">House</a></li>
+      <li><a href="#b-consulting">Consulting</a></li>
+      <li><a href="#b-pap">Prêt-à-Porter</a></li>
+      <li><a href="#founder">Founder</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div id="hero-img"></div>
+  <canvas id="leather-canvas"></canvas>
+
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="hero-eye">Verpome — Building Bridges Between Worlds</div>
+
+  <h1 class="hero-title">
+    <span class="line"><span data-text="Building">Building</span></span>
+    <span class="line"><span data-text="Bridges">Bridges</span></span>
+    <span class="line"><span data-text="Between">Between</span></span>
+    <span class="line"><span data-text="Worlds.">Worlds.</span></span>
+  </h1>
+
+  <p class="hero-tag">People. Cultures. Opportunities.<br>Bangkok · Paris · The World.</p>
+
+  <a href="#philosophy" class="hero-cta">Enter The World →</a>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-txt">Scroll</span>
+  </div>
+  <div class="hero-tc" id="tc">00:00:00:00</div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="phil-mono rv">01</div>
+  <div class="phil-body">
+    <p class="phil-quote rv">
+      "A house built on one belief: that the <em>right people</em>,<br>in the <em>right rooms</em>, can change <em>everything</em>."
+    </p>
+    <span class="phil-attr rv">— Verpome, Est. 2026</span>
+  </div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="mi">Visual Creation <span class="md">✦</span></span>
+    <span class="mi">Private Network <span class="md">✦</span></span>
+    <span class="mi">Business Development <span class="md">✦</span></span>
+    <span class="mi">Prêt-à-Porter <span class="md">✦</span></span>
+    <span class="mi">Bangkok · Paris · São Paulo · New York <span class="md">✦</span></span>
+    <span class="mi">Building Bridges <span class="md">✦</span></span>
+    <span class="mi">Visual Creation <span class="md">✦</span></span>
+    <span class="mi">Private Network <span class="md">✦</span></span>
+    <span class="mi">Business Development <span class="md">✦</span></span>
+    <span class="mi">Prêt-à-Porter <span class="md">✦</span></span>
+    <span class="mi">Bangkok · Paris · São Paulo · New York <span class="md">✦</span></span>
+    <span class="mi">Building Bridges <span class="md">✦</span></span>
+  </div>
+</div>
+
+<!-- BRANCH 01 — STUDIO -->
+<section class="branch" id="b-studio">
+  <div class="branch-bg"></div>
+  <div class="branch-overlay"></div>
+  <div class="branch-mega">01</div>
+  <div class="branch-inner">
+    <span class="branch-num rv">01 / 04</span>
+    <div class="branch-tag rv">Verpome Studio</div>
+    <h2 class="branch-title rv">Your Story<br><em>Deserves to be</em><br>Told Properly.</h2>
+    <div class="branch-line rv"></div>
+    <p class="branch-hook rv">Verpome Studio is our visual creation arm.</p>
+    <p class="branch-desc rv">Photography, video, and digital strategy for entrepreneurs and brands who refuse to blend in. We don't produce content. We build an image. Every project starts with understanding your world, and ends with visuals that make people believe in what you're building. Based in Bangkok, working internationally.</p>
+    <a href="#contact" class="branch-cta rv" data-branch="studio">Work with Studio →</a>
+  </div>
+</section>
+
+<!-- MARQUEE 2 REVERSE -->
+<div class="marquee-wrap">
+  <div class="marquee-track rev">
+    <span class="mi">South Africa <span class="md">✦</span></span>
+    <span class="mi">Brazil <span class="md">✦</span></span>
+    <span class="mi">France <span class="md">✦</span></span>
+    <span class="mi">Thailand <span class="md">✦</span></span>
+    <span class="mi">United States <span class="md">✦</span></span>
+    <span class="mi">Spain <span class="md">✦</span></span>
+    <span class="mi">Italy <span class="md">✦</span></span>
+    <span class="mi">Greece <span class="md">✦</span></span>
+    <span class="mi">South Africa <span class="md">✦</span></span>
+    <span class="mi">Brazil <span class="md">✦</span></span>
+    <span class="mi">France <span class="md">✦</span></span>
+    <span class="mi">Thailand <span class="md">✦</span></span>
+    <span class="mi">United States <span class="md">✦</span></span>
+    <span class="mi">Spain <span class="md">✦</span></span>
+    <span class="mi">Italy <span class="md">✦</span></span>
+    <span class="mi">Greece <span class="md">✦</span></span>
+  </div>
+</div>
+
+<!-- BRANCH 02 — HOUSE -->
+<section class="branch" id="b-house">
+  <div class="branch-bg"></div>
+  <div class="branch-overlay"></div>
+  <div class="branch-mega">02</div>
+  <div class="branch-inner right">
+    <span class="branch-num rv">02 / 04</span>
+    <div class="branch-tag rv">Verpome House</div>
+    <h2 class="branch-title rv">A Curated<br>Network of <em>People</em><br>Actually Building.</h2>
+    <div class="branch-line rv"></div>
+    <p class="branch-hook rv">Verpome House is a private circle.</p>
+    <p class="branch-desc rv">International founders, creatives, and leaders connected by one thing: they're in the arena. Not a community for networking. A space for the people behind real projects to exchange, collaborate, and grow together. Selective by design. The value is in who's in the room.</p>
+    <a href="#contact" class="branch-cta rv" data-branch="house">Apply to House →</a>
+  </div>
+</section>
+
+<!-- BRANCH 03 — CONSULTING -->
+<section class="branch" id="b-consulting">
+  <div class="branch-bg"></div>
+  <div class="branch-overlay"></div>
+  <div class="branch-mega">03</div>
+  <div class="branch-inner">
+    <span class="branch-num rv">03 / 04</span>
+    <div class="branch-tag rv">Verpome Consulting</div>
+    <h2 class="branch-title rv">Europe Meets<br><em>Asia.</em><br>The Right People,<br>The Right Room.</h2>
+    <div class="branch-line rv"></div>
+    <p class="branch-hook rv">Verpome Consulting bridges markets that don't naturally talk.</p>
+    <p class="branch-desc rv">We identify opportunities between Europe and Southeast Asia, connect the right partners, and structure deals that make sense for both sides. Strategic business development built on relationships, not cold outreach. Commission-based — we only win when you do.</p>
+    <a href="#contact" class="branch-cta rv" data-branch="consulting">Start a Conversation →</a>
+  </div>
+</section>
+
+<!-- BRANCH 04 — PRET A PORTER -->
+<section class="branch" id="b-pap">
+  <div class="branch-bg"></div>
+  <div class="branch-overlay"></div>
+  <div class="branch-mega">04</div>
+  <div class="branch-inner right">
+    <span class="branch-num rv">
+      04 / 04
+      <span class="branch-soon">Coming Soon</span>
+    </span>
+    <div class="branch-tag rv">Verpome Prêt-à-Porter</div>
+    <h2 class="branch-title rv">Wear What<br><em>You Believe</em><br>In.</h2>
+    <div class="branch-line rv"></div>
+    <p class="branch-hook rv">Our forthcoming line — a capsule rooted in our philosophy.</p>
+    <p class="branch-desc rv">Sober, intentional, designed for people who move between worlds. Not fashion for fashion's sake. Pieces that carry the Verpome DNA: understated elegance, international mindset, built to last.</p>
+    <a href="#contact" class="branch-cta rv" data-branch="pap">Join the waitlist →</a>
+  </div>
+</section>
+
+<!-- FOUNDER — worldwide, short -->
+<section id="founder">
+  <div class="founder-visual"></div>
+  <div class="founder-content">
+    <div class="founder-eye">The Founder</div>
+    <h2 class="founder-title rv">Grégoire<br>Thibaut.<br><em>Builder.</em></h2>
+    <p class="founder-text rv">Born in Lyon, shaped by the world. A life spent moving between cultures, cities, and continents — each new place a different way of seeing light, people, and stories worth telling.</p>
+    <p class="founder-text rv">Verpome was built the way its founder has always lived: internationally, intentionally, and without shortcuts.</p>
+    <div class="founder-quote rv">"I've built bridges between people, cultures and opportunities."</div>
+    <div class="founder-stamps rv">
+      <span class="stamp">🇩🇪 Germany</span>
+      <span class="stamp">🇿🇦 South Africa</span>
+      <span class="stamp">🇧🇷 Brazil</span>
+      <span class="stamp">🇳🇦 Namibia</span>
+      <span class="stamp">🇺🇸 USA</span>
+      <span class="stamp">🇨🇦 Canada</span>
+      <span class="stamp">🇵🇪 Peru</span>
+      <span class="stamp">🇧🇴 Bolivia</span>
+      <span class="stamp">🇨🇱 Chile</span>
+      <span class="stamp">🇫🇷 France</span>
+      <span class="stamp">🇲🇨 Monaco</span>
+      <span class="stamp">🇪🇸 Spain</span>
+      <span class="stamp">🇵🇹 Portugal</span>
+      <span class="stamp">🇮🇹 Italy</span>
+      <span class="stamp">🇬🇷 Greece</span>
+      <span class="stamp">🇨🇭 Switzerland</span>
+      <span class="stamp">🇩🇰 Denmark</span>
+      <span class="stamp">🇬🇧 UK</span>
+      <span class="stamp">🇮🇲 Isle of Man</span>
+      <span class="stamp">🇰🇭 Cambodia</span>
+      <span class="stamp">🇹🇭 Thailand</span>
+      <span class="stamp">🌍 Building Bridges</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-header">
+    <div class="contact-eye rv">Let's Build Something</div>
+    <h2 class="contact-title rv">Start a<br><em>Conversation.</em></h2>
+  </div>
+
+  <form class="contact-form" id="vForm" onsubmit="return false">
+    <div class="form-group rv">
+      <label class="form-label">Which branch reaches out to you?</label>
+      <div class="branch-select">
+        <button type="button" class="bs-pill" data-branch="studio">Studio</button>
+        <button type="button" class="bs-pill" data-branch="house">House</button>
+        <button type="button" class="bs-pill" data-branch="consulting">Consulting</button>
+        <button type="button" class="bs-pill" data-branch="pap">Prêt-à-Porter</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group rv">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" type="text" placeholder="Grégoire, Sofia, Kenji…">
+      </div>
+      <div class="form-group rv">
+        <label class="form-label">Your Email</label>
+        <input class="form-input" type="email" placeholder="you@domain.com">
+      </div>
+    </div>
+
+    <div class="form-group rv">
+      <label class="form-label">Where are you based?</label>
+      <input class="form-input" type="text" placeholder="Bangkok, Paris, anywhere in between…">
+    </div>
+
+    <div class="form-group rv">
+      <label class="form-label">Tell us what you're building</label>
+      <textarea class="form-input" placeholder="A few lines about your project, vision, or reason for reaching out."></textarea>
+    </div>
+
+    <button class="form-submit" type="submit">Send Message →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h3 class="foot-title">Verpome.<br><em>Building Bridges</em><br>Between Worlds.</h3>
+      <p class="foot-sub">A creative house connecting people, cultures and opportunities across borders.</p>
+    </div>
+    <div>
+      <div class="foot-col-label">Branches</div>
+      <a href="#b-studio" class="foot-link">Studio</a>
+      <a href="#b-house" class="foot-link">House</a>
+      <a href="#b-consulting" class="foot-link">Consulting</a>
+      <a href="#b-pap" class="foot-link">Prêt-à-Porter</a>
+    </div>
+    <div>
+      <div class="foot-col-label">Company</div>
+      <a href="#founder" class="foot-link">Founder</a>
+      <a href="#philosophy" class="foot-link">Philosophy</a>
+      <a href="#contact" class="foot-link">Contact</a>
+    </div>
+    <div>
+      <div class="foot-col-label">Reach Us</div>
+      <a href="mailto:contact@verpome.com" class="foot-link">contact@verpome.com</a>
+      <a href="https://instagram.com/verpome.co" class="foot-link">@verpome.co</a>
+      <a href="#" class="foot-link">Bangkok, Thailand</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-logo">Verpome</span>
+    <span class="foot-r">© 2026 · All rights reserved</span>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ─── CURSOR
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function tick(){
+  cx+=(mx-cx)*.15;cy+=(my-cy)*.15;rx+=(mx-rx)*.08;ry+=(my-ry)*.08;
+  cur.style.left=cx+'px';cur.style.top=cy+'px';
+  curR.style.left=rx+'px';curR.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button,.stamp,.bs-pill,.branch-cta,.hero-cta,.nav-cta,.form-input').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// ─── TIMECODE
+const tc=document.getElementById('tc');
+let fr=0;
+setInterval(()=>{fr++;const f=fr%30,s=Math.floor(fr/30)%60,m=Math.floor(fr/1800)%60,h=Math.floor(fr/108000);
+  tc.textContent=[h,m,s,f].map(v=>String(v).padStart(2,'0')).join(':');
+},33);
+
+// ─── LEATHER CANVAS — living leather (moving radial light on mouse + subtle ripple)
+const lc=document.getElementById('leather-canvas'),lx=lc.getContext('2d');
+let LW,LH,lmx=.5,lmy=.4,lt=0;
+function rszLC(){LW=lc.width=window.innerWidth*devicePixelRatio;LH=lc.height=window.innerHeight*devicePixelRatio;lc.style.width=window.innerWidth+'px';lc.style.height=window.innerHeight+'px'}
+rszLC();window.addEventListener('resize',rszLC);
+document.addEventListener('mousemove',e=>{lmx=e.clientX/window.innerWidth;lmy=e.clientY/window.innerHeight});
+function drawLC(){
+  lt+=.0015;
+  lx.clearRect(0,0,LW,LH);
+  // Moving radial light — the leather catching light as you move
+  const cx=lmx*LW,cy=lmy*LH;
+  const g1=lx.createRadialGradient(cx,cy,0,cx,cy,Math.max(LW,LH)*.55);
+  g1.addColorStop(0,'rgba(80,180,115,.14)');
+  g1.addColorStop(.25,'rgba(27,74,46,.08)');
+  g1.addColorStop(.6,'rgba(9,58,34,.02)');
+  g1.addColorStop(1,'rgba(0,0,0,0)');
+  lx.fillStyle=g1;lx.fillRect(0,0,LW,LH);
+  // Secondary slow-moving highlight
+  const sx=(.5+Math.sin(lt)*.3)*LW,sy=(.4+Math.cos(lt*.7)*.2)*LH;
+  const g2=lx.createRadialGradient(sx,sy,0,sx,sy,Math.max(LW,LH)*.35);
+  g2.addColorStop(0,'rgba(201,169,110,.07)');
+  g2.addColorStop(.5,'rgba(201,169,110,.02)');
+  g2.addColorStop(1,'transparent');
+  lx.fillStyle=g2;lx.fillRect(0,0,LW,LH);
+  requestAnimationFrame(drawLC);
+}
+drawLC();
+
+// ─── LOADER
+const ldBar=document.getElementById('ldBar'),ldPct=document.getElementById('ldPct');
+const ld=document.getElementById('loader');
+const ldSub=document.getElementById('ldSub');
+const letters=ld.querySelectorAll('.ld-logo span');
+let pct=0;
+gsap.to(letters,{y:0,duration:.55,stagger:.06,ease:'power3.out',delay:.1});
+gsap.to(ldSub,{opacity:1,duration:.8,delay:1.2,ease:'power2.out'});
+const ldi=setInterval(()=>{
+  pct+=Math.random()*4+2;if(pct>100)pct=100;
+  ldBar.style.width=pct+'%';ldPct.textContent=Math.floor(pct)+'%';
+  if(pct>=100){
+    clearInterval(ldi);
+    setTimeout(()=>{
+      gsap.to(ld,{opacity:0,duration:.8,ease:'power2.inOut',onComplete:()=>{
+        ld.style.display='none';initPage();
+      }});
+    },500);
+  }
+},42);
+
+function initPage(){
+  // Nav
+  gsap.to('.nav-logo',{opacity:1,duration:.9,delay:.1,ease:'power2.out'});
+  gsap.to('.nav-links a',{opacity:1,duration:.8,delay:.3,stagger:.06,ease:'power2.out'});
+  gsap.to('.nav-cta',{opacity:1,duration:.8,delay:.6,ease:'power2.out'});
+  // HUD corners
+  gsap.to('.corner',{opacity:1,duration:.8,delay:.35,stagger:.08,ease:'power2.out'});
+  // Hero
+  gsap.to('.hero-eye',{opacity:1,y:0,duration:.9,delay:.5,ease:'power3.out'});
+
+  // Title fill effect — staggered outline → fill
+  const titleLines=document.querySelectorAll('.hero-title .line span');
+  titleLines.forEach((s,i)=>{
+    setTimeout(()=>s.classList.add('fill'),800+i*350);
+    setTimeout(()=>s.classList.add('filled'),800+i*350+1200);
+  });
+
+  gsap.to('.hero-tag',{opacity:1,y:0,duration:.8,delay:2.8,ease:'power3.out'});
+  gsap.to('.hero-cta',{opacity:1,duration:.9,delay:3.1,ease:'power2.out'});
+  gsap.to(['.hero-scroll','.hero-tc'],{opacity:1,duration:.8,delay:3.4,ease:'power2.out'});
+
+  // Branch parallax
+  document.querySelectorAll('.branch').forEach(b=>{
+    const bg=b.querySelector('.branch-bg');
+    if(bg){
+      gsap.to(bg,{yPercent:-14,ease:'none',
+        scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:1.2}});
+    }
+    const mega=b.querySelector('.branch-mega');
+    if(mega){
+      gsap.to(mega,{yPercent:-30,ease:'none',
+        scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:.8}});
+    }
+    // Z-axis clip reveal
+    gsap.fromTo(b,
+      {clipPath:'inset(6% 0 6% 0)'},
+      {clipPath:'inset(0% 0 0% 0)',ease:'power2.out',
+        scrollTrigger:{trigger:b,start:'top 90%',end:'top 20%',scrub:.8}});
+  });
+
+  // Reveal triggers
+  gsap.utils.toArray('.rv').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+  gsap.utils.toArray('.rv-l').forEach(el=>{
+    gsap.to(el,{opacity:1,x:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 85%'}});
+  });
+
+  // Hero parallax on scroll
+  gsap.to('.hero-title',{y:80,ease:'none',
+    scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:.9}});
+  gsap.to('.hero-tag',{y:50,ease:'none',
+    scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:.6}});
+
+  // Golden thread — reveals as you scroll
+  gsap.to('#threadPath',{
+    strokeDasharray:'1400',
+    strokeDashoffset:0,
+    ease:'none',
+    scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}
+  });
+}
+
+// ─── CONTACT FORM — branch selector
+document.querySelectorAll('.bs-pill').forEach(pill=>{
+  pill.addEventListener('click',()=>{
+    document.querySelectorAll('.bs-pill').forEach(p=>p.classList.remove('active'));
+    pill.classList.add('active');
+  });
+});
+// Preselect when clicking branch CTA
+document.querySelectorAll('.branch-cta').forEach(cta=>{
+  cta.addEventListener('click',()=>{
+    const target=cta.dataset.branch;
+    setTimeout(()=>{
+      document.querySelectorAll('.bs-pill').forEach(p=>{
+        p.classList.toggle('active',p.dataset.branch===target);
+      });
+    },600);
+  });
+});
+
+// ─── SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+
+// ─── FORM SUBMIT
+document.getElementById('vForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const btn=e.target.querySelector('.form-submit');
+  const orig=btn.textContent;
+  btn.textContent='Sent ✓';
+  btn.style.background='var(--gold)';btn.style.color='var(--g0)';
+  setTimeout(()=>{
+    btn.textContent=orig;btn.style.background='';btn.style.color='';
+    e.target.reset();
+    document.querySelectorAll('.bs-pill').forEach(p=>p.classList.remove('active'));
+  },2500);
+});
+</script>
+</body>
+</html>
