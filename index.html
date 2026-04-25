@@ -5,20 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verpome — Building Bridges Between Worlds</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <style>
-/* ═══════════════════════════════════════════
-   RESET & VARS
-═══════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --g0:#03100a; --g1:#051a10; --g2:#093A22; --g3:#0f4a2c; --g4:#1B4A2E;
   --cream:#F4F1EB; --cream2:#e8e4dc;
   --metal:#8D8880;
   --gold:#C9A96E; --gold2:#b38f4f;
-  --studio:#C8864A; --house:#4A8ABF; --consulting:#2A6642; --pap:#8B6E4C;
+  --studio:#C8864A; --house:#4A8ABF; --bridge:#2A6642;
 }
 html{overflow-x:hidden;scroll-behavior:auto}
 body{
@@ -31,9 +28,11 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ═══════════════════════════════════════════
-   CURSOR
-═══════════════════════════════════════════ */
+/* EMPHASIS */
+strong{font-weight:400;color:var(--cream)}
+.gold-emph{color:var(--gold);font-weight:400}
+
+/* CURSOR */
 #cur{
   position:fixed;width:6px;height:6px;border-radius:50%;
   background:var(--cream);pointer-events:none;z-index:9999;
@@ -49,9 +48,7 @@ body{
 body.hov #cur{width:4px;height:4px}
 body.hov #cur-r{width:60px;height:60px;border-color:rgba(244,241,235,.55)}
 
-/* ═══════════════════════════════════════════
-   GRAIN
-═══════════════════════════════════════════ */
+/* GRAIN */
 .grain{
   position:fixed;inset:0;z-index:850;pointer-events:none;opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.055'/%3E%3C/svg%3E");
@@ -64,26 +61,19 @@ body.hov #cur-r{width:60px;height:60px;border-color:rgba(244,241,235,.55)}
   position:fixed;inset:0;z-index:9000;background:#020806;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;
 }
-.ld-tag{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.55em;text-transform:uppercase;
-  color:rgba(244,241,235,.25);margin-bottom:-8px;
-}
+.ld-tag{font-family:'Montserrat';font-size:8px;letter-spacing:.55em;text-transform:uppercase;color:rgba(244,241,235,.25);margin-bottom:-8px}
 .ld-logo{
   font-family:'Playfair Display',serif;
   font-size:clamp(52px,11vw,120px);font-weight:300;letter-spacing:.3em;
   color:var(--cream);display:flex;overflow:hidden;
 }
 .ld-logo span{display:inline-block;transform:translateY(110%)}
-.ld-bar-w{width:160px;height:1px;background:rgba(244,241,235,.08);overflow:hidden;position:relative}
+.ld-bar-w{width:160px;height:1px;background:rgba(244,241,235,.08);overflow:hidden}
 .ld-bar{height:100%;background:var(--cream);width:0;transition:width .12s linear}
-.ld-pct{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.4em;
-  color:rgba(244,241,235,.28);font-variant-numeric:tabular-nums;
-}
+.ld-pct{font-family:'Montserrat';font-size:8px;letter-spacing:.4em;color:rgba(244,241,235,.28);font-variant-numeric:tabular-nums}
 .ld-sub{
-  font-family:'Playfair Display',serif;font-style:italic;font-size:13px;
-  color:rgba(244,241,235,.22);letter-spacing:.08em;
-  opacity:0;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
+  color:rgba(244,241,235,.28);letter-spacing:.05em;opacity:0;
 }
 
 /* ═══════════════════════════════════════════
@@ -93,7 +83,6 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:700;
   padding:28px 56px;
   display:flex;justify-content:space-between;align-items:center;
-  transition:padding .5s;
   mix-blend-mode:difference;
 }
 .nav-logo{
@@ -102,7 +91,7 @@ nav{
   color:var(--cream);opacity:0;text-decoration:none;cursor:none;
 }
 .nav-r{display:flex;gap:40px;align-items:center}
-.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
   color:rgba(244,241,235,.5);text-decoration:none;cursor:none;
@@ -128,7 +117,7 @@ nav{
 #thread svg{height:72vh;width:80px;overflow:visible}
 
 /* ═══════════════════════════════════════════
-   HERO — Cinematic video loop + typography reveal
+   HERO — VERPOME as main title
 ═══════════════════════════════════════════ */
 #hero{
   position:relative;height:100vh;
@@ -137,110 +126,90 @@ nav{
   overflow:hidden;
 }
 
-/* Leather video loop — animated canvas simulating living leather */
-#leather-canvas{
-  position:absolute;inset:0;z-index:0;width:100%;height:100%;
-}
+#leather-canvas{position:absolute;inset:0;z-index:0;width:100%;height:100%}
 
-/* Base leather image layer - Corrigé pour visibilité */
-#hero-img {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: 
-    radial-gradient(ellipse at 50% 40%, rgba(27, 74, 46, 0.2) 0%, transparent 65%),
+#hero-img{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 40%,rgba(27,74,46,.2) 0%,transparent 65%),
     url('assets/background1.jpg') center/cover;
-  /* Augmentation de brightness de .24 à .50 et baisse du hue-rotate */
-  filter: brightness(0.5) saturate(1.2) hue-rotate(-5deg); 
-  transform: scale(1.04);
+  filter:brightness(.5) saturate(1.2) hue-rotate(-5deg);
+  transform:scale(1.04);
+}
+#hero-img::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.2) 0%,rgba(2,8,4,.6) 80%);
 }
 
-#hero-img::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  /* Baisse de l'opacité du noir final de .92 à .60 pour laisser respirer l'image */
-  background: radial-gradient(ellipse at 50% 50%, rgba(9, 58, 34, 0.2) 0%, rgba(2, 8, 4, 0.6) 80%);
-}
-
-/* Scanlines */
 #hero::before{
   content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
   background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(244,241,235,.007) 3px,rgba(244,241,235,.007) 4px);
 }
 
-/* Corner HUD */
 .corner{position:absolute;z-index:3;width:26px;height:26px;opacity:0}
 .corner.tl{top:100px;left:56px;border-top:1px solid rgba(201,169,110,.3);border-left:1px solid rgba(201,169,110,.3)}
 .corner.tr{top:100px;right:56px;border-top:1px solid rgba(201,169,110,.3);border-right:1px solid rgba(201,169,110,.3)}
 .corner.bl{bottom:60px;left:56px;border-bottom:1px solid rgba(201,169,110,.3);border-left:1px solid rgba(201,169,110,.3)}
 .corner.br{bottom:60px;right:56px;border-bottom:1px solid rgba(201,169,110,.3);border-right:1px solid rgba(201,169,110,.3)}
 
-/* Eyebrow */
 .hero-eye{
   position:relative;z-index:5;
   font-family:'Montserrat';font-size:8px;letter-spacing:.55em;text-transform:uppercase;
-  color:rgba(244,241,235,.35);margin-bottom:36px;
+  color:rgba(244,241,235,.38);margin-bottom:42px;
   opacity:0;transform:translateY(10px);
   display:flex;align-items:center;gap:14px;
 }
 .hero-eye::before,.hero-eye::after{
-  content:'';display:block;width:36px;height:1px;background:rgba(201,169,110,.3);
+  content:'';display:block;width:36px;height:1px;background:rgba(201,169,110,.35);
 }
 
-/* Main title — outline → fill */
+/* VERPOME MASSIVE TITLE */
 .hero-title{
   position:relative;z-index:5;
   font-family:'Playfair Display',serif;
-  font-size:clamp(56px,10.5vw,170px);
-  font-weight:300;line-height:.9;letter-spacing:-.015em;
-  text-align:center;margin-bottom:20px;
+  font-size:clamp(88px,16vw,240px);
+  font-weight:300;line-height:.85;letter-spacing:.04em;
+  text-align:center;margin-bottom:32px;
 }
 .hero-title .line{overflow:hidden;display:block;position:relative}
 .hero-title .line span{
-  display:inline-block;
-  position:relative;
+  display:inline-block;position:relative;
   -webkit-text-stroke:1px rgba(244,241,235,.6);
   color:transparent;
-  transition:none;
 }
-.hero-title .line span.filled{
-  -webkit-text-stroke:0;
-  color:var(--cream);
-}
+.hero-title .line span.filled{-webkit-text-stroke:0;color:var(--cream)}
 .hero-title .line span::before{
   content:attr(data-text);
   position:absolute;inset:0;
   color:var(--cream);
   -webkit-text-stroke:0;
   clip-path:inset(0 100% 0 0);
-  transition:clip-path 1.2s cubic-bezier(.7,0,.3,1);
+  transition:clip-path 1.4s cubic-bezier(.7,0,.3,1);
 }
 .hero-title .line span.fill::before{clip-path:inset(0 0 0 0)}
 
-/* Tagline */
-.hero-tag{
+/* SUBTITLE under VERPOME */
+.hero-subtitle{
   position:relative;z-index:5;
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(14px,1.6vw,20px);
-  color:rgba(244,241,235,.5);text-align:center;
-  margin-top:20px;margin-bottom:52px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:clamp(18px,2.4vw,32px);
+  color:rgba(244,241,235,.72);text-align:center;
+  margin-top:8px;margin-bottom:64px;
   opacity:0;transform:translateY(8px);
+  letter-spacing:.04em;
 }
 
-/* CTA */
 .hero-cta{
   position:relative;z-index:5;
   display:inline-flex;align-items:center;gap:14px;
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--cream);border:1px solid rgba(244,241,235,.2);
-  padding:15px 32px;text-decoration:none;cursor:none;
+  color:var(--cream);border:1px solid rgba(244,241,235,.22);
+  padding:15px 34px;text-decoration:none;cursor:none;
   opacity:0;
   transition:border-color .4s,gap .4s,background .4s;
 }
 .hero-cta:hover{border-color:var(--cream);gap:22px;background:rgba(244,241,235,.04)}
 
-/* Scroll + timecode */
 .hero-scroll{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);z-index:5;
   display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;
@@ -251,10 +220,8 @@ nav{
   animation:sl 2.3s ease-in-out infinite;
 }
 @keyframes sl{0%,100%{opacity:.7;transform:scaleY(1)}50%{opacity:.15;transform:scaleY(.4)}}
-.scroll-txt{
-  font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;
-  color:rgba(244,241,235,.22);writing-mode:vertical-lr;
-}
+.scroll-txt{font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;color:rgba(244,241,235,.22);writing-mode:vertical-lr}
+
 .hero-tc{
   position:absolute;bottom:50px;right:56px;z-index:5;
   font-family:'Montserrat';font-size:8px;letter-spacing:.14em;
@@ -262,57 +229,118 @@ nav{
 }
 
 /* ═══════════════════════════════════════════
-   PHILOSOPHY STRIP
+   MANIFESTO — answers "what is Verpome?"
 ═══════════════════════════════════════════ */
-#philosophy{
+#manifesto{
   position:relative;z-index:5;
-  padding:140px 10vw 120px;
-  display:grid;grid-template-columns:auto 1fr;gap:90px;align-items:center;
-  overflow:hidden;
-  border-top:1px solid rgba(244,241,235,.05);
+  padding:200px 10vw 180px;
+  text-align:center;
+  border-top:1px solid rgba(244,241,235,.04);
 }
-#philosophy::before{
-  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
-  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+#manifesto::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:80px;
+  background:linear-gradient(to bottom,transparent,var(--gold));
 }
-.phil-mono{
-  font-family:'Playfair Display',serif;font-weight:300;
-  font-size:clamp(90px,14vw,200px);line-height:1;
-  color:rgba(244,241,235,.04);letter-spacing:-.025em;
+.mf-eye{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.5em;text-transform:uppercase;
+  color:rgba(244,241,235,.3);margin-bottom:36px;display:block;
 }
-.phil-body{max-width:820px}
-.phil-quote{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(24px,3.5vw,48px);font-weight:300;
-  line-height:1.3;color:rgba(244,241,235,.78);margin-bottom:20px;
+.mf-text{
+  font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(28px,4vw,56px);
+  line-height:1.4;color:rgba(244,241,235,.85);
+  max-width:1100px;margin:0 auto 28px;
+  letter-spacing:.005em;
 }
-.phil-quote em{color:var(--gold)}
-.phil-attr{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.35em;text-transform:uppercase;
-  color:rgba(244,241,235,.3);
+.mf-text em{
+  font-style:italic;font-weight:400;
+  color:var(--gold);
+}
+.mf-attr{
+  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
+  color:rgba(244,241,235,.28);
 }
 
 /* ═══════════════════════════════════════════
-   MARQUEE
+   BRANCHES OVERVIEW — 3 columns, light, scannable
 ═══════════════════════════════════════════ */
-.marquee-wrap{
-  position:relative;z-index:5;overflow:hidden;
-  border-top:1px solid rgba(244,241,235,.06);
-  border-bottom:1px solid rgba(244,241,235,.06);
-  padding:16px 0;background:rgba(244,241,235,.012);
+#overview{
+  position:relative;z-index:5;
+  padding:140px 10vw 160px;
+  border-top:1px solid rgba(244,241,235,.04);
+  background:rgba(0,0,0,.1);
 }
-.marquee-track{display:flex;animation:mq 34s linear infinite;white-space:nowrap}
-.marquee-track.rev{animation-direction:reverse;animation-duration:40s}
-.mi{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(13px,1.6vw,19px);color:rgba(244,241,235,.2);
-  padding:0 44px;letter-spacing:.05em;flex-shrink:0;
+.ov-header{text-align:center;margin-bottom:96px}
+.ov-eye{font-family:'Montserrat';font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:rgba(244,241,235,.3);margin-bottom:24px}
+.ov-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,5.5vw,72px);font-weight:300;line-height:1.1;
+  letter-spacing:-.005em;
 }
-.md{color:var(--gold);font-style:normal;opacity:.55}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ov-title em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  color:var(--gold);
+}
+
+.ov-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:rgba(244,241,235,.04);
+  max-width:1280px;margin:0 auto;
+}
+.ov-card{
+  background:var(--g0);
+  padding:64px 48px;
+  display:flex;flex-direction:column;
+  cursor:none;
+  text-decoration:none;
+  color:inherit;
+  transition:background .5s;
+  position:relative;overflow:hidden;
+}
+.ov-card:visited,
+.ov-card:link,
+.ov-card:active{
+  color:inherit;
+  text-decoration:none;
+}
+
+.ov-num{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:14px;letter-spacing:.1em;
+  margin-bottom:20px;
+}
+.ov-card[data-branch="studio"] .ov-num{color:var(--studio)}
+.ov-card[data-branch="house"] .ov-num{color:var(--house)}
+.ov-card[data-branch="bridge"] .ov-num{color:var(--bridge)}
+
+.ov-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,3vw,40px);font-weight:300;line-height:1.05;
+  margin-bottom:16px;letter-spacing:-.005em;
+}
+.ov-name em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  color:rgba(244,241,235,.55);
+}
+.ov-tag{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:15px;line-height:1.5;
+  color:rgba(244,241,235,.6);
+  margin-bottom:36px;
+  letter-spacing:.005em;
+}
+.ov-link{
+  margin-top:auto;
+  font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(244,241,235,.4);text-decoration:none;cursor:none;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:color .3s,gap .4s;
+}
+.ov-card:hover .ov-link{color:var(--cream);gap:18px}
 
 /* ═══════════════════════════════════════════
-   BRANCHES — 4 massive cinematic reveals
+   BRANCHES — full screen detail
 ═══════════════════════════════════════════ */
 .branch{
   position:relative;min-height:100vh;
@@ -327,9 +355,8 @@ nav{
   transition:filter .8s;
 }
 .branch:hover .branch-bg{filter:brightness(.55) saturate(1.3)}
-.branch-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;transition:opacity .6s}
+.branch-overlay{position:absolute;inset:0;z-index:1;pointer-events:none}
 
-/* STUDIO */
 #b-studio .branch-bg{
   background-image:url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1800&q=85');
   filter:brightness(.35) saturate(1.25);
@@ -337,8 +364,6 @@ nav{
 #b-studio .branch-overlay{
   background:linear-gradient(115deg,rgba(2,6,3,.88) 0%,rgba(9,58,34,.25) 55%,rgba(200,134,74,.18) 100%);
 }
-
-/* HOUSE — intimate dinner */
 #b-house .branch-bg{
   background-image:url('assets/house.jpg');
   filter:brightness(.32) saturate(1.2);
@@ -346,73 +371,58 @@ nav{
 #b-house .branch-overlay{
   background:linear-gradient(115deg,rgba(2,4,8,.88) 0%,rgba(9,28,58,.2) 55%,rgba(74,138,191,.15) 100%);
 }
-
-/* CONSULTING — leather brown interior */
-#b-consulting .branch-bg{
+#b-bridge .branch-bg{
   background-image:url('assets/consulting.jpeg');
   filter:brightness(.3) saturate(1.15);
 }
-#b-consulting .branch-overlay{
+#b-bridge .branch-overlay{
   background:linear-gradient(115deg,rgba(4,6,4,.88) 0%,rgba(20,40,25,.25) 55%,rgba(42,102,66,.18) 100%);
 }
 
-/* PAP — Ralph Lauren garden */
-#b-pap .branch-bg{
-  background-image:url('assets/pap.jpg');
-  filter:brightness(.32) saturate(1.1);
-}
-#b-pap .branch-overlay{
-  background:linear-gradient(115deg,rgba(4,8,4,.88) 0%,rgba(40,50,30,.2) 55%,rgba(139,110,76,.2) 100%);
-}
-
-/* Branch content */
 .branch-inner{
   position:relative;z-index:5;
-  padding:0 10vw;max-width:760px;
+  padding:0 10vw;max-width:680px;
 }
 .branch-inner.right{margin-left:auto;text-align:right}
 .branch-inner.right .branch-line{margin-left:auto}
 
 .branch-num{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
-  color:rgba(244,241,235,.22);margin-bottom:18px;display:block;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:13px;letter-spacing:.1em;
+  margin-bottom:24px;display:block;
+  color:rgba(244,241,235,.4);
 }
 .branch-tag{
   display:inline-flex;align-items:center;gap:8px;
-  font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;
-  border:1px solid;padding:8px 16px;margin-bottom:32px;
+  font-family:'Montserrat';font-size:7px;letter-spacing:.32em;text-transform:uppercase;
+  border:1px solid;padding:8px 16px;margin-bottom:36px;
 }
 #b-studio .branch-tag{color:var(--studio);border-color:rgba(200,134,74,.35)}
 #b-house .branch-tag{color:var(--house);border-color:rgba(74,138,191,.35)}
-#b-consulting .branch-tag{color:var(--consulting);border-color:rgba(42,102,66,.45)}
-#b-pap .branch-tag{color:var(--pap);border-color:rgba(139,110,76,.4)}
+#b-bridge .branch-tag{color:var(--bridge);border-color:rgba(42,102,66,.45)}
 
 .branch-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(48px,8vw,120px);font-weight:300;line-height:.92;
-  letter-spacing:-.015em;margin-bottom:28px;
+  font-size:clamp(48px,7.5vw,108px);font-weight:300;line-height:.94;
+  letter-spacing:-.015em;margin-bottom:32px;
 }
-.branch-title em{font-style:italic;opacity:.45}
+.branch-title em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  opacity:.5;
+}
 
-.branch-line{width:52px;height:1px;margin-bottom:28px}
+.branch-line{width:48px;height:1px;margin-bottom:32px}
 #b-studio .branch-line{background:var(--studio)}
 #b-house .branch-line{background:var(--house)}
-#b-consulting .branch-line{background:var(--consulting)}
-#b-pap .branch-line{background:var(--pap)}
-
-.branch-hook{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(18px,2.2vw,26px);font-weight:300;
-  color:rgba(244,241,235,.78);margin-bottom:24px;line-height:1.4;
-  max-width:500px;
-}
-.branch-inner.right .branch-hook{margin-left:auto}
+#b-bridge .branch-line{background:var(--bridge)}
 
 .branch-desc{
   font-family:'Montserrat';font-weight:300;
-  font-size:11px;line-height:2.1;
-  color:rgba(244,241,235,.55);max-width:480px;margin-bottom:40px;
+  font-size:13px;line-height:2.1;
+  color:rgba(244,241,235,.6);max-width:460px;margin-bottom:48px;
 }
+.branch-desc strong{color:var(--cream);font-weight:400}
+.branch-desc .gold-emph{color:var(--gold);font-weight:400}
 .branch-inner.right .branch-desc{margin-left:auto}
 
 .branch-cta{
@@ -424,19 +434,7 @@ nav{
 }
 .branch-cta:hover{gap:22px;border-color:var(--cream)}
 
-/* Coming soon badge for PAP */
-.branch-soon{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--pap);margin-left:18px;
-}
-.branch-soon::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--pap);
-  animation:pls 2s ease-in-out infinite;
-}
-@keyframes pls{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* Branch number massive background */
+/* Massive numerals */
 .branch-mega{
   position:absolute;font-family:'Playfair Display',serif;font-weight:300;
   font-size:clamp(260px,38vw,540px);line-height:.8;
@@ -445,67 +443,62 @@ nav{
 }
 #b-studio .branch-mega{top:-8%;right:-5%}
 #b-house .branch-mega{top:-8%;left:-5%}
-#b-consulting .branch-mega{top:-8%;right:-5%}
-#b-pap .branch-mega{top:-8%;left:-5%}
+#b-bridge .branch-mega{top:-8%;right:-5%}
 
 /* ═══════════════════════════════════════════
-   FOUNDER — worldwide, short, cinematic
+   FOUNDER — soulful, short, centered
 ═══════════════════════════════════════════ */
 #founder{
   position:relative;z-index:5;
   min-height:100vh;
-  display:grid;grid-template-columns:45fr 55fr;
+  padding:160px 10vw;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.25) 0%,transparent 60%),
+    var(--g0);
+  overflow:hidden;
 }
-   
-.founder-visual {
-  position: relative;
-  overflow: hidden;
-  background: url('assets/founder.jpg') center/cover;
-  /* Augmentation massive de brightness de .32 à .75 pour bien voir Greg */
-  filter: brightness(0.75) saturate(1.1);
+#founder::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:72px;
+  background:linear-gradient(to bottom,transparent,var(--gold));
 }
-
-.founder-visual::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  /* On réduit le dégradé noir qui "mangeait" l'image sur la droite */
-  background: linear-gradient(to right, rgba(2, 8, 4, 0.1) 0%, rgba(2, 8, 4, 0.5) 100%);
-}
-   
-.founder-content{
-  padding:120px 80px 120px 72px;
-  display:flex;flex-direction:column;justify-content:center;
-  background:var(--g0);
-}
-.founder-eye{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
-  color:rgba(244,241,235,.25);margin-bottom:24px;
-}
+.founder-eye{font-family:'Montserrat';font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:rgba(244,241,235,.3);margin-bottom:42px}
 .founder-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(44px,5.5vw,82px);font-weight:300;line-height:1;
-  margin-bottom:32px;letter-spacing:-.01em;
+  font-size:clamp(48px,7vw,104px);font-weight:300;line-height:1;
+  margin-bottom:48px;letter-spacing:-.01em;
 }
-.founder-title em{font-style:italic;color:rgba(244,241,235,.4)}
+.founder-title em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  color:rgba(244,241,235,.5);
+}
 .founder-text{
-  font-family:'Montserrat';font-size:12px;line-height:2.1;
-  color:rgba(244,241,235,.55);max-width:480px;margin-bottom:18px;
+  font-family:'Montserrat';font-size:13px;line-height:2.1;
+  color:rgba(244,241,235,.55);max-width:580px;margin:0 auto 20px;
 }
+.founder-text strong{color:var(--cream);font-weight:400}
+.founder-text .gold-emph{color:var(--gold);font-weight:400}
+
 .founder-quote{
-  font-family:'Playfair Display',serif;font-style:italic;
-  font-size:clamp(16px,1.8vw,22px);font-weight:300;
-  color:var(--gold);margin:28px 0;max-width:480px;
-  line-height:1.5;
-  border-left:1px solid rgba(201,169,110,.25);padding-left:18px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  font-size:clamp(20px,2.6vw,32px);
+  color:var(--gold);margin:56px auto;max-width:780px;
+  line-height:1.5;padding:24px 0;
+  border-top:1px solid rgba(201,169,110,.2);
+  border-bottom:1px solid rgba(201,169,110,.2);
+  letter-spacing:.005em;
 }
+
 .founder-stamps{
-  display:flex;flex-wrap:wrap;gap:7px;margin-top:36px;max-width:520px;
+  display:flex;flex-wrap:wrap;gap:7px;margin-top:56px;max-width:820px;
+  justify-content:center;
 }
 .stamp{
   font-family:'Montserrat';font-size:7px;letter-spacing:.22em;text-transform:uppercase;
   border:1px solid rgba(244,241,235,.1);padding:8px 13px;
-  color:rgba(244,241,235,.35);position:relative;overflow:hidden;
+  color:rgba(244,241,235,.38);position:relative;overflow:hidden;
   cursor:none;transition:color .4s,border-color .4s;
 }
 .stamp::before{
@@ -513,16 +506,17 @@ nav{
   background:rgba(244,241,235,.04);transform:scaleX(0);transform-origin:left;
   transition:transform .4s cubic-bezier(.16,1,.3,1);
 }
-.stamp:hover{border-color:rgba(244,241,235,.28);color:var(--cream)}
+.stamp:hover{border-color:rgba(244,241,235,.32);color:var(--cream)}
 .stamp:hover::before{transform:scaleX(1)}
 
 /* ═══════════════════════════════════════════
-   CONTACT — unique form
+   CONTACT
 ═══════════════════════════════════════════ */
 #contact{
   position:relative;z-index:5;
-  padding:160px 10vw;
+  padding:180px 10vw;
   background:var(--g0);
+  border-top:1px solid rgba(244,241,235,.04);
   overflow:hidden;
 }
 #contact::before{
@@ -530,140 +524,120 @@ nav{
   background:radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.2) 0%,transparent 65%);
   pointer-events:none;
 }
-.contact-header{text-align:center;margin-bottom:72px}
-.contact-eye{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.45em;text-transform:uppercase;
-  color:rgba(244,241,235,.25);margin-bottom:22px;
-}
+.contact-header{text-align:center;margin-bottom:88px}
+.contact-eye{font-family:'Montserrat';font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:rgba(244,241,235,.3);margin-bottom:24px}
 .contact-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(48px,8vw,120px);font-weight:300;line-height:.92;
+  font-size:clamp(48px,7.5vw,108px);font-weight:300;line-height:.94;
   letter-spacing:-.015em;
 }
-.contact-title em{font-style:italic;color:rgba(244,241,235,.4)}
+.contact-title em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  color:rgba(244,241,235,.5);
+}
 
 .contact-form{
   max-width:680px;margin:0 auto;
-  display:flex;flex-direction:column;gap:20px;
+  display:flex;flex-direction:column;gap:24px;
 }
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .form-group{position:relative}
-.form-label{
-  font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(244,241,235,.32);margin-bottom:10px;display:block;
-}
+.form-label{font-family:'Montserrat';font-size:7px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,241,235,.34);margin-bottom:12px;display:block}
 .form-input{
   width:100%;background:transparent;
   border:none;border-bottom:1px solid rgba(244,241,235,.15);
-  padding:12px 0;
+  padding:14px 0;
   font-family:'Montserrat';font-size:13px;font-weight:300;
   color:var(--cream);letter-spacing:.04em;outline:none;
   transition:border-color .3s;cursor:none;
 }
 .form-input:focus{border-color:var(--gold)}
-.form-input::placeholder{color:rgba(244,241,235,.18);font-style:italic}
+.form-input::placeholder{
+  color:rgba(244,241,235,.28);
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;
+}
 textarea.form-input{resize:none;min-height:80px}
 
-/* Branch selector — elegant pills */
-.branch-select{
-  display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;
-}
+.branch-select{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 .bs-pill{
   font-family:'Montserrat';font-size:8px;letter-spacing:.22em;text-transform:uppercase;
   color:rgba(244,241,235,.42);
   background:transparent;border:1px solid rgba(244,241,235,.12);
-  padding:10px 18px;cursor:none;
+  padding:11px 20px;cursor:none;
   transition:all .35s;
 }
 .bs-pill:hover{border-color:rgba(244,241,235,.4);color:var(--cream)}
-.bs-pill.active{
-  color:var(--g0);background:var(--gold);border-color:var(--gold);
-}
-.bs-pill input{display:none}
+.bs-pill.active{color:var(--g0);background:var(--gold);border-color:var(--gold)}
 
 .form-submit{
-  margin-top:24px;align-self:flex-start;
+  margin-top:28px;align-self:flex-start;
   background:transparent;border:1px solid var(--gold);
   color:var(--gold);
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
-  padding:16px 36px;cursor:none;
+  padding:16px 38px;cursor:none;
   transition:all .4s cubic-bezier(.16,1,.3,1);
 }
-.form-submit:hover{background:var(--gold);color:var(--g0);padding:16px 48px}
+.form-submit:hover{background:var(--gold);color:var(--g0);padding:16px 50px}
 
 /* ═══════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════ */
 footer{
   position:relative;z-index:5;
-  padding:56px 56px 28px;
+  padding:64px 56px 32px;
   border-top:1px solid rgba(244,241,235,.06);
 }
-.foot-grid{
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;
-  margin-bottom:40px;
-}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px}
 .foot-title{
   font-family:'Playfair Display',serif;font-size:clamp(18px,2vw,26px);
-  font-weight:300;line-height:1.3;margin-bottom:16px;
+  font-weight:300;line-height:1.3;margin-bottom:18px;
 }
-.foot-title em{font-style:italic;color:var(--gold)}
-.foot-sub{
-  font-family:'Montserrat';font-size:10px;line-height:1.9;
-  color:rgba(244,241,235,.4);max-width:320px;
+.foot-title em{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+  color:var(--gold);
 }
-.foot-col-label{
-  font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;
-  color:rgba(244,241,235,.25);margin-bottom:14px;
-}
+.foot-sub{font-family:'Montserrat';font-size:10px;line-height:1.9;color:rgba(244,241,235,.42);max-width:320px}
+.foot-col-label{font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;color:rgba(244,241,235,.28);margin-bottom:14px}
 .foot-link{
   display:block;font-family:'Montserrat';font-size:10px;
   color:rgba(244,241,235,.45);text-decoration:none;cursor:none;
   padding:4px 0;transition:color .3s;
 }
 .foot-link:hover{color:var(--cream)}
+.foot-pap-note{
+  display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:11px;color:rgba(201,169,110,.4);
+  padding-top:8px;letter-spacing:.02em;
+}
 .foot-bottom{
   display:flex;justify-content:space-between;align-items:center;
-  padding-top:24px;border-top:1px solid rgba(244,241,235,.04);
+  padding-top:28px;border-top:1px solid rgba(244,241,235,.04);
 }
-.foot-logo{
-  font-family:'Playfair Display',serif;font-size:10px;letter-spacing:.45em;
-  text-transform:uppercase;color:rgba(244,241,235,.28);
-}
-.foot-r{
-  font-family:'Montserrat';font-size:8px;letter-spacing:.18em;
-  color:rgba(244,241,235,.22);
-}
+.foot-logo{font-family:'Playfair Display',serif;font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:rgba(244,241,235,.28)}
+.foot-r{font-family:'Montserrat';font-size:8px;letter-spacing:.18em;color:rgba(244,241,235,.22)}
 
-/* ═══════════════════════════════════════════
-   REVEAL
-═══════════════════════════════════════════ */
+/* REVEAL */
 .rv{opacity:0;transform:translateY(32px)}
 .rv-l{opacity:0;transform:translateX(-32px)}
-.rv-r{opacity:0;transform:translateX(32px)}
 .rv-s{opacity:0;transform:scale(.95)}
 
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:20px 24px}
   .nav-links{display:none}
   #thread{display:none}
   .corner{display:none}
-  #philosophy{grid-template-columns:1fr;gap:40px;padding:80px 24px}
-  .phil-mono{display:none}
+  #manifesto{padding:120px 24px 100px}
+  #overview{padding:100px 24px}
+  .ov-grid{grid-template-columns:1fr;gap:1px}
   .branch-inner{padding:0 24px}
   .branch-inner.right{margin-left:0;text-align:left}
   .branch-inner.right .branch-line,
-  .branch-inner.right .branch-hook,
   .branch-inner.right .branch-desc{margin-left:0}
   .branch-mega{display:none}
   .branch-title{font-size:clamp(40px,10vw,72px)}
-  #founder{grid-template-columns:1fr}
-  .founder-visual{height:320px}
-  .founder-content{padding:60px 24px}
-  #contact{padding:100px 24px}
+  #founder{padding:100px 24px}
+  #contact{padding:120px 24px}
   .form-row{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
   footer{padding:40px 24px 24px}
@@ -686,10 +660,10 @@ footer{
   </div>
   <div class="ld-bar-w"><div class="ld-bar" id="ldBar"></div></div>
   <div class="ld-pct" id="ldPct">0%</div>
-  <div class="ld-sub" id="ldSub">— between people, cultures & opportunities</div>
+  <div class="ld-sub" id="ldSub">between people, cultures & opportunities</div>
 </div>
 
-<!-- GOLDEN THREAD — fixed, scrolls through entire page -->
+<!-- GOLDEN THREAD -->
 <div id="thread">
   <svg viewBox="0 0 80 700" preserveAspectRatio="none">
     <defs>
@@ -703,7 +677,6 @@ footer{
     </defs>
     <path id="threadPath" d="M 40 0 Q 20 100, 40 200 T 40 400 Q 60 500, 40 600 T 40 700"
       stroke="url(#goldG)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-    <!-- Secondary thinner thread -->
     <path d="M 40 0 Q 55 100, 40 200 T 40 400 Q 30 500, 40 600 T 40 700"
       stroke="rgba(201,169,110,.2)" stroke-width=".5" fill="none" stroke-linecap="round"/>
   </svg>
@@ -714,10 +687,10 @@ footer{
   <a href="#hero" class="nav-logo">Verpome</a>
   <div class="nav-r">
     <ul class="nav-links">
+      <li><a href="#overview">The House</a></li>
       <li><a href="#b-studio">Studio</a></li>
       <li><a href="#b-house">House</a></li>
-      <li><a href="#b-consulting">Consulting</a></li>
-      <li><a href="#b-pap">Prêt-à-Porter</a></li>
+      <li><a href="#b-bridge">Bridge</a></li>
       <li><a href="#founder">Founder</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Get in touch</a>
@@ -734,18 +707,15 @@ footer{
   <div class="corner bl"></div>
   <div class="corner br"></div>
 
-  <div class="hero-eye">Verpome — Building Bridges Between Worlds</div>
+  <div class="hero-eye">A Creative House — Est. 2026</div>
 
   <h1 class="hero-title">
-    <span class="line"><span data-text="Building">Building</span></span>
-    <span class="line"><span data-text="Bridges">Bridges</span></span>
-    <span class="line"><span data-text="Between">Between</span></span>
-    <span class="line"><span data-text="Worlds.">Worlds.</span></span>
+    <span class="line"><span data-text="VERPOME">VERPOME</span></span>
   </h1>
 
-  <p class="hero-tag">People. Cultures. Opportunities.<br>Bangkok · Paris · The World.</p>
+  <p class="hero-subtitle">Building bridges between worlds.</p>
 
-  <a href="#philosophy" class="hero-cta">Enter The World →</a>
+  <a href="#manifesto" class="hero-cta">Discover the House →</a>
 
   <div class="hero-scroll">
     <div class="scroll-line"></div>
@@ -754,157 +724,120 @@ footer{
   <div class="hero-tc" id="tc">00:00:00:00</div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section id="philosophy">
-  <div class="phil-mono rv">01</div>
-  <div class="phil-body">
-    <p class="phil-quote rv">
-      "A house built on one belief: that the <em>right people</em>,<br>in the <em>right rooms</em>, can change <em>everything</em>."
-    </p>
-    <span class="phil-attr rv">— Verpome, Est. 2026</span>
+<!-- MANIFESTO — answers "what is Verpome?" -->
+<section id="manifesto">
+  <span class="mf-eye rv">The House</span>
+  <p class="mf-text rv">
+    A creative house with three branches.<br>
+    One belief: that the <em>right people</em>, in the <em>right rooms</em>,<br>
+    can change everything.
+  </p>
+  <span class="mf-attr rv">Bangkok · Paris · The World</span>
+</section>
+
+<!-- BRANCHES OVERVIEW — 3 columns, light & scannable -->
+<section id="overview">
+  <div class="ov-header">
+    <div class="ov-eye rv">Three Branches, One Philosophy</div>
+    <h2 class="ov-title rv">Built around <em>what matters.</em></h2>
+  </div>
+  <div class="ov-grid">
+    <a href="#b-studio" class="ov-card rv" data-branch="studio">
+      <span class="ov-num">i.</span>
+      <h3 class="ov-name">Studio<br><em>Visual creation.</em></h3>
+      <p class="ov-tag">Telling your story properly — through image, video, and digital craft.</p>
+      <span class="ov-link">Discover Studio →</span>
+    </a>
+    <a href="#b-house" class="ov-card rv" data-branch="house">
+      <span class="ov-num">ii.</span>
+      <h3 class="ov-name">House<br><em>A private circle.</em></h3>
+      <p class="ov-tag">A curated network of international founders, creatives, and leaders.</p>
+      <span class="ov-link">Discover House →</span>
+    </a>
+    <a href="#b-bridge" class="ov-card rv" data-branch="bridge">
+      <span class="ov-num">iii.</span>
+      <h3 class="ov-name">Bridge<br><em>Connecting worlds.</em></h3>
+      <p class="ov-tag">Putting the right people in the right rooms — between Europe and Asia.</p>
+      <span class="ov-link">Discover Bridge →</span>
+    </a>
   </div>
 </section>
 
-<!-- MARQUEE 1 -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span class="mi">Visual Creation <span class="md">✦</span></span>
-    <span class="mi">Private Network <span class="md">✦</span></span>
-    <span class="mi">Business Development <span class="md">✦</span></span>
-    <span class="mi">Prêt-à-Porter <span class="md">✦</span></span>
-    <span class="mi">Bangkok · Paris · São Paulo · New York <span class="md">✦</span></span>
-    <span class="mi">Building Bridges <span class="md">✦</span></span>
-    <span class="mi">Visual Creation <span class="md">✦</span></span>
-    <span class="mi">Private Network <span class="md">✦</span></span>
-    <span class="mi">Business Development <span class="md">✦</span></span>
-    <span class="mi">Prêt-à-Porter <span class="md">✦</span></span>
-    <span class="mi">Bangkok · Paris · São Paulo · New York <span class="md">✦</span></span>
-    <span class="mi">Building Bridges <span class="md">✦</span></span>
-  </div>
-</div>
-
-<!-- BRANCH 01 — STUDIO -->
+<!-- STUDIO -->
 <section class="branch" id="b-studio">
   <div class="branch-bg"></div>
   <div class="branch-overlay"></div>
-  <div class="branch-mega">01</div>
+  <div class="branch-mega">i.</div>
   <div class="branch-inner">
-    <span class="branch-num rv">01 / 04</span>
+    <span class="branch-num rv">Branch I</span>
     <div class="branch-tag rv">Verpome Studio</div>
-    <h2 class="branch-title rv">Your Story<br><em>Deserves to be</em><br>Told Properly.</h2>
+    <h2 class="branch-title rv">Your story,<br><em>told properly.</em></h2>
     <div class="branch-line rv"></div>
-    <p class="branch-hook rv">Verpome Studio is our visual creation arm.</p>
-    <p class="branch-desc rv">Photography, video, and digital strategy for entrepreneurs and brands who refuse to blend in. We don't produce content. We build an image. Every project starts with understanding your world, and ends with visuals that make people believe in what you're building. Based in Bangkok, working internationally.</p>
+    <p class="branch-desc rv">Photography, video, and digital strategy for entrepreneurs and brands who <span class="gold-emph">refuse to blend in</span>. We don't produce content. <strong>We build an image</strong> — one that makes people believe in what you're building.</p>
     <a href="#contact" class="branch-cta rv" data-branch="studio">Work with Studio →</a>
   </div>
 </section>
 
-<!-- MARQUEE 2 REVERSE -->
-<div class="marquee-wrap">
-  <div class="marquee-track rev">
-    <span class="mi">South Africa <span class="md">✦</span></span>
-    <span class="mi">Brazil <span class="md">✦</span></span>
-    <span class="mi">France <span class="md">✦</span></span>
-    <span class="mi">Thailand <span class="md">✦</span></span>
-    <span class="mi">United States <span class="md">✦</span></span>
-    <span class="mi">Spain <span class="md">✦</span></span>
-    <span class="mi">Italy <span class="md">✦</span></span>
-    <span class="mi">Greece <span class="md">✦</span></span>
-    <span class="mi">South Africa <span class="md">✦</span></span>
-    <span class="mi">Brazil <span class="md">✦</span></span>
-    <span class="mi">France <span class="md">✦</span></span>
-    <span class="mi">Thailand <span class="md">✦</span></span>
-    <span class="mi">United States <span class="md">✦</span></span>
-    <span class="mi">Spain <span class="md">✦</span></span>
-    <span class="mi">Italy <span class="md">✦</span></span>
-    <span class="mi">Greece <span class="md">✦</span></span>
-  </div>
-</div>
-
-<!-- BRANCH 02 — HOUSE -->
+<!-- HOUSE -->
 <section class="branch" id="b-house">
   <div class="branch-bg"></div>
   <div class="branch-overlay"></div>
-  <div class="branch-mega">02</div>
+  <div class="branch-mega">ii.</div>
   <div class="branch-inner right">
-    <span class="branch-num rv">02 / 04</span>
+    <span class="branch-num rv">Branch II</span>
     <div class="branch-tag rv">Verpome House</div>
-    <h2 class="branch-title rv">A Curated<br>Network of <em>People</em><br>Actually Building.</h2>
+    <h2 class="branch-title rv">A private circle,<br><em>by design.</em></h2>
     <div class="branch-line rv"></div>
-    <p class="branch-hook rv">Verpome House is a private circle.</p>
-    <p class="branch-desc rv">International founders, creatives, and leaders connected by one thing: they're in the arena. Not a community for networking. A space for the people behind real projects to exchange, collaborate, and grow together. Selective by design. The value is in who's in the room.</p>
+    <p class="branch-desc rv">A curated network of <strong>international founders</strong>, creatives, and leaders. Not a community for networking — a space for the people behind <span class="gold-emph">real projects</span> to grow together.</p>
     <a href="#contact" class="branch-cta rv" data-branch="house">Apply to House →</a>
   </div>
 </section>
 
-<!-- BRANCH 03 — CONSULTING -->
-<section class="branch" id="b-consulting">
+<!-- BRIDGE — formerly Consulting -->
+<section class="branch" id="b-bridge">
   <div class="branch-bg"></div>
   <div class="branch-overlay"></div>
-  <div class="branch-mega">03</div>
+  <div class="branch-mega">iii.</div>
   <div class="branch-inner">
-    <span class="branch-num rv">03 / 04</span>
-    <div class="branch-tag rv">Verpome Consulting</div>
-    <h2 class="branch-title rv">Europe Meets<br><em>Asia.</em><br>The Right People,<br>The Right Room.</h2>
+    <span class="branch-num rv">Branch III</span>
+    <div class="branch-tag rv">Verpome Bridge</div>
+    <h2 class="branch-title rv">The right people,<br><em>in the right rooms.</em></h2>
     <div class="branch-line rv"></div>
-    <p class="branch-hook rv">Verpome Consulting bridges markets that don't naturally talk.</p>
-    <p class="branch-desc rv">We identify opportunities between Europe and Southeast Asia, connect the right partners, and structure deals that make sense for both sides. Strategic business development built on relationships, not cold outreach. Commission-based — we only win when you do.</p>
-    <a href="#contact" class="branch-cta rv" data-branch="consulting">Start a Conversation →</a>
+    <p class="branch-desc rv">Connecting markets that don't naturally talk. We identify <strong>opportunities</strong> between Europe and Southeast Asia, then bring the right partners together. Built on <span class="gold-emph">relationships</span>, never cold outreach.</p>
+    <a href="#contact" class="branch-cta rv" data-branch="bridge">Start a conversation →</a>
   </div>
 </section>
 
-<!-- BRANCH 04 — PRET A PORTER -->
-<section class="branch" id="b-pap">
-  <div class="branch-bg"></div>
-  <div class="branch-overlay"></div>
-  <div class="branch-mega">04</div>
-  <div class="branch-inner right">
-    <span class="branch-num rv">
-      04 / 04
-      <span class="branch-soon">Coming Soon</span>
-    </span>
-    <div class="branch-tag rv">Verpome Prêt-à-Porter</div>
-    <h2 class="branch-title rv">Wear What<br><em>You Believe</em><br>In.</h2>
-    <div class="branch-line rv"></div>
-    <p class="branch-hook rv">Our forthcoming line — a capsule rooted in our philosophy.</p>
-    <p class="branch-desc rv">Sober, intentional, designed for people who move between worlds. Not fashion for fashion's sake. Pieces that carry the Verpome DNA: understated elegance, international mindset, built to last.</p>
-    <a href="#contact" class="branch-cta rv" data-branch="pap">Join the waitlist →</a>
-  </div>
-</section>
-
-<!-- FOUNDER — worldwide, short -->
+<!-- FOUNDER -->
 <section id="founder">
-  <div class="founder-visual"></div>
-  <div class="founder-content">
-    <div class="founder-eye">The Founder</div>
-    <h2 class="founder-title rv">Grégoire<br>Thibaut.<br><em>Builder.</em></h2>
-    <p class="founder-text rv">Born in Lyon, shaped by the world. A life spent moving between cultures, cities, and continents — each new place a different way of seeing light, people, and stories worth telling.</p>
-    <p class="founder-text rv">Verpome was built the way its founder has always lived: internationally, intentionally, and without shortcuts.</p>
-    <div class="founder-quote rv">"I'm building bridges between people, cultures and opportunities."</div>
-    <div class="founder-stamps rv">
-      <span class="stamp">🇩🇪 Germany</span>
-      <span class="stamp">🇿🇦 South Africa</span>
-      <span class="stamp">🇧🇷 Brazil</span>
-      <span class="stamp">🇳🇦 Namibia</span>
-      <span class="stamp">🇺🇸 USA</span>
-      <span class="stamp">🇨🇦 Canada</span>
-      <span class="stamp">🇵🇪 Peru</span>
-      <span class="stamp">🇧🇴 Bolivia</span>
-      <span class="stamp">🇨🇱 Chile</span>
-      <span class="stamp">🇫🇷 France</span>
-      <span class="stamp">🇲🇨 Monaco</span>
-      <span class="stamp">🇪🇸 Spain</span>
-      <span class="stamp">🇵🇹 Portugal</span>
-      <span class="stamp">🇮🇹 Italy</span>
-      <span class="stamp">🇬🇷 Greece</span>
-      <span class="stamp">🇨🇭 Switzerland</span>
-      <span class="stamp">🇩🇰 Denmark</span>
-      <span class="stamp">🇬🇧 UK</span>
-      <span class="stamp">🇮🇲 Isle of Man</span>
-      <span class="stamp">🇰🇭 Cambodia</span>
-      <span class="stamp">🇹🇭 Thailand</span>
-      <span class="stamp">🌍 Building Bridges</span>
-    </div>
+  <div class="founder-eye">The Founder</div>
+  <h2 class="founder-title rv">Grégoire<br>Thibaut.<br><em>Builder.</em></h2>
+  <p class="founder-text rv">Born in <strong>Lyon</strong>, shaped by the <span class="gold-emph">world</span>. A life spent moving between cultures, cities, and continents — each new place teaching a different way of seeing light, people, and stories worth telling.</p>
+  <p class="founder-text rv">Verpome was built the way its founder has always lived: <strong>internationally</strong>, <strong>intentionally</strong>, and <span class="gold-emph">without shortcuts</span>.</p>
+  <div class="founder-quote rv">"I'm building bridges between people, cultures and opportunities."</div>
+  <div class="founder-stamps rv">
+    <span class="stamp">🇩🇪 Germany</span>
+    <span class="stamp">🇿🇦 South Africa</span>
+    <span class="stamp">🇧🇷 Brazil</span>
+    <span class="stamp">🇳🇦 Namibia</span>
+    <span class="stamp">🇺🇸 USA</span>
+    <span class="stamp">🇨🇦 Canada</span>
+    <span class="stamp">🇵🇪 Peru</span>
+    <span class="stamp">🇧🇴 Bolivia</span>
+    <span class="stamp">🇨🇱 Chile</span>
+    <span class="stamp">🇫🇷 France</span>
+    <span class="stamp">🇲🇨 Monaco</span>
+    <span class="stamp">🇪🇸 Spain</span>
+    <span class="stamp">🇵🇹 Portugal</span>
+    <span class="stamp">🇮🇹 Italy</span>
+    <span class="stamp">🇬🇷 Greece</span>
+    <span class="stamp">🇨🇭 Switzerland</span>
+    <span class="stamp">🇩🇰 Denmark</span>
+    <span class="stamp">🇬🇧 UK</span>
+    <span class="stamp">🇮🇲 Isle of Man</span>
+    <span class="stamp">🇰🇭 Cambodia</span>
+    <span class="stamp">🇹🇭 Thailand</span>
+    <span class="stamp">🌍 Building Bridges</span>
   </div>
 </section>
 
@@ -912,7 +845,7 @@ footer{
 <section id="contact">
   <div class="contact-header">
     <div class="contact-eye rv">Let's Build Something</div>
-    <h2 class="contact-title rv">Start a<br><em>Conversation.</em></h2>
+    <h2 class="contact-title rv">Start a<br><em>conversation.</em></h2>
   </div>
 
   <form class="contact-form" id="vForm" onsubmit="return false">
@@ -921,8 +854,7 @@ footer{
       <div class="branch-select">
         <button type="button" class="bs-pill" data-branch="studio">Studio</button>
         <button type="button" class="bs-pill" data-branch="house">House</button>
-        <button type="button" class="bs-pill" data-branch="consulting">Consulting</button>
-        <button type="button" class="bs-pill" data-branch="pap">Prêt-à-Porter</button>
+        <button type="button" class="bs-pill" data-branch="bridge">Bridge</button>
       </div>
     </div>
 
@@ -955,20 +887,20 @@ footer{
 <footer>
   <div class="foot-grid">
     <div>
-      <h3 class="foot-title">Verpome.<br><em>Building Bridges</em><br>Between Worlds.</h3>
+      <h3 class="foot-title">Verpome.<br><em>Building bridges</em><br>between worlds.</h3>
       <p class="foot-sub">A creative house connecting people, cultures and opportunities across borders.</p>
     </div>
     <div>
       <div class="foot-col-label">Branches</div>
       <a href="#b-studio" class="foot-link">Studio</a>
       <a href="#b-house" class="foot-link">House</a>
-      <a href="#b-consulting" class="foot-link">Consulting</a>
-      <a href="#b-pap" class="foot-link">Prêt-à-Porter</a>
+      <a href="#b-bridge" class="foot-link">Bridge</a>
+      <span class="foot-pap-note">Prêt-à-Porter — coming 2027</span>
     </div>
     <div>
-      <div class="foot-col-label">Company</div>
+      <div class="foot-col-label">House</div>
+      <a href="#manifesto" class="foot-link">Manifesto</a>
       <a href="#founder" class="foot-link">Founder</a>
-      <a href="#philosophy" class="foot-link">Philosophy</a>
       <a href="#contact" class="foot-link">Contact</a>
     </div>
     <div>
@@ -987,7 +919,7 @@ footer{
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// ─── CURSOR
+// CURSOR
 const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
 let mx=0,my=0,cx=0,cy=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
@@ -997,19 +929,19 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
   curR.style.left=rx+'px';curR.style.top=ry+'px';
   requestAnimationFrame(tick);
 })();
-document.querySelectorAll('a,button,.stamp,.bs-pill,.branch-cta,.hero-cta,.nav-cta,.form-input').forEach(el=>{
+document.querySelectorAll('a,button,.stamp,.bs-pill,.branch-cta,.hero-cta,.nav-cta,.form-input,.ov-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
 });
 
-// ─── TIMECODE
+// TIMECODE
 const tc=document.getElementById('tc');
 let fr=0;
 setInterval(()=>{fr++;const f=fr%30,s=Math.floor(fr/30)%60,m=Math.floor(fr/1800)%60,h=Math.floor(fr/108000);
   tc.textContent=[h,m,s,f].map(v=>String(v).padStart(2,'0')).join(':');
 },33);
 
-// ─── LEATHER CANVAS — living leather (moving radial light on mouse + subtle ripple)
+// LEATHER CANVAS
 const lc=document.getElementById('leather-canvas'),lx=lc.getContext('2d');
 let LW,LH,lmx=.5,lmy=.4,lt=0;
 function rszLC(){LW=lc.width=window.innerWidth*devicePixelRatio;LH=lc.height=window.innerHeight*devicePixelRatio;lc.style.width=window.innerWidth+'px';lc.style.height=window.innerHeight+'px'}
@@ -1018,7 +950,6 @@ document.addEventListener('mousemove',e=>{lmx=e.clientX/window.innerWidth;lmy=e.
 function drawLC(){
   lt+=.0015;
   lx.clearRect(0,0,LW,LH);
-  // Moving radial light — the leather catching light as you move
   const cx=lmx*LW,cy=lmy*LH;
   const g1=lx.createRadialGradient(cx,cy,0,cx,cy,Math.max(LW,LH)*.55);
   g1.addColorStop(0,'rgba(80,180,115,.14)');
@@ -1026,7 +957,6 @@ function drawLC(){
   g1.addColorStop(.6,'rgba(9,58,34,.02)');
   g1.addColorStop(1,'rgba(0,0,0,0)');
   lx.fillStyle=g1;lx.fillRect(0,0,LW,LH);
-  // Secondary slow-moving highlight
   const sx=(.5+Math.sin(lt)*.3)*LW,sy=(.4+Math.cos(lt*.7)*.2)*LH;
   const g2=lx.createRadialGradient(sx,sy,0,sx,sy,Math.max(LW,LH)*.35);
   g2.addColorStop(0,'rgba(201,169,110,.07)');
@@ -1037,7 +967,7 @@ function drawLC(){
 }
 drawLC();
 
-// ─── LOADER
+// LOADER
 const ldBar=document.getElementById('ldBar'),ldPct=document.getElementById('ldPct');
 const ld=document.getElementById('loader');
 const ldSub=document.getElementById('ldSub');
@@ -1059,25 +989,22 @@ const ldi=setInterval(()=>{
 },42);
 
 function initPage(){
-  // Nav
   gsap.to('.nav-logo',{opacity:1,duration:.9,delay:.1,ease:'power2.out'});
   gsap.to('.nav-links a',{opacity:1,duration:.8,delay:.3,stagger:.06,ease:'power2.out'});
   gsap.to('.nav-cta',{opacity:1,duration:.8,delay:.6,ease:'power2.out'});
-  // HUD corners
   gsap.to('.corner',{opacity:1,duration:.8,delay:.35,stagger:.08,ease:'power2.out'});
-  // Hero
   gsap.to('.hero-eye',{opacity:1,y:0,duration:.9,delay:.5,ease:'power3.out'});
 
-  // Title fill effect — staggered outline → fill
+  // Title fill — single VERPOME word
   const titleLines=document.querySelectorAll('.hero-title .line span');
   titleLines.forEach((s,i)=>{
-    setTimeout(()=>s.classList.add('fill'),800+i*350);
-    setTimeout(()=>s.classList.add('filled'),800+i*350+1200);
+    setTimeout(()=>s.classList.add('fill'),900+i*200);
+    setTimeout(()=>s.classList.add('filled'),900+i*200+1400);
   });
 
-  gsap.to('.hero-tag',{opacity:1,y:0,duration:.8,delay:2.8,ease:'power3.out'});
-  gsap.to('.hero-cta',{opacity:1,duration:.9,delay:3.1,ease:'power2.out'});
-  gsap.to(['.hero-scroll','.hero-tc'],{opacity:1,duration:.8,delay:3.4,ease:'power2.out'});
+  gsap.to('.hero-subtitle',{opacity:1,y:0,duration:.9,delay:2.4,ease:'power3.out'});
+  gsap.to('.hero-cta',{opacity:1,duration:.9,delay:2.7,ease:'power2.out'});
+  gsap.to(['.hero-scroll','.hero-tc'],{opacity:1,duration:.8,delay:3,ease:'power2.out'});
 
   // Branch parallax
   document.querySelectorAll('.branch').forEach(b=>{
@@ -1091,46 +1018,38 @@ function initPage(){
       gsap.to(mega,{yPercent:-30,ease:'none',
         scrollTrigger:{trigger:b,start:'top bottom',end:'bottom top',scrub:.8}});
     }
-    // Z-axis clip reveal
     gsap.fromTo(b,
       {clipPath:'inset(6% 0 6% 0)'},
       {clipPath:'inset(0% 0 0% 0)',ease:'power2.out',
         scrollTrigger:{trigger:b,start:'top 90%',end:'top 20%',scrub:.8}});
   });
 
-  // Reveal triggers
+  // Reveals
   gsap.utils.toArray('.rv').forEach(el=>{
     gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',
       scrollTrigger:{trigger:el,start:'top 88%'}});
   });
-  gsap.utils.toArray('.rv-l').forEach(el=>{
-    gsap.to(el,{opacity:1,x:0,duration:.9,ease:'power3.out',
-      scrollTrigger:{trigger:el,start:'top 85%'}});
-  });
 
-  // Hero parallax on scroll
+  // Hero parallax
   gsap.to('.hero-title',{y:80,ease:'none',
     scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:.9}});
-  gsap.to('.hero-tag',{y:50,ease:'none',
+  gsap.to('.hero-subtitle',{y:50,ease:'none',
     scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:.6}});
 
-  // Golden thread — reveals as you scroll
+  // Golden thread
   gsap.to('#threadPath',{
-    strokeDasharray:'1400',
-    strokeDashoffset:0,
-    ease:'none',
+    strokeDasharray:'1400',strokeDashoffset:0,ease:'none',
     scrollTrigger:{trigger:'body',start:'top top',end:'bottom bottom',scrub:true}
   });
 }
 
-// ─── CONTACT FORM — branch selector
+// CONTACT FORM
 document.querySelectorAll('.bs-pill').forEach(pill=>{
   pill.addEventListener('click',()=>{
     document.querySelectorAll('.bs-pill').forEach(p=>p.classList.remove('active'));
     pill.classList.add('active');
   });
 });
-// Preselect when clicking branch CTA
 document.querySelectorAll('.branch-cta').forEach(cta=>{
   cta.addEventListener('click',()=>{
     const target=cta.dataset.branch;
@@ -1142,7 +1061,7 @@ document.querySelectorAll('.branch-cta').forEach(cta=>{
   });
 });
 
-// ─── SMOOTH SCROLL
+// SMOOTH SCROLL
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     const t=document.querySelector(a.getAttribute('href'));
@@ -1150,7 +1069,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-// ─── FORM SUBMIT
+// FORM SUBMIT
 document.getElementById('vForm').addEventListener('submit',e=>{
   e.preventDefault();
   const btn=e.target.querySelector('.form-submit');
