@@ -23,7 +23,6 @@ body{
   color:var(--cream);
   font-family:'Montserrat',sans-serif;
   font-weight:300;
-  cursor:none;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
@@ -31,22 +30,6 @@ body{
 /* EMPHASIS */
 strong{font-weight:400;color:var(--cream)}
 .gold-emph{color:var(--gold);font-weight:400}
-
-/* CURSOR */
-#cur{
-  position:fixed;width:6px;height:6px;border-radius:50%;
-  background:var(--cream);pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);mix-blend-mode:difference;
-  transition:width .25s,height .25s;
-}
-#cur-r{
-  position:fixed;width:36px;height:36px;
-  border:1px solid rgba(244,241,235,.28);border-radius:50%;
-  pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
-  transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),border-color .3s;
-}
-body.hov #cur{width:4px;height:4px}
-body.hov #cur-r{width:60px;height:60px;border-color:rgba(244,241,235,.55)}
 
 /* GRAIN */
 .grain{
@@ -88,20 +71,20 @@ nav{
 .nav-logo{
   font-family:'Playfair Display',serif;font-weight:300;
   font-size:13px;letter-spacing:.5em;text-transform:uppercase;
-  color:var(--cream);opacity:0;text-decoration:none;cursor:none;
+  color:var(--cream);opacity:0;text-decoration:none;
 }
 .nav-r{display:flex;gap:40px;align-items:center}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(244,241,235,.5);text-decoration:none;cursor:none;
+  color:rgba(244,241,235,.5);text-decoration:none;
   transition:color .3s;opacity:0;
 }
 .nav-links a:hover{color:var(--cream)}
 .nav-cta{
   font-family:'Montserrat';font-size:8px;letter-spacing:.25em;text-transform:uppercase;
   color:var(--cream);border:1px solid rgba(244,241,235,.25);
-  padding:10px 22px;text-decoration:none;cursor:none;
+  padding:10px 22px;text-decoration:none;
   transition:border-color .4s,background .4s;opacity:0;
 }
 .nav-cta:hover{border-color:var(--cream);background:rgba(244,241,235,.04)}
@@ -204,7 +187,7 @@ nav{
   display:inline-flex;align-items:center;gap:14px;
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
   color:var(--cream);border:1px solid rgba(244,241,235,.22);
-  padding:15px 34px;text-decoration:none;cursor:none;
+  padding:15px 34px;text-decoration:none;
   opacity:0;
   transition:border-color .4s,gap .4s,background .4s;
 }
@@ -333,7 +316,7 @@ nav{
 .ov-link{
   margin-top:auto;
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
-  color:rgba(244,241,235,.4);text-decoration:none;cursor:none;
+  color:rgba(244,241,235,.4);text-decoration:none;
   display:inline-flex;align-items:center;gap:10px;
   transition:color .3s,gap .4s;
 }
@@ -346,7 +329,6 @@ nav{
   position:relative;min-height:100vh;
   display:flex;align-items:center;
   overflow:hidden;z-index:5;
-  cursor:none;
 }
 .branch-bg{
   position:absolute;inset:0;z-index:0;
@@ -428,7 +410,7 @@ nav{
 .branch-cta{
   display:inline-flex;align-items:center;gap:12px;
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--cream);text-decoration:none;cursor:none;
+  color:var(--cream);text-decoration:none;
   border-bottom:1px solid rgba(244,241,235,.18);padding-bottom:3px;
   transition:gap .4s,border-color .4s;
 }
@@ -549,7 +531,7 @@ nav{
   padding:14px 0;
   font-family:'Montserrat';font-size:13px;font-weight:300;
   color:var(--cream);letter-spacing:.04em;outline:none;
-  transition:border-color .3s;cursor:none;
+  transition:border-color .3s;
 }
 .form-input:focus{border-color:var(--gold)}
 .form-input::placeholder{
@@ -563,7 +545,7 @@ textarea.form-input{resize:none;min-height:80px}
   font-family:'Montserrat';font-size:8px;letter-spacing:.22em;text-transform:uppercase;
   color:rgba(244,241,235,.42);
   background:transparent;border:1px solid rgba(244,241,235,.12);
-  padding:11px 20px;cursor:none;
+  padding:11px 20px;
   transition:all .35s;
 }
 .bs-pill:hover{border-color:rgba(244,241,235,.4);color:var(--cream)}
@@ -574,7 +556,7 @@ textarea.form-input{resize:none;min-height:80px}
   background:transparent;border:1px solid var(--gold);
   color:var(--gold);
   font-family:'Montserrat';font-size:8px;letter-spacing:.3em;text-transform:uppercase;
-  padding:16px 38px;cursor:none;
+  padding:16px 38px;
   transition:all .4s cubic-bezier(.16,1,.3,1);
 }
 .form-submit:hover{background:var(--gold);color:var(--g0);padding:16px 50px}
@@ -600,7 +582,7 @@ footer{
 .foot-col-label{font-family:'Montserrat';font-size:7px;letter-spacing:.35em;text-transform:uppercase;color:rgba(244,241,235,.28);margin-bottom:14px}
 .foot-link{
   display:block;font-family:'Montserrat';font-size:10px;
-  color:rgba(244,241,235,.45);text-decoration:none;cursor:none;
+  color:rgba(244,241,235,.45);text-decoration:none;
   padding:4px 0;transition:color .3s;
 }
 .foot-link:hover{color:var(--cream)}
@@ -648,8 +630,6 @@ footer{
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="cur-r"></div>
 <div class="grain"></div>
 
 <!-- LOADER -->
@@ -918,21 +898,6 @@ footer{
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
-
-// CURSOR
-const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
-let mx=0,my=0,cx=0,cy=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-(function tick(){
-  cx+=(mx-cx)*.15;cy+=(my-cy)*.15;rx+=(mx-rx)*.08;ry+=(my-ry)*.08;
-  cur.style.left=cx+'px';cur.style.top=cy+'px';
-  curR.style.left=rx+'px';curR.style.top=ry+'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a,button,.stamp,.bs-pill,.branch-cta,.hero-cta,.nav-cta,.form-input,.ov-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
-});
 
 // TIMECODE
 const tc=document.getElementById('tc');
