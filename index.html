@@ -560,6 +560,8 @@ textarea.form-input{resize:none;min-height:80px}
   transition:all .4s cubic-bezier(.16,1,.3,1);
 }
 .form-submit:hover{background:var(--gold);color:var(--g0);padding:16px 50px}
+.form-alt{font-family:'Montserrat';font-size:10px;letter-spacing:.06em;color:rgba(244,241,235,.4);margin-top:4px}
+.form-alt a{color:rgba(244,241,235,.7);text-decoration:none;border-bottom:1px solid rgba(244,241,235,.2)}
 
 /* ═══════════════════════════════════════════
    FOOTER
@@ -841,25 +843,26 @@ footer{
     <div class="form-row">
       <div class="form-group rv">
         <label class="form-label">Your Name</label>
-        <input class="form-input" type="text" placeholder="Rose, Peter, Louis…">
+        <input class="form-input" id="fName" type="text" placeholder="Rose, Peter, Louis…" required>
       </div>
       <div class="form-group rv">
         <label class="form-label">Your Email</label>
-        <input class="form-input" type="email" placeholder="you@domain.com">
+        <input class="form-input" id="fEmail" type="email" placeholder="you@domain.com">
       </div>
     </div>
 
     <div class="form-group rv">
       <label class="form-label">Where are you based?</label>
-      <input class="form-input" type="text" placeholder="Milan, Paris, New York, Hong Kong…">
+      <input class="form-input" id="fCity" type="text" placeholder="Milan, Paris, New York, Hong Kong…">
     </div>
 
     <div class="form-group rv">
       <label class="form-label">Tell us what you're building</label>
-      <textarea class="form-input" placeholder="A few lines about your project, vision, or reason for reaching out."></textarea>
+      <textarea class="form-input" id="fMsg" placeholder="A few lines about your project, vision, or reason for reaching out." required></textarea>
     </div>
 
     <button class="form-submit" type="submit">Send Message →</button>
+    <p class="form-alt">Or write to us directly at <a href="mailto:contact@verpome.com">contact@verpome.com</a></p>
   </form>
 </section>
 
@@ -1034,18 +1037,27 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-// FORM SUBMIT
+// FORM SUBMIT — opens the visitor's email app with a pre-filled message to contact@verpome.com
 document.getElementById('vForm').addEventListener('submit',e=>{
   e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  const active=document.querySelector('.bs-pill.active');
+  const branch=active?active.textContent.trim():'';
+  const name=v('fName');
+  const subject='Verpome'+(branch?' · '+branch:'')+(name?' · '+name:'');
+  const body=
+    'Hello Verpome,\n\n'+
+    v('fMsg')+'\n\n'+
+    '—\n'+
+    'Name: '+name+'\n'+
+    (v('fEmail')?'Email: '+v('fEmail')+'\n':'')+
+    (v('fCity')?'Based in: '+v('fCity')+'\n':'')+
+    (branch?'Branch: '+branch+'\n':'');
+  window.location.href='mailto:contact@verpome.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
   const btn=e.target.querySelector('.form-submit');
   const orig=btn.textContent;
-  btn.textContent='Sent ✓';
-  btn.style.background='var(--gold)';btn.style.color='var(--g0)';
-  setTimeout(()=>{
-    btn.textContent=orig;btn.style.background='';btn.style.color='';
-    e.target.reset();
-    document.querySelectorAll('.bs-pill').forEach(p=>p.classList.remove('active'));
-  },2500);
+  btn.textContent='Opening your email…';
+  setTimeout(()=>{btn.textContent=orig;},3000);
 });
 </script>
 </body>
