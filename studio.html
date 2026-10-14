@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verpome Studio · Sites pour les entreprises du bâtiment</title>
+<meta name="description" content="Un site au niveau de vos chantiers : clair, lisible sur téléphone, qui vous ramène des demandes de devis. Page pro 1 490 € HT, site 5 pages 3 000 € HT. Prêt en 7 jours.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://verpome.com/studio">
+<meta property="og:title" content="Verpome Studio · Un site au niveau de vos chantiers">
+<meta property="og:description" content="Pour les entreprises du bâtiment qui travaillent bien mais dont le site ne le montre pas.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1587582423116-ec07293f0395?auto=format&fit=crop&w=1200&h=630&q=75">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://verpome.com/studio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  PHOTOS : elles viennent d'Unsplash (licence libre, usage commercial autorisé, sans attribution).
+  Pour en changer, remplace simplement l'URL (cherche "images.unsplash.com" dans ce fichier),
+  ou mets ta propre photo dans /assets et remplace l'URL par assets/ton-image.jpg
+-->
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g0:#03100a; --g1:#051a10; --g2:#093A22;
+  --cream:#F4F1EB; --cream-70:rgba(244,241,235,.7); --cream-50:rgba(244,241,235,.5); --cream-30:rgba(244,241,235,.3);
+  --line:rgba(244,241,235,.1);
+  --gold:#C9A96E; --studio:#C8864A;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--g0);color:var(--cream);font-family:'Montserrat',sans-serif;font-weight:300;font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+strong{font-weight:400;color:var(--cream)}
+
+.grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.055'/%3E%3C/svg%3E")}
+
+.eyebrow{font-size:10px;letter-spacing:.45em;text-transform:uppercase;color:var(--cream-50);display:block;margin-bottom:28px}
+.h2{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(34px,5vw,64px);line-height:1.08;letter-spacing:-.005em}
+.h2 em,.hero h1 em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;color:var(--gold)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+section{position:relative;padding:140px 0;border-top:1px solid rgba(244,241,235,.05)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;
+  padding:18px 36px;border:1px solid var(--gold);color:var(--g0);background:var(--gold);font-weight:500;
+  transition:gap .4s,background .4s,color .4s}
+.btn:hover{gap:22px;background:transparent;color:var(--gold)}
+.btn-ghost{background:transparent;color:var(--cream);border-color:rgba(244,241,235,.3);font-weight:400}
+.btn-ghost:hover{border-color:var(--cream);color:var(--cream);background:rgba(244,241,235,.04)}
+.mail-note{display:block;margin-top:16px;font-size:12px;color:var(--cream-50);letter-spacing:.04em}
+.mail-note a{color:var(--cream-70);text-decoration:none;border-bottom:1px solid var(--cream-30)}
+.mail-note a:hover{color:var(--cream)}
+
+/* NAV : transparent en haut de page, fond sombre dès qu'on scrolle */
+nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:22px 32px;display:flex;justify-content:space-between;align-items:center;
+  background:transparent;border-bottom:1px solid transparent;
+  transition:background .35s,padding .35s,border-color .35s,backdrop-filter .35s}
+nav.scrolled{background:rgba(3,16,10,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding-top:14px;padding-bottom:14px;border-bottom-color:rgba(244,241,235,.07)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:13px;letter-spacing:.5em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.nav-logo span{color:var(--studio);letter-spacing:.3em;font-family:'Montserrat';font-size:9px;margin-left:10px}
+.nav-cta{font-size:9px;letter-spacing:.28em;text-transform:uppercase;text-decoration:none;border:1px solid var(--gold);color:var(--g0);background:var(--gold);font-weight:500;padding:10px 20px;transition:background .3s,color .3s;white-space:nowrap}
+.nav-cta:hover{background:transparent;color:var(--gold)}
+.nav-cta .s{display:none}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:150px 0 100px;border-top:none;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:#0b1510 url('https://images.unsplash.com/photo-1587582423116-ec07293f0395?auto=format&fit=crop&w=2070&q=80') center/cover;
+  filter:saturate(1.05) brightness(.82);animation:kb 14s cubic-bezier(.16,1,.3,1) both}
+.hero-bg::after{content:'';position:absolute;inset:0;background:
+  linear-gradient(to top,var(--g0) 0%,rgba(3,16,10,0) 38%),
+  linear-gradient(100deg,rgba(3,16,10,.94) 0%,rgba(3,16,10,.62) 48%,rgba(3,16,10,.18) 100%)}
+@keyframes kb{from{transform:scale(1.1)}to{transform:scale(1.02)}}
+.hero .wrap{position:relative;z-index:2}
+.tag{display:inline-flex;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:var(--studio);border:1px solid rgba(200,134,74,.45);padding:8px 16px;margin-bottom:36px;background:rgba(3,16,10,.35)}
+.hero h1{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(44px,8vw,112px);line-height:.98;letter-spacing:-.015em;max-width:900px;margin-bottom:36px}
+.hero-sub{font-size:clamp(15px,1.6vw,18px);color:rgba(244,241,235,.82);max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:56px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-70)}
+.hero-meta span::before{content:'';display:inline-block;width:18px;height:1px;background:var(--gold);vertical-align:middle;margin-right:12px}
+
+/* CONSTAT */
+.constat{text-align:center}
+.constat .h2{max-width:900px;margin:0 auto 64px}
+.constat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);max-width:1000px;margin:0 auto}
+.constat-item{background:var(--g0);padding:44px 32px;text-align:left}
+.constat-item .n{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:18px;display:block;margin-bottom:14px}
+.constat-item p{color:var(--cream-70);font-size:15px}
+
+/* ───────── AVANT / APRÈS ───────── */
+.ba-sec{text-align:center}
+.ba-sec .h2{max-width:820px;margin:0 auto}
+.ba-tabs{display:inline-flex;margin-top:44px;border:1px solid rgba(244,241,235,.18)}
+.ba-tabs button{background:none;border:none;cursor:pointer;font:inherit;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-50);padding:13px 22px;transition:background .3s,color .3s}
+.ba-tabs button[aria-selected="true"]{background:var(--cream);color:var(--g0);font-weight:500}
+.ba-stage{margin-top:40px}
+.ba-stage [hidden]{display:none!important}
+
+/* Comparateur ordinateur */
+.ba-desk{max-width:1000px;margin:0 auto;border:1px solid rgba(244,241,235,.14);border-radius:10px;overflow:hidden;background:#1a1d1b;box-shadow:0 50px 90px -40px rgba(0,0,0,.85)}
+.ba-bar{height:30px;display:flex;align-items:center;gap:7px;padding:0 14px;background:#1f2321;border-bottom:1px solid rgba(255,255,255,.06)}
+.ba-bar i{width:10px;height:10px;border-radius:50%;background:#3a3f3c}
+.ba-view{position:relative;aspect-ratio:16/10;container-type:inline-size;overflow:hidden;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none;text-align:left;line-height:1.35;--pos:50%}
+.ba-layer{position:absolute;inset:0}
+.ba-after{clip-path:inset(0 0 0 var(--pos))}
+.ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;background:var(--gold);z-index:5;pointer-events:none}
+.ba-knob{position:absolute;top:50%;left:var(--pos);z-index:6;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;border:none;background:var(--gold);color:var(--g0);
+  display:grid;place-items:center;cursor:ew-resize;box-shadow:0 6px 24px rgba(0,0,0,.45);font:600 15px/1 'Montserrat',sans-serif;letter-spacing:2px}
+.ba-knob:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.ba-lbl{position:absolute;bottom:14px;z-index:4;font:500 9px/1 'Montserrat',sans-serif;letter-spacing:.3em;text-transform:uppercase;padding:8px 12px;background:rgba(3,16,10,.82);color:var(--cream);pointer-events:none}
+.ba-lbl.l{left:14px}.ba-lbl.r{right:14px;background:var(--gold);color:var(--g0)}
+
+/* Téléphones */
+.ba-phones{display:flex;justify-content:center;align-items:flex-start;gap:clamp(20px,6vw,72px)}
+.ba-phone figcaption{margin-top:20px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-50)}
+.ba-phone figcaption b{display:block;font-weight:500;color:var(--cream);margin-bottom:4px}
+.ba-phone.after figcaption b{color:var(--gold)}
+.phone{position:relative;width:min(270px,42vw);aspect-ratio:9/19;border-radius:clamp(22px,4vw,38px);border:clamp(5px,1vw,9px) solid #161917;background:#000;overflow:hidden;box-shadow:0 40px 70px -30px rgba(0,0,0,.9),0 0 0 1px rgba(244,241,235,.12)}
+.phone-screen{position:absolute;inset:0;container-type:inline-size;overflow:hidden;text-align:left;line-height:1.35}
+.phone-screen .om{font-size:1.6cqw}
+.phone-screen .om-page{width:94cqw;margin-top:12cqw}
+.phone-screen .om-head{padding:2.2cqw}
+.phone-screen .om-logo{font-size:4.4cqw}
+.phone-screen .om-side{width:20cqw;font-size:1.3cqw}
+.phone-screen .om-main h5{font-size:2.4cqw}
+.phone-screen .om-img{width:16cqw;height:11cqw}
+.om-ul{margin:0 0 .8cqw 1cqw;list-style-position:inside}
+.om-photos{display:flex;gap:1cqw;margin:1cqw 0}
+.om-photos img{width:30%;height:9cqw;object-fit:cover;border:.3cqw ridge #aaa;image-rendering:pixelated;background:#999}
+.om-status{position:absolute;top:0;left:0;right:0;height:9cqw;display:flex;justify-content:space-between;align-items:center;padding:0 7cqw;font:600 4cqw/1 Arial,sans-serif;color:#111;background:#f2f2f2}
+
+/* Liste des différences */
+.ba-diff{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);max-width:1000px;margin:56px auto 0;text-align:left}
+.ba-diff div{background:var(--g0);padding:32px 32px 28px}
+.ba-diff h3{font-size:10px;letter-spacing:.32em;text-transform:uppercase;font-weight:500;margin-bottom:16px;color:var(--cream-50)}
+.ba-diff .a h3{color:var(--gold)}
+.ba-diff ul{list-style:none}
+.ba-diff li{position:relative;padding:7px 0 7px 26px;font-size:14px;color:var(--cream-70)}
+.ba-diff .b li::before{content:'×';position:absolute;left:2px;top:6px;color:rgba(244,241,235,.35)}
+.ba-diff .a li::before{content:'';position:absolute;left:0;top:18px;width:14px;height:1px;background:var(--gold)}
+.ba-note{margin-top:22px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--cream-50)}
+
+/* ── Maquette « avant » : site daté (tailles en cqw = % de la largeur de l'écran simulé) ── */
+.om{position:absolute;inset:0;overflow:hidden;font-family:"Times New Roman",Times,serif;color:#111;font-size:1.25cqw;
+  background:#cfcbbf repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 .4cqw,transparent .4cqw .8cqw)}
+.om-page{width:72cqw;margin:2.2cqw auto 0;background:#fff;border:.15cqw solid #7d7d7d;box-shadow:.4cqw .4cqw 0 rgba(0,0,0,.25)}
+.om-head{background:linear-gradient(#3a6cc0,#163a78);padding:1.7cqw 2cqw 1.4cqw;text-align:center;border-bottom:.3cqw ridge #c9c9c9}
+.om-logo{font-family:"Comic Sans MS","Comic Sans","Chalkboard SE",cursive;font-weight:bold;font-size:3.6cqw;line-height:1.05;color:#ffe14d;text-shadow:.22cqw .22cqw 0 #b40000;letter-spacing:.1cqw}
+.om-slogan{color:#fff;font-style:italic;font-size:1.35cqw;margin-top:.4cqw}
+.om-nav{background:#d4d0c8;padding:.55cqw 0;text-align:center;font-family:Arial,sans-serif;font-size:1.15cqw;border-bottom:.12cqw solid #888;color:#555}
+.om-nav u{color:#0000ee;margin:0 .9cqw}
+.om-body{display:flex}
+.om-side{width:15cqw;background:#ffffcc;border-right:.12cqw dashed #aaa;padding:1.1cqw;font-family:Arial,sans-serif;font-size:1cqw}
+.om-side b{display:block;color:#b40000;margin-bottom:.4cqw;font-size:1.05cqw}
+.om-side p{margin-bottom:1cqw}
+.om-count{background:#000;color:#3f3;font-family:"Courier New",monospace;padding:.4cqw;text-align:center;font-size:.95cqw}
+.om-main{flex:1;padding:1.3cqw 1.8cqw 1cqw}
+.om-main h5{color:#b40000;font-size:1.9cqw;text-decoration:underline;margin-bottom:.8cqw;font-weight:bold}
+.om-main p{margin-bottom:.8cqw;text-align:justify}
+.om-img{float:left;width:12cqw;height:8cqw;object-fit:cover;margin:.2cqw 1.2cqw .6cqw 0;border:.35cqw ridge #aaa;image-rendering:pixelated;background:#999}
+.om-new{color:#e00;font-weight:bold;font-family:Arial,sans-serif;font-size:1cqw}
+.om-foot{clear:both;font-family:Arial,sans-serif;font-size:.9cqw;color:#666;text-align:center;padding:.8cqw;border-top:.12cqw solid #ccc}
+.om-foot u{color:#0000ee}
+
+/* ── Maquette « après » : version refaite (ordinateur) ── */
+.nm{position:absolute;inset:0;overflow:hidden;background:#141412;color:#fff;font-family:'Montserrat',Arial,sans-serif}
+.nm-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.78)}
+.nm::after{content:'';position:absolute;inset:0;background:linear-gradient(265deg,rgba(14,14,12,.94) 0%,rgba(14,14,12,.7) 45%,rgba(14,14,12,.15) 100%),linear-gradient(to top,rgba(14,14,12,.8) 0%,rgba(14,14,12,0) 38%)}
+.nm>*:not(.nm-bg){position:relative;z-index:2}
+.nm-nav{position:absolute!important;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:2.6cqw 4cqw}
+.nm-logo{font-weight:700;font-size:1.9cqw;letter-spacing:.32cqw}
+.nm-logo small{display:block;font-weight:500;font-size:.85cqw;letter-spacing:.45cqw;color:#E9A23B;margin-top:.2cqw}
+.nm-links{display:flex;gap:2.6cqw;font-size:1.05cqw;font-weight:500;color:rgba(255,255,255,.82)}
+.nm-btn{background:#E9A23B;color:#141412;font-weight:600;font-size:1.05cqw;padding:1cqw 1.8cqw;border-radius:.4cqw;white-space:nowrap}
+.nm-hero{position:absolute!important;left:54cqw;right:4cqw;top:12.5cqw}
+.nm-kicker{display:inline-block;font-size:.95cqw;font-weight:600;letter-spacing:.35cqw;text-transform:uppercase;color:#E9A23B;margin-bottom:1.6cqw}
+.nm-hero h4{font-weight:700;font-size:4.5cqw;line-height:1.02;letter-spacing:-.12cqw;margin-bottom:1.6cqw}
+.nm-hero p{font-size:1.35cqw;color:rgba(255,255,255,.8);margin-bottom:2.4cqw;max-width:36cqw;line-height:1.5}
+.nm-ctas{display:flex;gap:1.2cqw;align-items:center;margin-bottom:2.2cqw}
+.nm-ctas .nm-btn{font-size:1.15cqw;padding:1.3cqw 2cqw}
+.nm-ghost{border:.12cqw solid rgba(255,255,255,.5);font-size:1.15cqw;font-weight:500;padding:1.2cqw 1.9cqw;border-radius:.4cqw;white-space:nowrap}
+.nm-rating{font-size:1.1cqw;color:rgba(255,255,255,.85)}
+.nm-rating b{color:#E9A23B;letter-spacing:.15cqw;margin-right:.6cqw}
+.nm-strip{position:absolute!important;left:4cqw;bottom:3cqw;display:flex;gap:1.2cqw}
+.nm-strip figure{width:14cqw;background:#fff;color:#141412;border-radius:.5cqw;overflow:hidden;box-shadow:0 1cqw 2.5cqw rgba(0,0,0,.4)}
+.nm-strip img{display:block;width:100%;height:9.5cqw;object-fit:cover;background:#555}
+.nm-strip figcaption{font-size:.95cqw;font-weight:600;padding:.8cqw 1cqw}
+.nm-strip figcaption span{display:block;font-weight:400;color:#777;font-size:.85cqw}
+
+/* ── Maquette « après » : version téléphone (tailles en % de la largeur du téléphone) ── */
+.mm{position:absolute;inset:0;overflow:hidden;background:#f5f2ec;color:#141412;font-family:'Montserrat',Arial,sans-serif}
+.mm-status{height:9cqw;display:flex;justify-content:space-between;align-items:center;padding:0 7cqw;font-size:4cqw;font-weight:600;background:#141412;color:#fff}
+.mm-nav{display:flex;justify-content:space-between;align-items:center;padding:3.5cqw 6cqw;background:#141412;color:#fff}
+.mm-logo{font-weight:700;font-size:5.2cqw;letter-spacing:.9cqw}
+.mm-logo small{display:block;font-size:2.3cqw;font-weight:500;letter-spacing:1.2cqw;color:#E9A23B}
+.mm-burger{width:7cqw;height:4.6cqw;border-top:.8cqw solid #fff;border-bottom:.8cqw solid #fff;position:relative}
+.mm-burger::after{content:'';position:absolute;left:0;right:0;top:50%;margin-top:-.4cqw;height:.8cqw;background:#fff}
+.mm-hero{position:relative;height:118cqw;overflow:hidden;color:#fff}
+.mm-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.7);background:#555}
+.mm-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,12,.95) 0%,rgba(14,14,12,.25) 60%,rgba(14,14,12,.35) 100%)}
+.mm-hero-in{position:absolute;left:6cqw;right:6cqw;bottom:7cqw;z-index:2}
+.mm-kicker{font-size:2.7cqw;font-weight:600;letter-spacing:1cqw;text-transform:uppercase;color:#E9A23B;margin-bottom:3cqw}
+.mm-hero h4{font-size:10cqw;font-weight:700;line-height:1.02;letter-spacing:-.3cqw;margin-bottom:5cqw}
+.mm-btn{display:block;text-align:center;background:#E9A23B;color:#141412;font-weight:700;font-size:4.2cqw;padding:4.2cqw;border-radius:2cqw;margin-bottom:2.6cqw}
+.mm-call{display:block;text-align:center;border:.4cqw solid rgba(255,255,255,.6);font-weight:600;font-size:4cqw;padding:3.8cqw;border-radius:2cqw}
+.mm-rating{padding:5cqw 6cqw;font-size:3.6cqw;font-weight:500;border-bottom:.3cqw solid #e2ddd3}
+.mm-rating b{color:#E9A23B;letter-spacing:.6cqw;margin-right:1.5cqw}
+.mm-sec{padding:5.5cqw 6cqw}
+.mm-sec h5{font-size:5.4cqw;font-weight:700;margin-bottom:3.5cqw}
+.mm-card{border-radius:2.4cqw;overflow:hidden;background:#fff;box-shadow:0 2cqw 5cqw rgba(0,0,0,.08)}
+.mm-card img{display:block;width:100%;height:46cqw;object-fit:cover;background:#999}
+.mm-card p{font-size:3.6cqw;font-weight:600;padding:3cqw 4cqw}
+.mm-card p span{display:block;font-weight:400;color:#777;font-size:3.1cqw}
+
+/* OFFRES */
+.offres-head{text-align:center;margin-bottom:72px}
+.offres-head p{margin-top:22px;color:var(--cream-50);font-size:13px;letter-spacing:.06em}
+.offres-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+.offre{border:1px solid var(--line);padding:52px 44px;display:flex;flex-direction:column;background:rgba(5,26,16,.5);position:relative}
+.offre.featured{border-color:rgba(201,169,110,.45);background:linear-gradient(160deg,rgba(9,58,34,.45),rgba(5,26,16,.6))}
+.offre-badge{position:absolute;top:-1px;right:32px;transform:translateY(-50%);background:var(--gold);color:var(--g0);font-size:9px;letter-spacing:.25em;text-transform:uppercase;padding:6px 14px;font-weight:500}
+.offre-name{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(28px,3vw,38px);line-height:1.1;margin-bottom:10px}
+.offre-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--cream-70);margin-bottom:32px}
+.offre-price{padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:32px}
+.offre-price small{display:block;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--cream-50);margin-bottom:6px}
+.offre-price strong{font-family:'Playfair Display',serif;font-size:clamp(44px,5vw,60px);font-weight:300;color:var(--cream);line-height:1}
+.offre-price .ht{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-50);margin-left:10px}
+.offre ul{list-style:none;margin-bottom:32px;flex:1}
+.offre li{padding:11px 0 11px 28px;position:relative;font-size:14px;color:var(--cream-70);border-bottom:1px solid rgba(244,241,235,.05)}
+.offre li::before{content:'';position:absolute;left:0;top:21px;width:14px;height:1px;background:var(--gold)}
+.aid{margin:-8px 0 30px;padding:16px 18px;border-left:2px solid var(--gold);background:rgba(201,169,110,.07);font-size:13px;line-height:1.65;color:var(--cream-70)}
+.aid strong{color:var(--gold);font-weight:500}
+.offre-delay{display:flex;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);margin-bottom:32px}
+.offre-delay span:last-child{color:var(--cream-50)}
+.offre .btn{align-self:flex-start}
+.option{margin-top:32px;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--cream-70)}
+.option strong{font-family:'Montserrat';font-style:normal;font-size:13px;color:var(--gold);letter-spacing:.05em}
+.footnote{margin-top:14px;text-align:center;font-size:11px;color:var(--cream-30);letter-spacing:.03em}
+
+/* ENTRETIEN */
+.maint{margin-top:88px;display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:center;padding-top:72px;border-top:1px solid var(--line)}
+.maint-title{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(26px,3vw,36px);line-height:1.15}
+.maint-title em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-weight:400}
+.maint-sub{margin-top:16px;font-size:14px;color:var(--cream-50)}
+.maint-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.maint-card{border:1px solid var(--line);padding:30px 28px;background:rgba(5,26,16,.5)}
+.maint-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-bottom:16px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.maint-top h3{font-family:'Playfair Display',serif;font-weight:400;font-size:20px}
+.maint-top strong{font-family:'Playfair Display',serif;font-weight:300;font-size:30px;white-space:nowrap}
+.maint-top small{font-family:'Montserrat';font-size:10px;letter-spacing:.12em;color:var(--cream-50);margin-left:4px}
+.maint-card ul{list-style:none}
+.maint-card li{position:relative;padding:6px 0 6px 24px;font-size:14px;color:var(--cream-70)}
+.maint-card li::before{content:'';position:absolute;left:0;top:18px;width:12px;height:1px;background:var(--gold)}
+
+/* PROCESS */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:72px}
+.step .n{font-family:'Playfair Display',serif;font-weight:300;font-size:56px;color:rgba(201,169,110,.35);line-height:1;display:block;margin-bottom:20px}
+.step h3{font-family:'Playfair Display',serif;font-weight:400;font-size:20px;margin-bottom:12px}
+.step p{font-size:14px;color:var(--cream-70)}
+
+/* DIFFERENCE */
+.diff{background:radial-gradient(ellipse at 50% 50%,rgba(9,58,34,.3) 0%,transparent 65%)}
+.diff-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:56px;margin-top:72px}
+.diff-item h3{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(22px,2.4vw,30px);line-height:1.2;margin-bottom:16px}
+.diff-item h3 em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-weight:400}
+.diff-item p{font-size:14px;color:var(--cream-70)}
+
+/* AVIS */
+.avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:72px}
+.avis-card{border:1px solid var(--line);padding:40px 32px;display:flex;flex-direction:column}
+.avis-card blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;line-height:1.5;color:var(--cream);margin-bottom:28px;flex:1}
+.avis-card blockquote::before{content:'“';display:block;font-family:'Playfair Display',serif;font-style:normal;font-size:56px;line-height:.6;color:var(--gold);margin-bottom:16px}
+.avis-who{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--cream)}
+.avis-who span{display:block;color:var(--cream-50);margin-top:4px;letter-spacing:.15em}
+
+/* FAQ */
+.faq-list{max-width:820px;margin:64px auto 0}
+.faq-list details{border-bottom:1px solid var(--line)}
+.faq-list summary{list-style:none;cursor:pointer;padding:26px 48px 26px 0;position:relative;font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(18px,2vw,22px)}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:'+';position:absolute;right:4px;top:50%;transform:translateY(-50%);font-family:'Montserrat';font-weight:300;font-size:22px;color:var(--gold);transition:transform .3s}
+.faq-list details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq-list details p{padding:0 48px 28px 0;color:var(--cream-70);font-size:15px}
+.faq-head{text-align:center}
+
+/* FINAL CTA */
+.final{text-align:center;padding:200px 0;overflow:hidden}
+.final-bg{position:absolute;inset:0;background:#0b1510 url('https://images.unsplash.com/photo-1551711974-faf378be34b2?auto=format&fit=crop&w=2000&q=70') center/cover;filter:brightness(.5) saturate(.95)}
+.final-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,var(--g0) 0%,rgba(3,16,10,.55) 30%,rgba(3,16,10,.55) 70%,var(--g0) 100%)}
+.final .wrap{position:relative;z-index:2}
+.final .h2{max-width:880px;margin:0 auto 52px}
+.final .mail-note{color:var(--cream-70)}
+
+footer{padding:40px 32px;border-top:1px solid rgba(244,241,235,.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-30)}
+footer a{text-decoration:none;color:var(--cream-50)}
+footer a:hover{color:var(--cream)}
+
+/* REVEAL (only when JS is active) */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.hero-bg{animation:none}}
+
+@media(max-width:900px){
+  section{padding:96px 0}
+  .wrap{padding:0 20px}
+  nav{padding:16px 20px}
+  nav.scrolled{padding-top:12px;padding-bottom:12px}
+  .nav-logo span{display:none}
+  .constat-grid,.offres-grid,.diff-grid,.avis-grid,.maint,.ba-diff{grid-template-columns:1fr}
+  .maint{gap:32px;margin-top:64px;padding-top:56px}
+  .process-grid{grid-template-columns:1fr 1fr;gap:40px 24px}
+  .offre{padding:44px 26px}
+  .final{padding:140px 0}
+  .btn{padding:17px 26px;letter-spacing:.22em}
+  .ba-desk{border-radius:6px}
+  .ba-bar{height:20px;padding:0 10px;gap:5px}.ba-bar i{width:7px;height:7px}
+  .ba-knob{width:40px;height:40px;margin:-20px 0 0 -20px;font-size:13px}
+  .ba-lbl{bottom:8px;padding:6px 8px;font-size:8px}.ba-lbl.l{left:8px}.ba-lbl.r{right:8px}
+}
+@media(max-width:560px){
+  .process-grid,.maint-grid{grid-template-columns:1fr}
+  .nav-cta{padding:9px 13px;letter-spacing:.18em}
+  .nav-cta .l{display:none}.nav-cta .s{display:inline}
+  .nav-logo{letter-spacing:.38em}
+  .offre-delay{flex-direction:column;gap:4px}
+  .ba-tabs button{padding:12px 14px;letter-spacing:.2em}
+  .ba-diff div{padding:26px 22px 22px}
+  .ba-phone figcaption{font-size:9px;letter-spacing:.18em}
+}
+/* LANG SWITCH */
+.nav-r{display:flex;align-items:center;gap:22px}
+.lang{display:flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.25em}
+.lang button{background:none;border:none;cursor:pointer;font:inherit;letter-spacing:inherit;color:var(--cream-30);padding:6px 2px;transition:color .3s}
+.lang button:hover{color:var(--cream-70)}
+.lang button[aria-pressed="true"]{color:var(--cream);border-bottom:1px solid var(--gold)}
+.lang i{color:var(--cream-30);font-style:normal}
+@media(max-width:560px){.nav-r{gap:10px}}
+
+/* ───────── MENU ───────── */
+section[id]{scroll-margin-top:64px}
+.nav-l{display:flex;align-items:center;gap:48px}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--cream-70);padding:6px 0;border-bottom:1px solid transparent;transition:color .3s,border-color .3s;white-space:nowrap}
+.nav-links a:hover,.nav-links a.on{color:var(--cream);border-bottom-color:var(--gold)}
+.nav-menu{display:none;align-items:center;gap:10px;background:rgba(3,16,10,.35);border:1px solid rgba(244,241,235,.35);color:var(--cream);font:500 9px/1 'Montserrat',sans-serif;letter-spacing:.22em;text-transform:uppercase;padding:10px 12px;cursor:pointer}
+.nav-menu .bars{position:relative;width:14px;height:9px;border-top:1px solid currentColor;border-bottom:1px solid currentColor}
+.nav-menu .bars::after{content:'';position:absolute;left:0;right:0;top:3px;height:1px;background:currentColor}
+@media(max-width:1080px){.nav-links{display:none}.nav-menu{display:inline-flex}.nav-l{gap:0}}
+@media(max-width:560px){nav .lang{display:none}.nav-logo{font-size:12px;letter-spacing:.32em}.nav-menu{padding:9px 10px;gap:8px}}
+@media(max-width:360px){.nav-menu .t{display:none}}
+.mmenu{position:fixed;inset:0;z-index:60;background:rgba(3,16,10,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;flex-direction:column;padding:18px 20px 40px;overflow-y:auto}
+.mmenu[hidden]{display:none}
+.mmenu-top{display:flex;justify-content:space-between;align-items:center}
+.mmenu-close,.ex-close{background:none;border:1px solid rgba(244,241,235,.3);color:var(--cream);font:500 9px/1 'Montserrat',sans-serif;letter-spacing:.22em;text-transform:uppercase;padding:11px 14px;cursor:pointer}
+.mmenu ol{list-style:none;margin:48px 0 40px;counter-reset:m}
+.mmenu li a{display:flex;align-items:baseline;gap:18px;padding:18px 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:'Playfair Display',serif;font-weight:300;font-size:30px;line-height:1.2}
+.mmenu li a::before{counter-increment:m;content:'0' counter(m);font:400 11px/1 'Montserrat',sans-serif;color:var(--gold);letter-spacing:.2em}
+.mmenu .btn{align-self:flex-start}
+.mmenu .lang{margin-top:36px}
+
+/* CTA de fin de section */
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
+.sec-cta{margin-top:80px;text-align:center}
+.sec-cta p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(21px,2.3vw,27px);color:var(--cream-70);margin-bottom:24px;line-height:1.4}
+
+/* ───────── AUTRES EXEMPLES ───────── */
+.ex-panel{max-width:1000px;margin:64px auto 0;border:1px solid rgba(201,169,110,.35);background:linear-gradient(160deg,rgba(9,58,34,.35),rgba(5,26,16,.55));padding:40px 36px 36px;text-align:left}
+.ex-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap;margin-bottom:28px}
+.ex-head .eyebrow{margin-bottom:12px;color:var(--gold)}
+.ex-head h3{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(24px,2.6vw,32px);line-height:1.15}
+.ex-head p{font-size:13px;color:var(--cream-50)}
+.ex-head h3 em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;color:var(--gold)}
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ex-card{display:flex;flex-direction:column;text-decoration:none;border:1px solid var(--line);background:var(--g0);transition:border-color .3s,transform .5s cubic-bezier(.16,1,.3,1)}
+.ex-card:hover,.ex-card:focus-visible{border-color:var(--gold);transform:translateY(-4px)}
+.ex-thumb{position:relative;aspect-ratio:16/10;container-type:inline-size;overflow:hidden;background:#1a1d1b;line-height:1.35}
+.ex-thumb .ba-layer{pointer-events:none}
+.ex-meta{padding:18px 20px 4px;font-size:13px;color:var(--cream-50)}
+.ex-meta b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:19px;color:var(--cream);margin-bottom:2px}
+.ex-go{padding:10px 20px 20px;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-top:auto}
+
+/* Fenêtre */
+html.dlg-open{overflow:hidden}
+.ex-dlg{width:min(1100px,94vw,calc((92vh - 280px) * 1.6));max-width:none;max-height:92vh;margin:auto;padding:0;border:1px solid rgba(201,169,110,.35);background:var(--g1);color:var(--cream);overscroll-behavior:contain}
+.ex-dlg::backdrop{background:rgba(1,6,3,.84);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.ex-dlg-in{padding:20px 28px 22px}
+.ex-dlg-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:6px}
+.ex-count{font-size:9px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
+.ex-slide[hidden]{display:none}
+.ex-slide-head{margin-bottom:14px}
+.ex-slide-head h3{font-family:'Playfair Display',serif;font-weight:300;font-size:clamp(22px,2.6vw,30px);line-height:1.1}
+.ex-slide-head p{font-size:13px;color:var(--cream-50);margin-top:4px}
+.ex-dlg .ba-desk{max-width:none}
+.ex-dlg-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px}
+.ex-nav{background:none;border:1px solid rgba(244,241,235,.25);color:var(--cream);font:500 9px/1 'Montserrat',sans-serif;letter-spacing:.22em;text-transform:uppercase;padding:15px 18px;cursor:pointer;transition:border-color .3s}
+.ex-nav:hover{border-color:var(--cream)}
+.ex-fict{margin-top:16px;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--cream-50)}
+.ba-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+@media(max-width:900px){
+  .ex-panel{padding:30px 20px 22px}
+  .ex-grid{grid-template-columns:1fr}
+  .ex-dlg-in{padding:18px 16px 20px}
+  .ex-dlg-foot{flex-wrap:wrap}
+  .ex-dlg-foot .btn{order:3;width:100%;justify-content:center}
+  .ex-nav{flex:1}
+  .sec-cta{margin-top:64px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+}
+
+/* ── Exemple 2 · avant : site sombre de 2009 ── */
+.o2{position:absolute;inset:0;overflow:hidden;background:#0d0d0d radial-gradient(circle at 50% 0,#2b2b2b,#0d0d0d 70%);font-family:Verdana,Geneva,sans-serif;font-size:1.1cqw;color:#b5b5b5}
+.o2-wrap{width:78cqw;margin:2cqw auto 0;border:.2cqw solid #444;background:#1c1c1c}
+.o2-banner{padding:2.2cqw 2cqw 1.6cqw;background:linear-gradient(#3b3b3b,#151515);border-bottom:.3cqw solid #f90}
+.o2-logo{display:block;font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-style:italic;font-size:4cqw;line-height:1;color:#f90;text-transform:uppercase;text-shadow:0 0 .8cqw rgba(255,200,0,.6),.2cqw .2cqw 0 #000}
+.o2-sub{display:block;margin-top:.6cqw;color:#9c3;font-weight:bold;font-size:1.2cqw}
+.o2-marq{background:#f90;color:#000;font-weight:bold;font-size:1.1cqw;white-space:nowrap;overflow:hidden;padding:.35cqw 0}
+.o2-cols{display:flex}
+.o2-menu{width:15cqw;background:#262626;border-right:.15cqw solid #444;padding:1cqw 0}
+.o2-menu span{display:block;padding:.6cqw 1.2cqw;color:#9c3;border-bottom:.1cqw dotted #555;font-weight:bold}
+.o2-main{flex:1;padding:1.4cqw 2cqw;text-align:center}
+.o2-h{font-family:"Arial Black",Arial,sans-serif;color:#fff;font-size:2cqw;margin-bottom:.8cqw}
+.o2-main p{margin-bottom:1cqw;line-height:1.5}
+.o2-pics{display:flex;justify-content:center;gap:1cqw;margin:1.2cqw 0 .6cqw}
+.o2-pics img{width:15cqw;height:10cqw;object-fit:cover;border:.3cqw solid #fff;image-rendering:pixelated;background:#555}
+.o2-small{font-size:.9cqw;color:#888}
+.o2-foot{border-top:.15cqw solid #444;padding:.8cqw;text-align:center;font-size:.85cqw;color:#666}
+
+/* ── Exemple 2 · après : clair, photo à gauche ── */
+.n2{position:absolute;inset:0;overflow:hidden;background:#f6f3ee;color:#1d232b;font-family:'Montserrat',Arial,sans-serif}
+.n2-nav{display:flex;justify-content:space-between;align-items:center;height:7cqw;padding:0 4cqw;border-bottom:.1cqw solid #e2ddd4;background:#fff}
+.n2-logo{font-weight:700;font-size:1.8cqw;letter-spacing:.3cqw;line-height:1.1}
+.n2-logo small{display:block;font-size:.8cqw;letter-spacing:.5cqw;color:#b8642e;font-weight:600}
+.n2-links{display:flex;gap:2.2cqw;font-size:1.05cqw;font-weight:500;color:#4a525c}
+.n2-urg{font-size:1.05cqw;font-weight:600;color:#fff;background:#1d232b;padding:1cqw 1.6cqw;border-radius:5cqw}
+.n2-split{display:grid;grid-template-columns:46cqw 1fr;height:55.5cqw}
+.n2-photo{position:relative;overflow:hidden}
+.n2-photo img{width:100%;height:100%;object-fit:cover;display:block;background:#8a8a8a}
+.n2-badge{position:absolute;left:2.4cqw;bottom:2.4cqw;background:#fff;font-size:1.05cqw;font-weight:600;padding:.9cqw 1.4cqw;border-radius:5cqw;box-shadow:0 .6cqw 1.6cqw rgba(0,0,0,.2)}
+.n2-badge b{color:#e0a020}
+.n2-text{padding:5cqw 4cqw 3.4cqw 5cqw;display:flex;flex-direction:column}
+.n2-kick{font-size:.95cqw;font-weight:600;letter-spacing:.3cqw;text-transform:uppercase;color:#b8642e;margin-bottom:1.4cqw}
+.n2-text h4{font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:3.8cqw;line-height:1.05;margin-bottom:1.6cqw}
+.n2-text p{font-size:1.3cqw;color:#4a525c;line-height:1.55;margin-bottom:2.2cqw;max-width:40cqw}
+.n2-ctas{display:flex;align-items:center;gap:2cqw;margin-bottom:auto}
+.n2-btn{background:#b8642e;color:#fff;font-weight:600;font-size:1.15cqw;padding:1.3cqw 2.2cqw;border-radius:.4cqw}
+.n2-link{font-size:1.15cqw;font-weight:600;border-bottom:.15cqw solid #1d232b;padding-bottom:.2cqw}
+.n2-stats{display:flex;gap:3cqw;border-top:.1cqw solid #ddd6cb;padding-top:2cqw}
+.n2-stats b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:2.6cqw;font-weight:400;line-height:1.1}
+.n2-stats span{font-size:.95cqw;color:#6b727b}
+
+/* ── Exemple 3 · avant : page blanche des années 2000 ── */
+.o3{position:absolute;inset:0;overflow:hidden;background:#fff;font-family:"Times New Roman",Times,serif;font-size:1.3cqw;color:#000;display:grid;grid-template-columns:17cqw 1fr;grid-template-rows:auto 1fr}
+.o3-top{grid-column:1/-1;border-bottom:.5cqw ridge #c0c0c0;padding:1.4cqw 2cqw;background:#efefef;display:flex;align-items:baseline;gap:1.6cqw}
+.o3-top b{font-size:3cqw;letter-spacing:.1cqw}
+.o3-top i{font-size:1.2cqw;color:#555}
+.o3-left{background:#c0c0c0;border-right:.5cqw ridge #e0e0e0;padding:1.4cqw 1.2cqw;font-family:Arial,sans-serif;font-size:1.15cqw}
+.o3-left u{display:block;color:#00e;margin-bottom:.9cqw}
+.o3-main{padding:1.6cqw 2.4cqw}
+.o3-main h5{font-size:2.2cqw;margin-bottom:1cqw}
+.o3-main hr{border:0;border-top:.2cqw groove #aaa;margin:1cqw 0}
+.o3-main ul{margin:.4cqw 0 1cqw;padding-left:2.4cqw}
+.o3-blink{color:#f00;font-weight:bold;font-family:Arial,sans-serif}
+.o3-pic{width:20cqw;height:12cqw;object-fit:cover;image-rendering:pixelated;border:.2cqw solid #000;background:#999}
+.o3-work{margin:1.2cqw 0 0;width:40cqw;height:1.8cqw;background:repeating-linear-gradient(45deg,#ffd400 0 1.2cqw,#111 1.2cqw 2.4cqw)}
+.o3-work-t{font-family:Arial,sans-serif;font-weight:bold;font-size:1.1cqw;margin-top:.5cqw}
+
+/* ── Exemple 3 · après : atelier bois, sombre et chaleureux ── */
+.n3{position:absolute;inset:0;overflow:hidden;background:#1d1814;color:#f3ece2;font-family:'Montserrat',Arial,sans-serif}
+.n3-bg{position:absolute;left:0;top:0;width:62%;height:100%;object-fit:cover;filter:brightness(.85) sepia(.15);background:#5a4636}
+.n3::after{content:'';position:absolute;left:0;top:0;bottom:0;width:62%;background:linear-gradient(90deg,rgba(29,24,20,0) 50%,#1d1814 100%),linear-gradient(to bottom,rgba(29,24,20,.7) 0%,rgba(29,24,20,0) 25%)}
+.n3>*:not(.n3-bg){position:relative;z-index:2}
+.n3-nav{position:absolute!important;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.4cqw 4cqw}
+.n3-logo{font-family:'Playfair Display',Georgia,serif;font-size:2cqw;letter-spacing:.2cqw;line-height:1.1}
+.n3-logo small{display:block;font-family:'Montserrat',Arial,sans-serif;font-size:.8cqw;letter-spacing:.5cqw;color:#d4a373;text-transform:uppercase}
+.n3-links{display:flex;align-items:center;gap:2.2cqw;font-size:1.05cqw;color:rgba(243,236,226,.75)}
+.n3-links b{font-weight:600;color:#1d1814;background:#d4a373;padding:.9cqw 1.5cqw}
+.n3-text{position:absolute!important;left:56cqw;right:4cqw;top:13cqw}
+.n3-kick{display:block;font-size:.95cqw;letter-spacing:.35cqw;text-transform:uppercase;color:#d4a373;margin-bottom:1.6cqw}
+.n3-text h4{font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:5cqw;line-height:1;margin-bottom:1.8cqw}
+.n3-text h4 em{color:#d4a373}
+.n3-text p{font-size:1.3cqw;line-height:1.6;color:rgba(243,236,226,.75);margin-bottom:2.4cqw}
+.n3-ctas{display:flex;align-items:center;gap:2cqw}
+.n3-btn{background:#d4a373;color:#1d1814;font-weight:600;font-size:1.15cqw;padding:1.3cqw 2.2cqw}
+.n3-ghost{font-size:1.15cqw;font-weight:500;border-bottom:.12cqw solid rgba(243,236,226,.5);padding-bottom:.2cqw}
+.n3-bar{position:absolute!important;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(20,16,13,.94);border-top:.1cqw solid rgba(212,163,115,.3)}
+.n3-bar span{padding:1.6cqw 2.4cqw;font-size:1cqw;color:rgba(243,236,226,.7);border-right:.1cqw solid rgba(212,163,115,.2)}
+.n3-bar span b{display:block;font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:1.6cqw;color:#d4a373}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav id="nav">
+  <div class="nav-l">
+    <a href="#top" class="nav-logo">Verpome<span>Studio</span></a>
+    <ul class="nav-links">
+      <li><a href="#avant-apres" data-i18n="nl1">Avant / Après</a></li>
+      <li><a href="#offres" data-i18n="nl2">Tarifs</a></li>
+      <li><a href="#methode" data-i18n="nl3">Méthode</a></li>
+      <li><a href="#faq" data-i18n="nl4">FAQ</a></li>
+    </ul>
+  </div>
+  <div class="nav-r">
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button><i>·</i><button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a href="#" class="nav-cta book" data-i18n="nav_cta"><span class="l">Réserver un appel</span><span class="s">Appel 15 min</span></a>
+    <button type="button" class="nav-menu" aria-expanded="false" aria-controls="mmenu"><span class="bars"></span><span class="t" data-i18n="menu">Menu</span></button>
+  </div>
+</nav>
+
+<!-- MENU PLEIN ÉCRAN (téléphone et tablette) -->
+<div class="mmenu" id="mmenu" hidden>
+  <div class="mmenu-top">
+    <a href="#top" class="nav-logo">Verpome<span>Studio</span></a>
+    <button type="button" class="mmenu-close" data-i18n="close">Fermer ×</button>
+  </div>
+  <ol>
+    <li><a href="#avant-apres" data-i18n="nl1">Avant / Après</a></li>
+    <li><a href="#offres" data-i18n="nl2">Tarifs</a></li>
+    <li><a href="#methode" data-i18n="nl3">Méthode</a></li>
+    <li><a href="#faq" data-i18n="nl4">FAQ</a></li>
+  </ol>
+  <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+  <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+  <div class="lang" role="group" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button><i>·</i><button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="tag rv" data-i18n="tag">Verpome Studio · Bâtiment</div>
+    <h1 class="rv" data-i18n="h1">Un site au niveau<br>de <em>vos chantiers.</em></h1>
+    <p class="hero-sub rv" data-i18n="hero_sub">Pour les entreprises du bâtiment qui travaillent bien mais dont le site ne le montre pas : un site clair, lisible sur téléphone, qui vous ramène des demandes de devis.</p>
+    <div class="rv">
+      <div class="hero-ctas">
+        <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+        <a class="btn btn-ghost" href="#avant-apres" data-i18n="cta_see">Voir l'avant / après ↓</a>
+      </div>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+    <div class="hero-meta rv">
+      <span data-i18n="meta1">Prêt en 7 jours</span>
+      <span data-i18n="meta2">Prix fixe</span>
+      <span data-i18n="meta3">Le site vous appartient</span>
+    </div>
+  </div>
+</section>
+
+<!-- AVANT / APRÈS -->
+<section class="ba-sec" id="avant-apres">
+  <div class="wrap">
+    <span class="eyebrow rv" data-i18n="ba_eye">Avant / Après</span>
+    <h2 class="h2 rv" data-i18n="ba_h2">Même entreprise.<br><em>Autre impression.</em></h2>
+
+    <div class="ba-tabs rv" role="tablist">
+      <button type="button" role="tab" id="tab-desk" aria-controls="panel-desk" aria-selected="true" data-i18n="ba_t1">Sur ordinateur</button>
+      <button type="button" role="tab" id="tab-mob" aria-controls="panel-mob" aria-selected="false" data-i18n="ba_t2">Sur téléphone</button>
+    </div>
+
+    <div class="ba-stage rv">
+      <!-- Ordinateur : curseur avant / après -->
+      <div id="panel-desk" role="tabpanel" aria-labelledby="tab-desk">
+        <div class="ba-desk">
+          <div class="ba-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="ba-view ba-main">
+            <!-- AVANT -->
+            <div class="ba-layer" aria-hidden="true">
+              <div class="om">
+                <div class="om-page">
+                  <div class="om-head"><div class="om-logo">VERNIER RENOVATION</div><div class="om-slogan">Votre artisan de confiance depuis 1994 !!!</div></div>
+                  <div class="om-nav"><u>Accueil</u>|<u>Nos services</u>|<u>Photos</u>|<u>Contact</u>|<u>Liens</u></div>
+                  <div class="om-body">
+                    <div class="om-side"><b>ACTUALITES</b><p>Site en construction, revenez bientot !</p><p><span class="om-new">NOUVEAU !</span> Nous faisons aussi les toitures.</p><div class="om-count">Visiteurs : 004187</div></div>
+                    <div class="om-main">
+                      <h5>Bienvenue sur notre site internet !</h5>
+                      <img class="om-img" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=90&q=15" alt="" loading="lazy">
+                      <p>La société VERNIER RENOVATION est à votre service pour tous vos travaux de maçonnerie, carrelage, plafonnage, peinture, toiture, isolation, menuiserie, sanitaire et chauffage. Nous intervenons chez les particuliers et les professionnels. Travail soigné, devis sur demande.</p>
+                      <p>N'hésitez pas à nous contacter par téléphone ou par fax aux heures de bureau. Pour voir nos réalisations, cliquez sur la page « Photos » dans le menu ci-dessus.</p>
+                      <p>Pour nous écrire : <u style="color:#00e">cliquez ici</u></p>
+                    </div>
+                  </div>
+                  <div class="om-foot">Dernière mise à jour : 12/03/2011 · Site optimisé pour Internet Explorer en 1024x768</div>
+                </div>
+              </div>
+            </div>
+            <!-- APRÈS -->
+            <div class="ba-layer ba-after" aria-hidden="true">
+              <div class="nm">
+                <img class="nm-bg" src="https://images.unsplash.com/photo-1674649207083-281c2517ab49?auto=format&fit=crop&w=1600&q=70" alt="" loading="lazy">
+                <div class="nm-nav"><span class="nm-logo">VERNIER<small>RÉNOVATION</small></span><span class="nm-links"><span>Réalisations</span><span>Services</span><span>Avis</span><span>Recrutement</span></span><span class="nm-btn">Demander un devis</span></div>
+                <div class="nm-hero">
+                  <span class="nm-kicker">Rénovation · Extensions · Gros œuvre</span>
+                  <h4>Rénover avec soin.<br>Livrer à l'heure.</h4>
+                  <p>Depuis 1994, plus de 300 chantiers livrés à Namur et dans toute la région.</p>
+                  <div class="nm-ctas"><span class="nm-btn">Demander un devis gratuit</span><span class="nm-ghost">Voir nos réalisations</span></div>
+                  <div class="nm-rating"><b>★★★★★</b>4,9 · 87 avis Google</div>
+                </div>
+                <div class="nm-strip">
+                  <figure><img src="https://images.unsplash.com/photo-1502005097973-6a7082348e28?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy"><figcaption>Cuisine complète<span>Jambes · 3 semaines</span></figcaption></figure>
+                  <figure><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy"><figcaption>Rénovation séjour<span>Namur · 5 semaines</span></figcaption></figure>
+                  <figure><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy"><figcaption>Maison neuve<span>Wépion · 9 mois</span></figcaption></figure>
+                </div>
+              </div>
+            </div>
+            <span class="ba-lbl l" data-i18n="ba_before">Avant</span>
+            <span class="ba-lbl r" data-i18n="ba_after">Après</span>
+            <div class="ba-line"></div>
+            <button type="button" class="ba-knob" role="slider" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">‹ ›</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Téléphone : côte à côte -->
+      <div id="panel-mob" role="tabpanel" aria-labelledby="tab-mob" hidden>
+        <div class="ba-phones">
+          <figure class="ba-phone">
+            <div class="phone"><div class="phone-screen" aria-hidden="true">
+              <div class="om">
+                <div class="om-status"><span>9:41</span><span>●●● ▮</span></div>
+                <div class="om-page">
+                  <div class="om-head"><div class="om-logo">VERNIER RENOVATION</div><div class="om-slogan">Votre artisan de confiance depuis 1994 !!!</div></div>
+                  <div class="om-nav"><u>Accueil</u>|<u>Nos services</u>|<u>Photos</u>|<u>Contact</u>|<u>Liens</u></div>
+                  <div class="om-body">
+                    <div class="om-side"><b>ACTUALITES</b><p>Site en construction, revenez bientot !</p><div class="om-count">Visiteurs : 004187</div></div>
+                    <div class="om-main">
+                      <h5>Bienvenue sur notre site internet !</h5>
+                      <img class="om-img" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=90&q=15" alt="" loading="lazy">
+                      <p>La société VERNIER RENOVATION est à votre service pour tous vos travaux de maçonnerie, carrelage, plafonnage, peinture, toiture, isolation, menuiserie, sanitaire et chauffage. Nous intervenons chez les particuliers et les professionnels. Travail soigné, devis sur demande.</p>
+                      <p>N'hésitez pas à nous contacter par téléphone ou par fax aux heures de bureau. Pour voir nos réalisations, cliquez sur la page « Photos » dans le menu ci-dessus.</p>
+                      <p><b>NOS SERVICES :</b></p>
+                      <ul class="om-ul"><li>Maçonnerie générale</li><li>Carrelage et faïence</li><li>Plafonnage, peinture</li><li>Toiture, isolation</li><li>Sanitaire, chauffage</li></ul>
+                      <p>Devis gratuit sur simple demande par téléphone ou par fax. Nous nous déplaçons dans toute la région.</p>
+                      <p>Pour nous écrire : <u style="color:#00e">cliquez ici</u></p>
+                      <p><b>QUELQUES PHOTOS :</b></p>
+                      <div class="om-photos"><img src="https://images.unsplash.com/photo-1502005097973-6a7082348e28?auto=format&fit=crop&w=60&q=15" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=60&q=15" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1674649207083-281c2517ab49?auto=format&fit=crop&w=60&q=15" alt="" loading="lazy"></div>
+                      <p>Plus de photos sur la page « Photos ». Attention, le chargement peut être long.</p>
+                      <p><u style="color:#00e">Signez notre livre d'or !</u> · <u style="color:#00e">Liens utiles</u></p>
+                    </div>
+                  </div>
+                  <div class="om-foot">Dernière mise à jour : 12/03/2011 · Site optimisé pour Internet Explorer en 1024x768</div>
+                </div>
+              </div>
+            </div></div>
+            <figcaption><b data-i18n="ba_before">Avant</b><span data-i18n="ba_m1">Il faut zoomer pour lire</span></figcaption>
+          </figure>
+          <figure class="ba-phone after">
+            <div class="phone"><div class="phone-screen" aria-hidden="true">
+              <div class="mm">
+                <div class="mm-status"><span>9:41</span><span>●●● ▮</span></div>
+                <div class="mm-nav"><span class="mm-logo">VERNIER<small>RÉNOVATION</small></span><span class="mm-burger"></span></div>
+                <div class="mm-hero">
+                  <img src="https://images.unsplash.com/photo-1674649207083-281c2517ab49?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy">
+                  <div class="mm-hero-in">
+                    <div class="mm-kicker">Rénovation · Gros œuvre</div>
+                    <h4>Rénover avec soin. Livrer à l'heure.</h4>
+                    <span class="mm-btn">Demander un devis gratuit</span>
+                    <span class="mm-call">Appeler maintenant</span>
+                  </div>
+                </div>
+                <div class="mm-rating"><b>★★★★★</b>4,9 · 87 avis Google</div>
+                <div class="mm-sec">
+                  <h5>Nos réalisations</h5>
+                  <div class="mm-card"><img src="https://images.unsplash.com/photo-1502005097973-6a7082348e28?auto=format&fit=crop&w=600&q=70" alt="" loading="lazy"><p>Cuisine complète<span>Jambes · 3 semaines</span></p></div>
+                </div>
+              </div>
+            </div></div>
+            <figcaption><b data-i18n="ba_after">Après</b><span data-i18n="ba_m2">Devis en un clic</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-diff rv">
+      <div class="b"><h3 data-i18n="ba_before">Avant</h3><ul>
+        <li data-i18n="ba_b1">Il faut zoomer pour lire sur téléphone</li>
+        <li data-i18n="ba_b2">Aucun bouton pour demander un devis</li>
+        <li data-i18n="ba_b3">Une seule photo, minuscule et floue</li>
+      </ul></div>
+      <div class="a"><h3 data-i18n="ba_after">Après</h3><ul>
+        <li data-i18n="ba_a1">Lisible du premier coup, sur tous les écrans</li>
+        <li data-i18n="ba_a2">Demande de devis ou appel en un clic</li>
+        <li data-i18n="ba_a3">Vos chantiers et vos avis Google mis en avant</li>
+      </ul></div>
+    </div>
+    <p class="ba-note rv" data-i18n="ba_note">Exemple fictif, réalisé par Verpome Studio pour illustrer la méthode.</p>
+    <!-- AUTRES EXEMPLES : les vignettes sont générées automatiquement à partir des exemples de la fenêtre (#exDlg, en bas de page) -->
+    <div class="ex-panel rv">
+      <div class="ex-head">
+        <div><span class="eyebrow" data-i18n="ex_eye">Voir d'autres exemples</span><h3 data-i18n="ex_h">D'autres métiers, <em>la même méthode.</em></h3></div>
+        <p data-i18n="ex_sub">Cliquez pour comparer l'avant et l'après.</p>
+      </div>
+      <div class="ex-grid">
+        <a class="ex-card" href="#" data-ex="0">
+          <div class="ex-thumb"></div>
+          <span class="ex-meta"><b>Roche Toitures</b><span data-i18n="ex1_trade">Couverture et zinguerie · Liège</span></span>
+          <span class="ex-go" data-i18n="ex_go">Comparer avant / après →</span>
+        </a>
+        <a class="ex-card" href="#" data-ex="1">
+          <div class="ex-thumb"></div>
+          <span class="ex-meta"><b>Mertens Menuiserie</b><span data-i18n="ex2_trade">Menuiserie sur mesure · Luxembourg</span></span>
+          <span class="ex-go" data-i18n="ex_go">Comparer avant / après →</span>
+        </a>
+      </div>
+    </div>
+    <div class="sec-cta rv">
+      <p data-i18n="sc_ba">Vous voulez le même résultat pour votre entreprise ?</p>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- CONSTAT -->
+<section class="constat">
+  <div class="wrap">
+    <span class="eyebrow rv" data-i18n="c_eye">Le constat</span>
+    <h2 class="h2 rv" data-i18n="c_h2">Vous travaillez bien.<br><em>Votre site ne le montre pas.</em></h2>
+    <div class="constat-grid">
+      <div class="constat-item rv"><span class="n">I.</span><p data-i18n="c1">Vos clients regardent votre site <strong>avant de vous appeler</strong>.</p></div>
+      <div class="constat-item rv"><span class="n">II.</span><p data-i18n="c2">Vos plus beaux chantiers <strong>restent dans votre téléphone</strong>.</p></div>
+      <div class="constat-item rv"><span class="n">III.</span><p data-i18n="c3">Les candidats que vous voulez recruter <strong>regardent aussi votre site</strong>.</p></div>
+    </div>
+    <div class="sec-cta rv">
+      <p data-i18n="sc_c">On regarde votre site actuel ensemble, en 15 minutes.</p>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section id="offres">
+  <div class="wrap">
+    <div class="offres-head">
+      <span class="eyebrow rv" data-i18n="o_eye">Les offres</span>
+      <h2 class="h2 rv" data-i18n="o_h2">Deux formules.<br><em>Un prix clair.</em></h2>
+      <p class="rv" data-i18n="o_lang">Prix hors TVA · Site en français ou en anglais, même prix</p>
+    </div>
+    <div class="offres-grid">
+      <article class="offre featured rv">
+        <span class="offre-badge" data-i18n="badge">Idéal pour démarrer</span>
+        <h3 class="offre-name" data-i18n="o1_name">Page pro</h3>
+        <p class="offre-desc" data-i18n="o1_desc">Tout ce qu'un client doit voir, sur une seule page.</p>
+        <div class="offre-price"><small data-i18n="fixed">Prix fixe</small><strong data-i18n="o1_price">1 490 €</strong><span class="ht" data-i18n="ht">HT</span></div>
+        <ul>
+          <li data-i18n="o1_l1">Vos services, vos réalisations et votre zone d'intervention</li>
+          <li data-i18n="o1_l2">Textes rédigés pour vous</li>
+          <li data-i18n="o1_l3">Formulaire de demande de devis</li>
+          <li data-i18n="o1_l4">Parfaitement lisible sur téléphone</li>
+          <li data-i18n="o1_l5">Fiche Google créée ou optimisée</li>
+        </ul>
+        <div class="offre-delay"><span data-i18n="o1_days">Prêt en 7 jours</span><span data-i18n="o1_rev">1 série de retouches</span></div>
+        <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+        <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="pro" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+      </article>
+      <article class="offre rv">
+        <h3 class="offre-name" data-i18n="o2_name">Site 5 pages</h3>
+        <p class="offre-desc" data-i18n="o2_desc">Votre entreprise, présentée dans son ensemble.</p>
+        <div class="offre-price"><small data-i18n="fixed">Prix fixe</small><strong data-i18n="o2_price">3 000 €</strong><span class="ht" data-i18n="ht">HT</span></div>
+        <ul>
+          <li data-i18n="o2_l1">5 pages : accueil, services, réalisations, recrutement, contact</li>
+          <li data-i18n="o2_l2">Tout ce qui est inclus dans la Page pro</li>
+          <li data-i18n="o2_l3">Galerie de chantiers avant / après, classée par type de travaux</li>
+          <li data-i18n="o2_l4">Navigation pensée pour mener à la demande de devis</li>
+        </ul>
+        <p class="aid" data-i18n="aid"><strong>Au Luxembourg :</strong> éligible au SME Package Digital. L'État prend en charge 70 %, soit environ 900 € HT à votre charge.*</p>
+        <div class="offre-delay"><span data-i18n="o2_days">Prêt en 14 jours</span><span data-i18n="o2_rev">2 séries de retouches</span></div>
+        <a class="btn btn-ghost book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+        <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="site" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+      </article>
+    </div>
+    <p class="option rv" data-i18n="option">En option : visuels sur mesure, shooting ou production · <strong>+400 €</strong></p>
+    <p class="footnote rv" data-i18n="aid_note">* Sous réserve de validation de votre dossier par le ministère de l'Économie avant le démarrage du projet.</p>
+
+    <!-- ENTRETIEN -->
+    <div class="maint rv">
+      <div class="maint-head">
+        <span class="eyebrow" data-i18n="m_eye">Après la mise en ligne</span>
+        <p class="maint-title" data-i18n="m_title">Un entretien mensuel,<br><em>sans engagement.</em></p>
+        <p class="maint-sub" data-i18n="m_sub">Vous nous envoyez un message, on s'occupe du reste. Résiliable à tout moment.</p>
+      </div>
+      <div class="maint-grid">
+        <div class="maint-card">
+          <div class="maint-top"><h3 data-i18n="m1_name">Essentiel</h3><strong data-i18n="m1_price">49 €<small>/mois HT</small></strong></div>
+          <ul><li data-i18n="m_host">Hébergement inclus</li><li data-i18n="m1_l1">1 modification par mois</li></ul>
+        </div>
+        <div class="maint-card">
+          <div class="maint-top"><h3 data-i18n="m2_name">Suivi</h3><strong data-i18n="m2_price">89 €<small>/mois HT</small></strong></div>
+          <ul><li data-i18n="m_host">Hébergement inclus</li><li data-i18n="m2_l1">3 modifications par mois</li><li data-i18n="m2_l2">Suivi de votre fiche Google</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="sec-cta rv">
+      <p data-i18n="sc_o">Un doute sur la formule ? On vous conseille pendant l’appel.</p>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="methode">
+  <div class="wrap">
+    <span class="eyebrow rv" data-i18n="p_eye">Comment ça se passe</span>
+    <h2 class="h2 rv" data-i18n="p_h2">Simple, rapide,<br><em>sans surprise.</em></h2>
+    <div class="process-grid">
+      <div class="step rv"><span class="n">01</span><h3 data-i18n="s1_t">Appel de 15 min</h3><p data-i18n="s1_p">On parle de votre entreprise, de vos chantiers et des clients que vous voulez attirer.</p></div>
+      <div class="step rv"><span class="n">02</span><h3 data-i18n="s2_t">Devis et acompte</h3><p data-i18n="s2_p">Un prix fixe, validé avant de commencer. 30 % à la commande.</p></div>
+      <div class="step rv"><span class="n">03</span><h3 data-i18n="s3_t">Création</h3><p data-i18n="s3_p">Vous nous envoyez vos photos et vos infos par message. On rédige, on construit, vous suivez l'avancée.</p></div>
+      <div class="step rv"><span class="n">04</span><h3 data-i18n="s4_t">Mise en ligne</h3><p data-i18n="s4_p">Les 70 % restants à la livraison. Le site est en ligne, et il vous appartient.</p></div>
+    </div>
+    <div class="sec-cta rv">
+      <p data-i18n="sc_p">Première étape : un appel de 15 minutes.</p>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENCE -->
+<section class="diff">
+  <div class="wrap">
+    <span class="eyebrow rv" data-i18n="d_eye">La différence</span>
+    <h2 class="h2 rv" data-i18n="d_h2">Pas un modèle.<br><em>Une image.</em></h2>
+    <div class="diff-grid">
+      <div class="diff-item rv"><h3 data-i18n="d1_t">De la direction créative,<br><em>pas seulement du code.</em></h3><p data-i18n="d1_p">Verpome vient de la photo et de la vidéo. On sait mettre vos réalisations en valeur, même à partir des photos de votre téléphone.</p></div>
+      <div class="diff-item rv"><h3 data-i18n="d2_t">Rapide.</h3><p data-i18n="d2_p">7 jours, pas 7 semaines. Votre site travaille pour vous pendant que vous êtes sur vos chantiers.</p></div>
+      <div class="diff-item rv"><h3 data-i18n="d3_t">Un interlocuteur dédié.</h3><p data-i18n="d3_p">La même personne du premier appel à la mise en ligne. Rien ne se perd en route.</p></div>
+    </div>
+    <div class="sec-cta rv">
+      <p data-i18n="sc_d">Parlons de votre entreprise.</p>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!--
+  AVIS CLIENTS : section masquée tant qu'elle ne contient pas de vrais avis.
+  Pour l'activer :
+    1. Remplacer chaque [Citation], [Prénom] et [Activité] par l'avis réel du client (avec son accord)
+    2. Supprimer l'attribut  hidden  sur la balise <section> juste en dessous
+  Si tu n'as que 2 avis, supprime simplement la 3e <figure>.
+  Les citations restent dans la langue où le client les a écrites (pas de traduction automatique).
+-->
+<section id="avis" hidden>
+  <div class="wrap">
+    <span class="eyebrow rv" data-i18n="a_eye">Ils nous ont fait confiance</span>
+    <h2 class="h2 rv" data-i18n="a_h2">Ce qu'en disent<br><em>nos clients.</em></h2>
+    <div class="avis-grid">
+      <figure class="avis-card rv">
+        <blockquote>[Citation client 1]</blockquote>
+        <figcaption class="avis-who">[Prénom]<span>[Activité, ville]</span></figcaption>
+      </figure>
+      <figure class="avis-card rv">
+        <blockquote>[Citation client 2]</blockquote>
+        <figcaption class="avis-who">[Prénom]<span>[Activité, ville]</span></figcaption>
+      </figure>
+      <figure class="avis-card rv">
+        <blockquote>[Citation client 3]</blockquote>
+        <figcaption class="avis-who">[Prénom]<span>[Activité, ville]</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-head">
+      <span class="eyebrow rv" data-i18n="f_eye">Questions fréquentes</span>
+      <h2 class="h2 rv" data-i18n="f_h2">Avant de <em>se lancer.</em></h2>
+    </div>
+    <div class="faq-list rv">
+      <details><summary data-i18n="q1">Je n'ai pas le temps de m'en occuper.</summary><p data-i18n="r1">Un appel de 15 minutes, puis vos photos et vos infos par message. On rédige tout, vous n'avez qu'à valider.</p></details>
+      <details><summary data-i18n="q2">Je n'ai pas de belles photos de mes chantiers.</summary><p data-i18n="r2">Envoyez celles de votre téléphone. On fait le tri, on les retouche et on les met en valeur.</p></details>
+      <details><summary data-i18n="q3">Je n'ai ni logo ni charte graphique.</summary><p data-i18n="r3">Aucun problème. On part de votre entreprise et on pose une direction visuelle cohérente pour votre site.</p></details>
+      <details><summary data-i18n="q4">Le site peut-il être en français ou en anglais ?</summary><p data-i18n="r4">Oui, au même prix. Vous avez besoin des deux langues ? On en parle pendant l'appel.</p></details>
+      <details><summary data-i18n="q5">Le site m'appartient ?</summary><p data-i18n="r5">Oui, entièrement. Une fois en ligne, il est à vous.</p></details>
+      <details><summary data-i18n="q6">Et l'hébergement, les modifications ?</summary><p data-i18n="r6">L'hébergement est inclus dans l'entretien mensuel (49 € ou 89 € HT par mois, sans engagement). Vous pouvez aussi l'héberger vous-même : le site vous appartient.</p></details>
+      <details><summary data-i18n="q7">Comment se passe le paiement ?</summary><p data-i18n="r7">30 % à la commande, 70 % à la livraison. Prix fixe, hors TVA.</p></details>
+      <details><summary data-i18n="q8">Je suis au Luxembourg : il existe une aide ?</summary><p data-i18n="r8">Oui. Le SME Package Digital peut prendre en charge 70 % d'un projet web à partir de 3 000 € HT, ce qui correspond à notre Site 5 pages. Le dossier doit être validé avant le démarrage : on vous fournit le devis et les éléments dont vous avez besoin.</p></details>
+    </div>
+    <div class="sec-cta rv">
+      <p data-i18n="sc_f">Une autre question ? Posez-la pendant l’appel.</p>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="final-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow rv" data-i18n="fin_eye">Prochaine étape</span>
+    <h2 class="h2 rv" data-i18n="fin_h2">Vos prochains clients regardent votre site<br><em>avant de vous appeler.</em></h2>
+    <div class="rv">
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <span class="mail-note"><span data-i18n="mail_or">ou écrivez-nous :</span> <a class="mail" data-offre="" href="mailto:contact@verpome.com">contact@verpome.com</a></span>
+    </div>
+  </div>
+</section>
+
+<!--
+  FENÊTRE « AUTRES EXEMPLES »
+  Chaque exemple = un bloc <div class="ex-slide"> ci-dessous (nom, métier, puis l'avant et l'après).
+  Pour remplacer un exemple par un vrai client, le plus simple :
+    1. Fais 2 captures d'écran de même taille (ancien site / nouveau site), mets-les dans /assets
+    2. Remplace tout le contenu du 1er <div class="ba-layer"> par  <img class="ba-shot" src="assets/client-avant.jpg" alt="">
+       et celui du 2e <div class="ba-layer ba-after"> par           <img class="ba-shot" src="assets/client-apres.jpg" alt="">
+    3. Change le nom et le métier (dans ex-slide-head ET dans la vignette .ex-card plus haut dans la page)
+  La vignette dans la page se met à jour toute seule.
+-->
+<dialog class="ex-dlg" id="exDlg" aria-label="Autres exemples">
+  <div class="ex-dlg-in">
+    <div class="ex-dlg-head"><span class="ex-count">1 / 2</span><button type="button" class="ex-close" data-i18n="close">Fermer ×</button></div>
+
+    <!-- EXEMPLE 1 : Roche Toitures -->
+    <div class="ex-slide">
+      <div class="ex-slide-head"><h3>Roche Toitures</h3><p data-i18n="ex1_trade">Couverture et zinguerie · Liège</p></div>
+      <div class="ba-desk">
+        <div class="ba-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="ba-view">
+          <div class="ba-layer" aria-hidden="true">
+            <div class="o2"><div class="o2-wrap">
+              <div class="o2-banner"><span class="o2-logo">Roche Toitures</span><span class="o2-sub">Couverture - Zinguerie - Velux - Démoussage</span></div>
+              <div class="o2-marq">*** DEVIS GRATUIT *** TRAVAIL SOIGNÉ *** DEVIS GRATUIT *** TRAVAIL SOIGNÉ *** DEVIS GRATUIT *** TRAVAIL SOIGNÉ ***</div>
+              <div class="o2-cols">
+                <div class="o2-menu"><span>» Accueil</span><span>» La société</span><span>» Réalisations</span><span>» Contact</span><span>» Plan d'accès</span></div>
+                <div class="o2-main">
+                  <p class="o2-h">BIENVENUE !!</p>
+                  <p>Roche Toitures, entreprise familiale, réalise tous vos travaux de toiture : tuiles, ardoises, zinc, roofing, gouttières, Velux, isolation et démoussage. Nous travaillons à Liège et dans les environs.</p>
+                  <div class="o2-pics"><img src="https://images.unsplash.com/photo-1605450099279-533bd3ce379a?auto=format&fit=crop&w=70&q=15" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1518736346281-76873166a64a?auto=format&fit=crop&w=70&q=15" alt="" loading="lazy"><img src="https://images.unsplash.com/photo-1590365876016-da05ac533e83?auto=format&fit=crop&w=70&q=15" alt="" loading="lazy"></div>
+                  <p class="o2-small">Cliquez sur les photos pour les agrandir</p>
+                </div>
+              </div>
+              <div class="o2-foot">© Roche Toitures 2009 - Tous droits réservés - Webmaster</div>
+            </div></div>
+          </div>
+          <div class="ba-layer ba-after" aria-hidden="true">
+            <div class="n2">
+              <div class="n2-nav"><span class="n2-logo">ROCHE<small>TOITURES</small></span><span class="n2-links"><span>Toitures</span><span>Zinguerie</span><span>Réalisations</span><span>Contact</span></span><span class="n2-urg">Urgence fuite ? Appelez-nous</span></div>
+              <div class="n2-split">
+                <div class="n2-photo"><img src="https://images.unsplash.com/photo-1726589004565-bedfba94d3a2?auto=format&fit=crop&w=900&q=70" alt="" loading="lazy"><span class="n2-badge"><b>★</b> 4,8 · 64 avis Google</span></div>
+                <div class="n2-text">
+                  <span class="n2-kick">Couverture et zinguerie · Liège</span>
+                  <h4>Votre toit,<br>entre de bonnes mains.</h4>
+                  <p>Tuiles, ardoises, zinc et isolation. Un devis clair sous 48 h, des travaux garantis 10 ans.</p>
+                  <div class="n2-ctas"><span class="n2-btn">Demander un devis gratuit</span><span class="n2-link">Nos réalisations →</span></div>
+                  <div class="n2-stats"><div><b>25</b><span>ans d'expérience</span></div><div><b>1 200</b><span>toitures refaites</span></div><div><b>10 ans</b><span>de garantie</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+              <span class="ba-lbl l" data-i18n="ba_before">Avant</span>
+              <span class="ba-lbl r" data-i18n="ba_after">Après</span>
+              <div class="ba-line"></div>
+              <button type="button" class="ba-knob" role="slider" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">‹ ›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXEMPLE 2 : Mertens Menuiserie -->
+    <div class="ex-slide" hidden>
+      <div class="ex-slide-head"><h3>Mertens Menuiserie</h3><p data-i18n="ex2_trade">Menuiserie sur mesure · Luxembourg</p></div>
+      <div class="ba-desk">
+        <div class="ba-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="ba-view">
+          <div class="ba-layer" aria-hidden="true">
+            <div class="o3">
+              <div class="o3-top"><b>MENUISERIE MERTENS S.à r.l.</b><i>Fondée en 1987</i></div>
+              <div class="o3-left"><u>Accueil</u><u>Nos produits</u><u>Références</u><u>Contact</u><u>Livre d'or</u></div>
+              <div class="o3-main">
+                <h5>Bienvenue sur le site de la Menuiserie Mertens</h5>
+                <p>Fabrication et pose sur mesure dans notre atelier. Devis sur rendez-vous. <span class="o3-blink">NOUVEAU : visitez notre exposition !</span></p>
+                <hr>
+                <ul><li>Châssis bois et PVC</li><li>Portes intérieures et extérieures</li><li>Escaliers</li><li>Cuisines</li><li>Parquets</li></ul><br>
+                <img class="o3-pic" src="https://images.unsplash.com/photo-1659930087003-2d64e33181f7?auto=format&fit=crop&w=80&q=15" alt="" loading="lazy">
+                <div class="o3-work"></div><div class="o3-work-t">SITE EN CONSTRUCTION</div>
+              </div>
+            </div>
+          </div>
+          <div class="ba-layer ba-after" aria-hidden="true">
+            <div class="n3">
+              <img class="n3-bg" src="https://images.unsplash.com/photo-1497219055242-93359eeed651?auto=format&fit=crop&w=1200&q=70" alt="" loading="lazy">
+              <div class="n3-nav"><span class="n3-logo">Mertens<small>Menuiserie</small></span><span class="n3-links"><span>Réalisations</span><span>L'atelier</span><span>Contact</span><b>Prendre rendez-vous</b></span></div>
+              <div class="n3-text">
+                <span class="n3-kick">Menuiserie depuis 1987 · Luxembourg</span>
+                <h4>Le bois,<br><em>sur mesure.</em></h4>
+                <p>Châssis, portes, escaliers et cuisines, dessinés et fabriqués dans notre atelier.</p>
+                <div class="n3-ctas"><span class="n3-btn">Demander un devis</span><span class="n3-ghost">Visiter l'atelier</span></div>
+              </div>
+              <div class="n3-bar"><span><b>Châssis</b>Bois et alu</span><span><b>Portes</b>Intérieures, entrée</span><span><b>Escaliers</b>Sur mesure</span><span><b>Cuisines</b>Fabriquées ici</span></div>
+            </div>
+          </div>
+              <span class="ba-lbl l" data-i18n="ba_before">Avant</span>
+              <span class="ba-lbl r" data-i18n="ba_after">Après</span>
+              <div class="ba-line"></div>
+              <button type="button" class="ba-knob" role="slider" aria-label="Comparer avant et après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">‹ ›</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-dlg-foot">
+      <button type="button" class="ex-nav ex-prev" data-i18n="ex_prev">← Précédent</button>
+      <a class="btn book" href="#" data-i18n="cta_book">Réserver un appel de 15 min →</a>
+      <button type="button" class="ex-nav ex-next" data-i18n="ex_next">Suivant →</button>
+    </div>
+    <p class="ex-fict" data-i18n="ex_fict">Exemples fictifs, réalisés par Verpome Studio pour illustrer la méthode.</p>
+  </div>
+</dialog>
+
+<footer>
+  <a href="/">← Verpome</a>
+  <span>Verpome Studio · © 2026</span>
+  <a href="mailto:contact@verpome.com">contact@verpome.com</a>
+</footer>
+
+<script>
+/* ─────────────────────────────────────────────
+   LIEN DE RÉSERVATION (Calendly ou Cal.com)
+   Colle ton lien entre les guillemets, par exemple :
+   var BOOKING_URL = 'https://cal.com/verpome/15min';
+   Tant que c'est vide, les boutons « Réserver un appel » ouvrent un email pré-rempli.
+───────────────────────────────────────────── */
+var BOOKING_URL = '';
+
+/* ─────────────────────────────────────────────
+   TRADUCTION FR / EN
+   Le français est écrit directement dans la page.
+   L'anglais est ici : pour modifier un texte anglais, change-le ci-dessous.
+   Lien direct vers la version anglaise : verpome.com/studio?lang=en
+───────────────────────────────────────────── */
+var EN = {
+  nl1:'Before / After', nl2:'Pricing', nl3:'Process', nl4:'FAQ', menu:'Menu', close:'Close ×',
+  cta_see:'See the before / after ↓',
+  sc_ba:'Want the same result for your company?',
+  sc_c:'We review your current website together, in 15 minutes.',
+  sc_o:'Not sure which package? We\'ll advise you on the call.',
+  sc_p:'Step one: a 15-minute call.',
+  sc_d:'Let\'s talk about your company.',
+  sc_f:'Another question? Ask it on the call.',
+  ex_eye:'See more examples', ex_h:'Other trades, <em>same method.</em>', ex_sub:'Click to compare before and after.',
+  ex_go:'Compare before / after →',
+  ex1_trade:'Roofing and zinc work · Liège', ex2_trade:'Bespoke joinery · Luxembourg',
+  ex_prev:'← Previous', ex_next:'Next →',
+  ex_fict:'Fictional examples, created by Verpome Studio to illustrate the approach.',
+  nav_cta:'<span class="l">Book a call</span><span class="s">15-min call</span>',
+  tag:'Verpome Studio · Construction',
+  h1:'A website as solid<br>as <em>your work.</em>',
+  hero_sub:'For construction companies that do great work but whose website doesn\'t show it: a clear site, easy to read on a phone, that brings you quote requests.',
+  cta_book:'Book a 15-min call →',
+  mail_or:'or email us:',
+  meta1:'Ready in 7 days', meta2:'Fixed price', meta3:'You own your website',
+  c_eye:'The problem',
+  c_h2:'You do great work.<br><em>Your website doesn\'t show it.</em>',
+  c1:'Your clients look at your website <strong>before they call you</strong>.',
+  c2:'Your best projects <strong>stay on your phone</strong>.',
+  c3:'The people you want to hire <strong>look at your website too</strong>.',
+  ba_eye:'Before / After',
+  ba_h2:'Same company.<br><em>A different impression.</em>',
+  ba_t1:'On desktop', ba_t2:'On mobile',
+  ba_before:'Before', ba_after:'After',
+  ba_m1:'You have to zoom in to read', ba_m2:'Quote request in one tap',
+  ba_b1:'You have to zoom in to read it on a phone',
+  ba_b2:'No button to request a quote',
+  ba_b3:'One photo, tiny and blurry',
+  ba_a1:'Easy to read at first glance, on every screen',
+  ba_a2:'Quote request or call in one tap',
+  ba_a3:'Your projects and Google reviews front and centre',
+  ba_note:'Fictional example, created by Verpome Studio to illustrate the approach.',
+  o_eye:'The offers',
+  o_h2:'Two packages.<br><em>One clear price.</em>',
+  o_lang:'Prices excl. VAT · Website in English or French, same price',
+  badge:'Best to start with',
+  fixed:'Fixed price', ht:'excl. VAT',
+  o1_name:'Pro page', o1_desc:'Everything a client needs to see, on a single page.',
+  o1_price:'€1,490',
+  o1_l1:'Your services, your projects and the area you cover',
+  o1_l2:'Copy written for you',
+  o1_l3:'Quote request form',
+  o1_l4:'Flawless on mobile',
+  o1_l5:'Google Business Profile created or optimised',
+  o1_days:'Ready in 7 days', o1_rev:'1 round of revisions',
+  o2_name:'5-page website', o2_desc:'Your whole company, presented properly.',
+  o2_price:'€3,000',
+  o2_l1:'5 pages: home, services, projects, careers, contact',
+  o2_l2:'Everything included in the Pro page',
+  o2_l3:'Before / after project gallery, sorted by type of work',
+  o2_l4:'Navigation designed to lead to a quote request',
+  aid:'<strong>In Luxembourg:</strong> eligible for the SME Package Digital. The State covers 70%, leaving about €900 excl. VAT for you to pay.*',
+  o2_days:'Ready in 14 days', o2_rev:'2 rounds of revisions',
+  option:'Optional: custom visuals, photo or video production · <strong>+€400</strong>',
+  aid_note:'* Subject to approval of your application by the Ministry of the Economy before the project starts.',
+  m_eye:'After launch',
+  m_title:'Monthly care,<br><em>no commitment.</em>',
+  m_sub:'Send us a message, we handle the rest. Cancel anytime.',
+  m1_name:'Essential', m1_price:'€49<small>/month excl. VAT</small>',
+  m2_name:'Care+', m2_price:'€89<small>/month excl. VAT</small>',
+  m_host:'Hosting included', m1_l1:'1 change per month',
+  m2_l1:'3 changes per month', m2_l2:'Google Business Profile upkeep',
+  p_eye:'How it works',
+  p_h2:'Simple, fast,<br><em>no surprises.</em>',
+  s1_t:'15-minute call', s1_p:'We talk about your company, your projects and the clients you want to attract.',
+  s2_t:'Quote and deposit', s2_p:'A fixed price, agreed before we start. 30% on order.',
+  s3_t:'Design', s3_p:'You send your photos and details by message. We write, we build, you follow the progress.',
+  s4_t:'Launch', s4_p:'The remaining 70% on delivery. Your website is live, and it\'s yours.',
+  d_eye:'The difference',
+  d_h2:'Not a template.<br><em>An image.</em>',
+  d1_t:'Creative direction,<br><em>not just code.</em>',
+  d1_p:'Verpome comes from photography and video. We know how to showcase your work, even from the photos on your phone.',
+  d2_t:'Fast.', d2_p:'7 days, not 7 weeks. Your website works for you while you\'re on site.',
+  d3_t:'One dedicated contact.', d3_p:'The same person from the first call to launch. Nothing gets lost along the way.',
+  a_eye:'They trusted us',
+  a_h2:'What our clients<br><em>say.</em>',
+  f_eye:'FAQ',
+  f_h2:'Before <em>getting started.</em>',
+  q1:'I don\'t have time to deal with it.', r1:'A 15-minute call, then your photos and details by message. We write everything, you just approve.',
+  q2:'I don\'t have good photos of my projects.', r2:'Send the ones on your phone. We sort them, retouch them and make them shine.',
+  q3:'I don\'t have a logo or brand guidelines.', r3:'No problem. We start from your company and set a consistent visual direction for your website.',
+  q4:'Can the website be in English or French?', r4:'Yes, for the same price. Need both languages? Let\'s talk about it on the call.',
+  q5:'Do I own the website?', r5:'Yes, entirely. Once it\'s live, it\'s yours.',
+  q6:'What about hosting and changes?', r6:'Hosting is included in the monthly care plan (€49 or €89 excl. VAT per month, no commitment). You can also host it yourself: the website is yours.',
+  q7:'How does payment work?', r7:'30% on order, 70% on delivery. Fixed price, excl. VAT.',
+  q8:'I\'m in Luxembourg: is there any funding?', r8:'Yes. The SME Package Digital can cover 70% of a web project from €3,000 excl. VAT, which matches our 5-page website. The application must be approved before the project starts: we provide the quote and the documents you need.',
+  fin_eye:'Next step',
+  fin_h2:'Your next clients look at your website<br><em>before they call you.</em>'
+};
+var META = {
+  fr:{title:'Verpome Studio · Sites pour les entreprises du bâtiment',
+      offres:{pro:'Page pro',site:'Site 5 pages'},
+      subject:'Projet site · Verpome Studio',
+      body:function(o){return 'Bonjour,\n\nJe suis [prénom], [entreprise].\nOffre qui m\'intéresse : '+(o||'[Page pro / Site 5 pages]')+'\nMon site actuel (si existant) : \nMon téléphone : \n\nQuelques mots sur mon projet :\n\n\nBonne journée,';},
+      bookSubject:'Appel de 15 min · Verpome Studio',
+      bookBody:'Bonjour,\n\nJe souhaite réserver un appel de 15 minutes.\n\nMon entreprise : \nMon site actuel (si existant) : \nMon téléphone : \nMes disponibilités : \n\nBonne journée,'},
+  en:{title:'Verpome Studio · Websites for construction companies',
+      offres:{pro:'Pro page',site:'5-page website'},
+      subject:'Website project · Verpome Studio',
+      body:function(o){return 'Hello,\n\nI\'m [name], [company].\nPackage I\'m interested in: '+(o||'[Pro page / 5-page website]')+'\nMy current website (if any): \nMy phone number: \n\nA few words about my project:\n\n\nBest regards,';},
+      bookSubject:'15-min call · Verpome Studio',
+      bookBody:'Hello,\n\nI\'d like to book a 15-minute call.\n\nMy company: \nMy current website (if any): \nMy phone number: \nMy availability: \n\nBest regards,'}
+};
+
+(function(){
+  var nodes=document.querySelectorAll('[data-i18n]');
+  var FR={}; nodes.forEach(function(n){FR[n.dataset.i18n]=n.innerHTML});
+
+  function setLinks(lang){
+    var m=META[lang];
+    document.querySelectorAll('a.mail').forEach(function(a){
+      var o=a.dataset.offre?m.offres[a.dataset.offre]:'';
+      a.href='mailto:contact@verpome.com?subject='+encodeURIComponent(m.subject+(o?' · '+o:''))+'&body='+encodeURIComponent(m.body(o));
+    });
+    document.querySelectorAll('a.book').forEach(function(a){
+      if(BOOKING_URL){a.href=BOOKING_URL;a.target='_blank';a.rel='noopener';}
+      else{a.href='mailto:contact@verpome.com?subject='+encodeURIComponent(m.bookSubject)+'&body='+encodeURIComponent(m.bookBody);}
+    });
+  }
+  function apply(lang){
+    var dict=lang==='en'?EN:FR;
+    nodes.forEach(function(n){var k=n.dataset.i18n; if(dict[k]!=null) n.innerHTML=dict[k];});
+    document.documentElement.lang=lang;
+    document.title=META[lang].title;
+    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===lang?'true':'false')});
+    setLinks(lang);
+    try{localStorage.setItem('vp_lang',lang)}catch(e){}
+  }
+  function initial(){
+    var q=(new URLSearchParams(location.search).get('lang')||'').toLowerCase();
+    if(q==='en'||q==='fr') return q;
+    try{var s=localStorage.getItem('vp_lang'); if(s==='en'||s==='fr') return s;}catch(e){}
+    var nav=(navigator.languages&&navigator.languages[0])||navigator.language||'fr';
+    return /^fr/i.test(nav)?'fr':'en';
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click',function(){apply(b.dataset.lang)});
+  });
+  apply(initial());
+})();
+
+// Menu : fond sombre dès qu'on scrolle (évite que les titres passent sous FR/EN)
+(function(){
+  var nav=document.getElementById('nav');
+  function upd(){nav.classList.toggle('scrolled',window.scrollY>12)}
+  window.addEventListener('scroll',upd,{passive:true}); upd();
+})();
+
+// Avant / après : onglets
+(function(){
+  var tabs=document.querySelectorAll('.ba-tabs [role=tab]');
+  function show(id){
+    tabs.forEach(function(t){
+      var on=t.id===id; t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+    });
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.id)})});
+  // Sur téléphone, on montre d'abord la comparaison téléphone (c'est l'écran du visiteur)
+  if(window.matchMedia('(max-width:700px)').matches) show('tab-mob');
+})();
+
+// Curseurs avant / après (fonctionne pour tous les blocs .ba-view de la page)
+(function(){
+  function initBA(view){
+    var knob=view.querySelector('.ba-knob'), drag=false;
+    function set(p){
+      p=Math.max(0,Math.min(100,p));
+      view.style.setProperty('--pos',p+'%');
+      if(knob) knob.setAttribute('aria-valuenow',Math.round(p));
+    }
+    function fromEvent(e){var r=view.getBoundingClientRect(); return (e.clientX-r.left)/r.width*100;}
+    view.addEventListener('pointerdown',function(e){drag=true; view._drag=true; try{view.setPointerCapture(e.pointerId)}catch(_){} set(fromEvent(e));});
+    view.addEventListener('pointermove',function(e){if(drag) set(fromEvent(e));});
+    ['pointerup','pointercancel','lostpointercapture'].forEach(function(ev){view.addEventListener(ev,function(){drag=false})});
+    if(knob) knob.addEventListener('keydown',function(e){
+      var v=+knob.getAttribute('aria-valuenow');
+      if(e.key==='ArrowLeft'||e.key==='ArrowDown'){set(v-5);e.preventDefault();}
+      if(e.key==='ArrowRight'||e.key==='ArrowUp'){set(v+5);e.preventDefault();}
+    });
+    view._set=set;
+  }
+  document.querySelectorAll('.ba-view').forEach(initBA);
+
+  // Petit mouvement à l'apparition pour montrer qu'on peut faire glisser
+  var view=document.querySelector('.ba-main');
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(view && !reduce && 'IntersectionObserver' in window){
+    var done=false;
+    new IntersectionObserver(function(en,obs){
+      if(en[0].isIntersecting && !done){
+        done=true; obs.disconnect();
+        var seq=[50,72,28,50], i=0;
+        (function step(){
+          if(i>=seq.length||view._drag) return;
+          var from=parseFloat(view.style.getPropertyValue('--pos'))||50, to=seq[i++], t0=null;
+          function anim(ts){
+            if(view._drag) return;
+            if(!t0) t0=ts; var k=Math.min(1,(ts-t0)/650); var e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+            view._set(from+(to-from)*e); if(k<1) requestAnimationFrame(anim); else setTimeout(step,120);
+          }
+          requestAnimationFrame(anim);
+        })();
+      }
+    },{threshold:.6}).observe(view);
+  }
+})();
+
+// Fenêtre « Voir d'autres exemples »
+(function(){
+  var dlg=document.getElementById('exDlg'); if(!dlg) return;
+  var slides=dlg.querySelectorAll('.ex-slide'), count=dlg.querySelector('.ex-count'), cur=0;
+  var cards=document.querySelectorAll('[data-ex]');
+  // Vignettes : copie de la version « après » de chaque exemple
+  cards.forEach(function(a){
+    var sl=slides[+a.dataset.ex], t=a.querySelector('.ex-thumb');
+    var src=sl&&sl.querySelector('.ba-after');
+    if(t&&src){var c=src.cloneNode(true); c.classList.remove('ba-after'); t.appendChild(c);}
+  });
+  function go(i){
+    cur=(i+slides.length)%slides.length;
+    slides.forEach(function(sl,k){sl.hidden=k!==cur});
+    count.textContent=(cur+1)+' / '+slides.length;
+    var v=slides[cur].querySelector('.ba-view'); if(v&&v._set) v._set(50);
+  }
+  function open(i){
+    go(i);
+    if(typeof dlg.showModal==='function') dlg.showModal(); else dlg.setAttribute('open','');
+    document.documentElement.classList.add('dlg-open');
+  }
+  function close(){
+    if(typeof dlg.close==='function') dlg.close(); else dlg.removeAttribute('open');
+    document.documentElement.classList.remove('dlg-open');
+  }
+  dlg.addEventListener('close',function(){document.documentElement.classList.remove('dlg-open')});
+  cards.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault(); open(+a.dataset.ex);})});
+  dlg.querySelector('.ex-close').addEventListener('click',close);
+  dlg.querySelector('.ex-prev').addEventListener('click',function(){go(cur-1)});
+  dlg.querySelector('.ex-next').addEventListener('click',function(){go(cur+1)});
+  dlg.addEventListener('click',function(e){if(e.target===dlg) close();});
+  if(slides.length<2){dlg.querySelector('.ex-prev').hidden=true; dlg.querySelector('.ex-next').hidden=true;}
+})();
+
+// Menu plein écran (téléphone / tablette) + lien actif dans le menu
+(function(){
+  var btn=document.querySelector('.nav-menu'), m=document.getElementById('mmenu');
+  function set(o){
+    m.hidden=!o; btn.setAttribute('aria-expanded',o?'true':'false');
+    document.documentElement.classList.toggle('dlg-open',o);
+    if(o) m.querySelector('.mmenu-close').focus();
+  }
+  btn.addEventListener('click',function(){set(m.hidden)});
+  m.querySelector('.mmenu-close').addEventListener('click',function(){set(false); btn.focus();});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){set(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden) set(false)});
+
+  var links=document.querySelectorAll('.nav-links a'), map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){links.forEach(function(l){l.classList.remove('on')}); if(map[en.target.id]) map[en.target.id].classList.add('on');}
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(map).forEach(function(id){var el=document.getElementById(id); if(el) io.observe(el);});
+  }
+})();
+
+// Apparition au scroll
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
